@@ -9,10 +9,13 @@ justify-content: center;
 .form_container{
 
     display: flex;
-     margin-top: 3rem;
-     margin-bottom: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     text-align: center;
     justify-content: center;
+    width: 80%;
 
 }
 
@@ -126,4 +129,27 @@ cursor: pointer;
     line-height: 24px;
     color: #FFFFFF;
     cursor: pointer;
+}
+
+@media (max-width:767px) {
+    .form_image{
+
+        display: none;
+    }
+    
+    .formtitle{
+        font-size: 30px;
+    }
+
+    .formsubtitle{
+    
+        font-size: 25px;
+    }
+    .formulario_login{
+  
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+    }
+
 }
