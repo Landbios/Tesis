@@ -6,14 +6,31 @@ justify-content: center;
 
 }
 
-.form_container{
+
+
+.loginform_container{
 
     display: flex;
-     margin-top: 3rem;
-     margin-bottom: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     text-align: center;
     justify-content: center;
+    width: 80%;
 
+}
+
+
+.registform_container{
+     display: flex;
+  
+
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 .formulario_login{
@@ -24,6 +41,24 @@ justify-content: center;
     padding-left: 4rem;
     padding-right: 4rem;
     
+}
+
+.formulario_registro{
+     background-color: #ECF39E;
+    border-top-right-radius:10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    min-width: 650px ;
+    padding-bottom: 1rem;
+    max-width: fit-content;
+    
+    margin-bottom: 1rem;
+
+
 }
 
 .form_image{
@@ -38,11 +73,11 @@ justify-content: center;
     text-align: left;
     font-family: 'Fanwood Text';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 18px;
     line-height: 24px;
 
-    color: #000000;
+    color: #132A13;
 }
 
 .formtitle{
@@ -70,7 +105,7 @@ color: #132A13;
 
 }
 
-#login_user{
+.form_input{
 
    width: 100%;
     height: 25px;
@@ -82,10 +117,45 @@ color: #132A13;
     width: 100%;
     height: 25px;
     border: solid 1px #132A13;
-    margin-bottom: 4rem;
+    
 }
 
-.login_buton{
+.radio_container{
+
+    display: flex;
+    gap: 5rem;
+
+}
+
+.radiolabel{
+
+    margin-top: 0.5rem;
+    text-align: left;
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 300;
+    font-size:16px;
+    
+
+    color:#132A13;
+
+}
+
+.medium-width{
+
+display: flex;
+gap: 4rem;
+
+}
+
+.halfcontainer{
+
+width: 50%;
+
+}
+
+
+.loginform_button{
     background: #31572C;
     border-radius: 15px;
     padding: 1rem;
@@ -93,8 +163,25 @@ color: #132A13;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 24px;
+    line-height: 10rem;
     color: #FFFFFF;
+    
+}
+
+.registform_button{
+    background: #31572C;
+    border-radius: 15px;
+    padding-top: 1rem;
+    padding-bottom:1rem ;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 10rem;
+    color: #FFFFFF;
+    
 }
 
 .p_registrar{
@@ -115,15 +202,32 @@ cursor: pointer;
 
 }
 
-.login_buton:hover{
+.hoverable:hover{
     background:#132A13 ;
-    border-radius: 15px;
-    padding: 1rem;
-    font-family: 'Fanwood Text';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
+   
     color: #FFFFFF;
     cursor: pointer;
+}
+
+@media (max-width:767px) {
+    .form_image{
+
+        display: none;
+    }
+    
+    .formtitle{
+        font-size: 30px;
+    }
+
+    .formsubtitle{
+    
+        font-size: 25px;
+    }
+    .formulario_login{
+  
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+    }
+
 }
