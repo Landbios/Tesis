@@ -10,6 +10,18 @@ app.use(express.static(__dirname + '/public'));
 
 //routes
 
+app.get('/', (req, res) => {
+    res.type('html');
+    res.write(`
+    <span>
+        <a href="/login">Inicio de sesión</a>
+        <a href="/signup">Registro</a>
+    </span>
+    <h1>Bienvenidos a nuestro sitio web</h1>
+    `, 'utf-8');
+    res.end();
+})
+
 app.get('/login', (req, res) => {
 
     res.sendFile('./public/login.html', {
