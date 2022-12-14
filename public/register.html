@@ -14,7 +14,7 @@
 
 
 
-    <form action="submit" method="post" class="formulario_registro">
+    <form action="/createUser" method="post" class="formulario_registro">
 
 
         <h1 class="formtitle">Registrate</h1>
@@ -34,6 +34,9 @@
          </div>
         <label class="formlabel">Usuario</label>
         <input type="text" name="user" id="regist_user" class="form_input">
+
+        <label class="formlabel">Telefono</label>
+        <input type="text" name="tlf" id="regist_tlf" class="form_input">
         
         <label class="formlabel">Email</label>
         <input type="text" name="mail" id="regist_mail" class="form_input">
@@ -59,10 +62,13 @@
             </div>
         </div>
 
-         <label for="address" class="formlabel">Direccion</label>
-        <input type="text" name="address" class="form_input">
+         <label for="address" class="formlabel">Parroquia</label>
+        <input type="text" name="parroquia" class="form_input">
 
-        <a class="registform_button hoverable">Registrar</a>
+        <label for="address" class="formlabel">Sector</label>
+        <input type="text" name="sector" class="form_input">
+
+        <input type="submit" class="registform_button hoverable" value="Registrar">
     </form>
 
 

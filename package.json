@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/Landbios/Tesis#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
   }
 }
