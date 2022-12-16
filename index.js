@@ -17,6 +17,10 @@ const checkFormData = require('./utils/checkFormData');
 //char
 //i.e: femenino => f; masculino => m 
 const genderTransform = require('./utils/genderTo1Char');
+
+
+//utility function to set 1 if animal is neutered or 0 if otherwise
+const isNeutered = require('./utils/isNeutered');
 //----------------------------------------------------------------
 //creating express app
 const server = express();
@@ -70,10 +74,12 @@ app.post('/loginCheck' , (req, res) => {
         //getting encPwd from db
         const encPwd = results[0].password;
         if (!bCrypt.compareSync(pwd, encPwd)) {
+            //password is incorrect
             console.log("clave errónea");
             return;
         }
 
+        // password is correct
         console.log("clave exitosa");
         res.end();
         return;
@@ -90,7 +96,7 @@ app.get('/signup', (req, res) => {
 
 });
 
-app.post('/createUser', (req, res) => {
+app.post('/signup/createUser', (req, res) => {
     const doc = req.body.national_id;
     const name = req.body.name;
     const lastName = req.body.lastname;
@@ -128,8 +134,57 @@ app.post('/createUser', (req, res) => {
         console.log("ingresado correctamente el usuario");
     })
 
-})
+});
 
+
+//form for animal registration
+app.get('/animal/animalRegister', (req, res) => {
+    res.sendFile('./public/animalRegister.html', {
+        root: __dirname
+    }, (err) => {
+        if (err) throw err;
+        res.end();
+    });
+    
+});
+
+app.post('/animal/animalDB', (req, res) => {
+    const query = "SELECT * FROM animales";
+    db.query(query, (err, results, fields) => {
+        if (err) throw err;
+
+        res.json(results);
+        res.end();
+    })
+});
+
+app.post('/animal/animalRegister/register', (req, res) => {
+    const name = req.body.name;
+    const breed = req.body.breed;
+    const age = req.body.age;
+    let neuter = isNeutered(req.body.neuter);
+    const gender =  genderTransform(req.body.gender);
+    const desc = req.body.desc;
+
+
+    const formSubmission = [name, breed, age, neuter, gender, desc];
+
+    const result = checkFormData(formSubmission);
+
+    if (!result) {
+        res.end();
+        return;
+    }
+
+    registerAnimalQuery = `INSERT INTO animales(nombre, raza, descripcion, edad, es_castrado, genero) VALUES ('${name}', '${breed}', '${desc}', '${age}', '${neuter}', '${gender}')`;
+
+    db.query(registerAnimalQuery, (err, results, fields) => {
+        if (err) throw err;
+        console.log(results);
+        console.log('Animal registrado');
+
+    });
+});
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
 const port = 8081;
