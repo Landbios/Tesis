@@ -14,6 +14,29 @@ body{
 
 }
 
+.messagebox{
+
+    height: 100px !important; 
+        
+}
+
+.top-form-banner{
+        border-top-right-radius:10px;
+        border-top-left-radius: 10px;
+        width: 745px;
+        height: 200px;
+
+}
+
+.top-img-container{
+
+    margin-top: 4rem;
+    margin-bottom: -5px;
+    align-items: center;
+    text-align: center;
+
+}
+
 .formlabel{
 
     display: block;
@@ -228,6 +251,33 @@ body{
 }
 
 
+/* <---- Registro Animales Estilo ----> */
+
+.animalform_container{
+    display: flex;
+  
+   
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.formulario_animal{
+     background-color: #ECF39E;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    min-width: 650px ;
+    padding-bottom: 1rem;
+    max-width: fit-content;
+    
+    margin-bottom: 1rem;
+
+
+}
 
 
 
@@ -284,4 +334,10 @@ body{
         text-align: center;
 
     }
+
+
 }
+
+
+
+
