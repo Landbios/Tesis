@@ -1,7 +1,7 @@
 /* <--- Estilos Generales ---> */
 
 
-body{
+.formularybody{
 
     background-color: #90A955;
     align-items: center;
@@ -136,6 +136,27 @@ body{
    
     color: #FFFFFF;
     cursor: pointer;
+}
+
+
+/* <-----Barra de navegacion ---->*/
+.navbar{
+
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: #132A13;
+}
+
+.logonav{
+
+    width: 100%;
+    height: 75px;
+    }
+
+.navbar-toggler{
+
+background-color: white;
+
 }
 
 /* <--- Estilos Login ---> */
@@ -364,7 +385,5 @@ body{
     height: 180px;
     }
 }
-
-
 
 
