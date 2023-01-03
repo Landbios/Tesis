@@ -159,6 +159,29 @@ background-color: white;
 
 }
 
+.navbar-collapse{
+
+text-align: center;
+
+}
+
+.navbar-nav{
+
+    justify-content: end;
+    flex: auto;}
+
+
+.nav-link {
+
+
+    font-family: 'Fanwood Text';
+    padding-left: 2rem !important;
+    font-size: 18px;
+    padding-left: 2rem !important;
+ 
+    
+}
+
 /* <--- Estilos Login ---> */
 
 .loginform_container{
