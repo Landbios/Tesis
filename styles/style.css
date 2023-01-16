@@ -1,6 +1,8 @@
 /* <--- Estilos Generales ---> */
 
 
+
+
 .formularybody{
 
     background-color: #90A955;
@@ -132,12 +134,17 @@
 }
 
 .hoverable:hover{
-    background:#132A13 ;
+    background:#132A13 !important ;
    
-    color: #FFFFFF;
-    cursor: pointer;
+    color: #FFFFFF !important;
+    cursor: pointer !important;
 }
 
+.formbody{
+
+background-color: #90A955;
+
+}
 
 /* <-----Barra de navegacion ---->*/
 .navbar{
@@ -410,3 +417,63 @@ text-align: center;
 }
 
 
+/* <------ Hero -------->*/
+
+.btn {
+    padding: 14px 26px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn-hero {
+    background-color: #31572C;
+    border-color: #31572C;
+    color: #FFFFFF;
+}
+
+.btn-hero:hover{
+
+background:#132A13 !important ;
+   
+    color: #FFFFFF !important;
+    cursor: pointer !important;
+
+
+}
+.banner-image{
+    background: linear-gradient(rgba(96, 108, 56, 0.8), rgba(40, 54, 24, 0.8)), url(https://images.unsplash.com/photo-1660739675627-ab1b48421122?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80);
+    background-size: cover;
+    background-position: center;
+}
+.banner-phone-image img{
+    width:300px;
+}
+.star-rating a{
+color:rgba(255,255,255,0.5);
+margin-right:10px;
+}
+.star-rating a:hover{
+color:#fff;
+}
+.aa{
+line-height:26px;    
+}
+
+
+/* Latest Added */
+
+
+.card-img-top{
+
+max-height: 200px;
+
+}
+
+.card-body{
+
+background-color: #ecf39e;
+
+}
+
+.card{border: none;}
