@@ -2,13 +2,11 @@
 const express = require('express');
 
 //database connection
-const db = require('./db/db');
+const db = require('./src/db/db');
 
 //npm package for the encryptuon algorithm bcrypt for 
 //secure storage of passwords
 const bCrypt = require('bcryptjs');
-
-
 
 //utility function to check if a form doesn't have undefined values
 const checkFormData = require('./utils/checkFormData');
@@ -27,7 +25,7 @@ const server = express();
 const app = server;
 
 //to parse form data
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: true }));
 
 //serving static content
 app.use(express.static(__dirname + '/public'));
@@ -35,15 +33,9 @@ app.use(express.static(__dirname + '/public'));
 //routes
 
 app.get('/', (req, res) => {
-    res.type('html');
-    res.write(`
-    <span>
-        <a href="/login">Inicio de sesión</a>
-        <a href="/signup">Registro</a>
-    </span>
-    <h1>Bienvenidos a nuestro sitio web</h1>
-    `, 'utf-8');
-    res.end();
+    res.sendFile('./public/main.html', {
+        root: __dirname
+    });
 })
 
 app.get('/login', (req, res) => {
@@ -55,7 +47,7 @@ app.get('/login', (req, res) => {
 
 });
 
-app.post('/loginCheck' , (req, res) => {
+app.post('/loginCheck', (req, res) => {
     const user = req.body.user;
     const pwd = req.body.password;
 
@@ -69,7 +61,7 @@ app.post('/loginCheck' , (req, res) => {
     }
 
     const getbCryptedPwdQuery = `SELECT password FROM usuarios WHERE usuario='${user}'`;
-    
+
     db.query(getbCryptedPwdQuery, (err, results, fields) => {
         //getting encPwd from db
         const encPwd = results[0].password;
@@ -108,13 +100,13 @@ app.post('/signup/createUser', (req, res) => {
     const sector = req.body.sector;
     const tlf = req.body.tlf;
     const password = bCrypt.hashSync(req.body.r_password);
-    
+
     //putting in an array all values from the sign up submission
     const formSubmission = [name, lastName, user, email, birth, doc, gender, parroquia, sector, password, tlf];
 
     //getting result of submission
     const submissionResult = checkFormData(formSubmission);
-    
+
     //checking whether the result succeeds or not
     if (!submissionResult) {
         //data is missing in the form
@@ -123,7 +115,7 @@ app.post('/signup/createUser', (req, res) => {
     }
 
     //everything is going well, creating user process begins
-    const query = `INSERT INTO usuarios(cedula, nombre, apellido, fecha_nacimiento, genero, parroquia, sector, telefono, email, usuario, password) VALUES ('${doc}', '${name}', '${lastName}', '${birth}', '${gender}', '${parroquia}', '${sector}', '${tlf}', '${email}', '${user}', '${password}')`; 
+    const query = `INSERT INTO usuarios(cedula, nombre, apellido, fecha_nacimiento, genero, parroquia, sector, telefono, email, usuario, password) VALUES ('${doc}', '${name}', '${lastName}', '${birth}', '${gender}', '${parroquia}', '${sector}', '${tlf}', '${email}', '${user}', '${password}')`;
 
     //inserting new user
     db.query(query, (err, results, fields) => {
@@ -138,14 +130,12 @@ app.post('/signup/createUser', (req, res) => {
 
 
 //form for animal registration
-app.get('/animal/animalRegister', (req, res) => {
-    res.sendFile('./public/animalRegister.html', {
-        root: __dirname
-    }, (err) => {
-        if (err) throw err;
-        res.end();
-    });
+app.get('/animalRegister', (req, res) => {
     
+    res.sendFile('./public/animal_regist.html', {
+        root: __dirname
+    });
+
 });
 
 app.post('/animal/animalDB', (req, res) => {
@@ -158,32 +148,34 @@ app.post('/animal/animalDB', (req, res) => {
     })
 });
 
-app.post('/animal/animalRegister/register', (req, res) => {
-    const name = req.body.name;
-    const breed = req.body.breed;
-    const age = req.body.age;
-    let neuter = isNeutered(req.body.neuter);
-    const gender =  genderTransform(req.body.gender);
-    const desc = req.body.desc;
+app.post('/animalRegister', (req, res) => {
+    console.log(req.body);
+    // const name = req.body.name;
+    // const breed = req.body.breed;
+    // const age = req.body.age;
+    // let neuter = isNeutered(req.body.neuter);
+    // const gender = genderTransform(req.body.gender);
+    // const desc = req.body.desc;
 
 
-    const formSubmission = [name, breed, age, neuter, gender, desc];
+    // const formSubmission = [name, breed, age, neuter, gender, desc];
 
-    const result = checkFormData(formSubmission);
+    // const result = checkFormData(formSubmission);
 
-    if (!result) {
-        res.end();
-        return;
-    }
+    // if (!result) {
+    //     res.end();
+    //     return;
+    // }
 
-    registerAnimalQuery = `INSERT INTO animales(nombre, raza, descripcion, edad, es_castrado, genero) VALUES ('${name}', '${breed}', '${desc}', '${age}', '${neuter}', '${gender}')`;
+    // registerAnimalQuery = `INSERT INTO animales(nombre, raza, descripcion, edad, es_castrado, genero) VALUES ('${name}', '${breed}', '${desc}', '${age}', '${neuter}', '${gender}')`;
 
-    db.query(registerAnimalQuery, (err, results, fields) => {
-        if (err) throw err;
-        console.log(results);
-        console.log('Animal registrado');
+    // db.query(registerAnimalQuery, (err, results, fields) => {
+    //     if (err) throw err;
+    //     console.log(results);
+    //     console.log('Animal registrado');
 
-    });
+    // });
+    res.end();
 });
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
