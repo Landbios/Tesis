@@ -19,6 +19,16 @@ class Animal {
             console.log("animal añadido");
         })
     }
+
+    //parameter is response (res) object from express
+    static getAllAnimals = (res) => {
+        const query = "SELECT * FROM animales";
+        db.query(query, (err, results, fields) => {
+            if (err) throw err;
+            res.json(results);
+            res.end();
+        })
+    }
 };
 
 module.exports = Animal;

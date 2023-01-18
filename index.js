@@ -136,13 +136,7 @@ app.get('/animalRegister', (req, res) => {
 });
 
 app.post('/animal/animalDB', (req, res) => {
-    const query = "SELECT * FROM animales";
-    db.query(query, (err, results, fields) => {
-        if (err) throw err;
-
-        res.json(results);
-        res.end();
-    })
+    AnimalModel.getAllAnimals(res);
 });
 
 app.post('/animalRegister', (req, res) => {
