@@ -1,0 +1,3 @@
+a. Implement MVC design pattern (routes, controllers, views)
+
+b. Better routes (naming and routing)
