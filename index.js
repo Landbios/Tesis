@@ -4,22 +4,19 @@ const express = require('express');
 //database connection
 const db = require('./src/db/db');
 
-//npm package for the encryptuon algorithm bcrypt for 
+//models
+
+const AnimalModel = require('./src/models/Animal')
+
+//npm package for the encryption algorithm bcrypt for 
 //secure storage of passwords
 const bCrypt = require('bcryptjs');
 
-//utility function to check if a form doesn't have undefined values
-const checkFormData = require('./utils/checkFormData');
 
-//utility function to transform the whole word of gender to one 
-//char
-//i.e: femenino => f; masculino => m 
-const genderTransform = require('./utils/genderTo1Char');
+//utility class (specific purposes methods)
+const utils = require('./src/utils/Utils');
 
 
-//utility function to set 1 if animal is neutered or 0 if otherwise
-const isNeutered = require('./utils/isNeutered');
-//----------------------------------------------------------------
 //creating express app
 const server = express();
 const app = server;
@@ -150,13 +147,20 @@ app.post('/animal/animalDB', (req, res) => {
 
 app.post('/animalRegister', (req, res) => {
     console.log(req.body);
-    // const name = req.body.name;
-    // const breed = req.body.breed;
-    // const age = req.body.age;
-    // let neuter = isNeutered(req.body.neuter);
-    // const gender = genderTransform(req.body.gender);
-    // const desc = req.body.desc;
 
+    const name = req.body.name;
+    const specie = req.body.specie
+    const description = req.body.description;
+    let neuter = utils.isNeutered(req.body.isNeutered);
+    const age = req.body.animal_age;
+    const gender = utils.genderTo1Char(req.body.gender);
+    const breed = req.body.breed;
+
+    const animal = new AnimalModel(name, specie, breed, description, age, neuter, gender);
+
+    AnimalModel.addAnimal(animal);
+
+    res.end();
 
     // const formSubmission = [name, breed, age, neuter, gender, desc];
 
@@ -175,7 +179,6 @@ app.post('/animalRegister', (req, res) => {
     //     console.log('Animal registrado');
 
     // });
-    res.end();
 });
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
