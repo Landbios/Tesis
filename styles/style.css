@@ -466,14 +466,21 @@ line-height:26px;
 
 .card-img-top{
 
-max-height: 200px;
+    max-height: 200px;
 
 }
 
 .card-body{
 
-background-color: #ecf39e;
+    background-color: #ecf39e;
 
 }
 
-.card{border: none;}
+.card{
+    border: none;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(1);
+}
