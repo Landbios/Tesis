@@ -2,28 +2,27 @@
 const express = require('express');
 
 //database connection
-const db = require('./db/db');
+const db = require('./src/db/db');
 
-//npm package for the encryptuon algorithm bcrypt for 
+//models
+const userModel = require('./src/models/User');
+const AnimalModel = require('./src/models/Animal');
+
+//npm package for the encryption algorithm bcrypt for 
 //secure storage of passwords
 const bCrypt = require('bcryptjs');
 
 
+//utility class (specific purposes methods)
+const utils = require('./src/utils/Utils');
 
-//utility function to check if a form doesn't have undefined values
-const checkFormData = require('./utils/checkFormData');
 
-//utility function to transform the whole word of gender to one 
-//char
-//i.e: femenino => f; masculino => m 
-const genderTransform = require('./utils/genderTo1Char');
-//----------------------------------------------------------------
 //creating express app
 const server = express();
 const app = server;
 
 //to parse form data
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: true }));
 
 //serving static content
 app.use(express.static(__dirname + '/public'));
@@ -31,27 +30,18 @@ app.use(express.static(__dirname + '/public'));
 //routes
 
 app.get('/', (req, res) => {
-    res.type('html');
-    res.write(`
-    <span>
-        <a href="/login">Inicio de sesión</a>
-        <a href="/signup">Registro</a>
-    </span>
-    <h1>Bienvenidos a nuestro sitio web</h1>
-    `, 'utf-8');
-    res.end();
+    res.sendFile('./public/main.html', {
+        root: __dirname
+    });
 })
 
 app.get('/login', (req, res) => {
-
     res.sendFile('./public/login.html', {
         root: __dirname
     });
-
-
 });
 
-app.post('/loginCheck' , (req, res) => {
+app.post('/login', (req, res) => {
     const user = req.body.user;
     const pwd = req.body.password;
 
@@ -65,15 +55,17 @@ app.post('/loginCheck' , (req, res) => {
     }
 
     const getbCryptedPwdQuery = `SELECT password FROM usuarios WHERE usuario='${user}'`;
-    
+
     db.query(getbCryptedPwdQuery, (err, results, fields) => {
         //getting encPwd from db
         const encPwd = results[0].password;
         if (!bCrypt.compareSync(pwd, encPwd)) {
+            //password is incorrect
             console.log("clave errónea");
             return;
         }
 
+        // password is correct
         console.log("clave exitosa");
         res.end();
         return;
@@ -82,6 +74,7 @@ app.post('/loginCheck' , (req, res) => {
 
 })
 
+//user registration
 app.get('/signup', (req, res) => {
 
     res.sendFile('./public/register.html', {
@@ -90,47 +83,58 @@ app.get('/signup', (req, res) => {
 
 });
 
-app.post('/createUser', (req, res) => {
-    const doc = req.body.national_id;
+//user registration processing
+app.post('/signup', (req, res) => {
+    const dni = req.body.national_id;
     const name = req.body.name;
     const lastName = req.body.lastname;
     const birth = req.body.birth;
-    const user = req.body.user;
-    const email = req.body.mail;
-    const gender = genderTransform(req.body.gender);
-    const parroquia = req.body.parroquia;
+    const gender = utils.genderTo1Char(req.body.gender);
+    const parroquia = req.body.address;
     const sector = req.body.sector;
     const tlf = req.body.tlf;
-    const password = bCrypt.hashSync(req.body.r_password);
+    const mail = req.body.mail;
+    const userName = req.body.user;
+    const password = req.body.r_password;
+
+    const user = new userModel(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
+
+    userModel.createUser(user);
+
+    res.end();
+});
+
+
+//form for animal registration
+app.get('/animalRegister', (req, res) => {
     
-    //putting in an array all values from the sign up submission
-    const formSubmission = [name, lastName, user, email, birth, doc, gender, parroquia, sector, password, tlf];
+    res.sendFile('./public/animal_regist.html', {
+        root: __dirname
+    });
 
-    //getting result of submission
-    const submissionResult = checkFormData(formSubmission);
-    
-    //checking whether the result succeeds or not
-    if (!submissionResult) {
-        //data is missing in the form
-        res.end();
-        return;
-    }
+});
 
-    //everything is going well, creating user process begins
-    const query = `INSERT INTO usuarios(cedula, nombre, apellido, fecha_nacimiento, genero, parroquia, sector, telefono, email, usuario, password) VALUES ('${doc}', '${name}', '${lastName}', '${birth}', '${gender}', '${parroquia}', '${sector}', '${tlf}', '${email}', '${user}', '${password}')`; 
+app.post('/animalRegister', (req, res) => {
 
-    //inserting new user
-    db.query(query, (err, results, fields) => {
-        if (err) {
-            console.log("ha ocurrido un error");
-            throw err;
-        }
-        console.log("ingresado correctamente el usuario");
-    })
+    const name = req.body.name;
+    const specie = req.body.specie
+    const description = req.body.description;
+    let neuter = utils.isNeutered(req.body.isNeutered);
+    const age = req.body.animal_age;
+    const gender = utils.genderTo1Char(req.body.gender);
+    const breed = req.body.breed;
 
-})
+    const animal = new AnimalModel(name, specie, breed, description, age, neuter, gender);
 
+    AnimalModel.addAnimal(animal);
 
+    res.end();
+});
+
+//list of all animals
+app.post('/animal/animalDB', (req, res) => {
+    AnimalModel.getAllAnimals(res);
+});
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
 const port = 8081;
 app.listen(port, (err) => {

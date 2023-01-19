@@ -13,7 +13,7 @@ El objetivo de este sistema es el de proporcionar a la población un entorno web
 En el directorio del proyecto, escriba lo siguiente: 
 
 ```
-    npm install dev
+    npm install
 ```
 
 Una vez instaladas las dependencias ejecute el servidor:
