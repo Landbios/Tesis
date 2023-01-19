@@ -434,7 +434,7 @@ text-align: center;
 
 .btn-hero:hover{
 
-background:#132A13 !important ;
+background:#132A13 !important;
    
     color: #FFFFFF !important;
     cursor: pointer !important;
@@ -467,12 +467,14 @@ line-height:26px;
 .card-img-top{
 
     max-height: 200px;
+    min-height: 200px;
 
 }
 
 .card-body{
 
     background-color: #ecf39e;
+
 
 }
 
@@ -516,3 +518,13 @@ line-height:26px;
 }
 
 
+/*Informacion del animal */
+
+.animalinfo_container{
+
+   background-color: #ECF39E;
+   border-top-right-radius:10px;
+   border-bottom-right-radius: 10px;
+   margin:5rem;
+
+}
