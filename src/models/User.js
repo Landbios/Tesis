@@ -24,6 +24,21 @@ class User {
             console.log("usuario añadido");
         });
     }
+
+    static loginUser = (username, password) => {
+        const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
+        db.query(query, (err, results, fields) => {
+            if (err) throw err;
+            
+            const hashedPassword = results[0].password;
+            if (!bCrypt.compareSync(password, hashedPassword)) {
+                console.log("clave errónea");
+                return;
+            }
+            console.log("clave exitosa"); 
+
+        });
+    }
 }
 
 module.exports = User;

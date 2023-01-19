@@ -1,21 +1,13 @@
 //express framework
 const express = require('express');
 
-//database connection
-const db = require('./src/db/db');
-
 //models
 const userModel = require('./src/models/User');
 const AnimalModel = require('./src/models/Animal');
 
-//npm package for the encryption algorithm bcrypt for 
-//secure storage of passwords
-const bCrypt = require('bcryptjs');
-
 
 //utility class (specific purposes methods)
 const utils = require('./src/utils/Utils');
-
 
 //creating express app
 const server = express();
@@ -42,35 +34,12 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const user = req.body.user;
+    const userName = req.body.user;
     const pwd = req.body.password;
 
-    const submissionArr = [user, pwd];
+    userModel.loginUser(userName, pwd);
 
-    const submissionResult = checkFormData(submissionArr);
-
-    if (!submissionResult) {
-        res.end();
-        return;
-    }
-
-    const getbCryptedPwdQuery = `SELECT password FROM usuarios WHERE usuario='${user}'`;
-
-    db.query(getbCryptedPwdQuery, (err, results, fields) => {
-        //getting encPwd from db
-        const encPwd = results[0].password;
-        if (!bCrypt.compareSync(pwd, encPwd)) {
-            //password is incorrect
-            console.log("clave errónea");
-            return;
-        }
-
-        // password is correct
-        console.log("clave exitosa");
-        res.end();
-        return;
-
-    });
+    res.end();
 
 })
 
