@@ -105,6 +105,14 @@ app.post('/signup', (req, res) => {
 });
 
 
+//animal list
+
+app.get('/animal', (req, res) => {
+    res.sendFile('./public/animal_list.html', {
+        root: __dirname
+    });
+});
+
 //form for animal registration
 app.get('/animalRegister', (req, res) => {
     
