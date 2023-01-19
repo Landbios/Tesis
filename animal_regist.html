@@ -55,12 +55,21 @@
                 </div>
             </div>
             <div class="halfcontainer">
-                <label class="regis_formlabel">Edad</label>
-                <input type="number" name="animal_age" id="regist_password" class="form_input">
+                <label class="regis_formlabel">Genero</label>
+                <div class="radio_container">
+                    <label for="maleradio" class="radiolabel">Macho<input type="radio" class="gender_input" name="genderanimal" value="macho"></label>
+                    
+                    <label for="femaleradio" class="radiolabel">Hembra<input type="radio" class="gender_input" name="genderanimal" value="hembra"></label>
+                </div>
+
+                
             </div>
         </div>
+        
+        <label class="regis_formlabel">Edad</label>
+        <input type="number" name="animal_age" id="regist_password" class="form_input">
 
-         <label for="address" class="regis_formlabel">Raza</label>
+        <label for="address" class="regis_formlabel">Raza</label>
         <input type="text" name="breed" class="form_input">
 
         <a class="registform_button hoverable">Registrar</a>
