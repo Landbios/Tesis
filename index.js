@@ -77,7 +77,7 @@ app.post('/signup', (req, res) => {
 //animal list
 
 app.get('/animal', (req, res) => {
-    res.sendFile('./public/animal_list.html', {
+    res.sendFile('./public/animal_adopt.html', {
         root: __dirname
     });
 });

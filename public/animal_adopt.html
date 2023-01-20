@@ -9,208 +9,140 @@
 
   <!--CSS General-->
 
-  
+
 
 
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-<link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/style.css">
 
 </head>
 
 <body style="background:#90a955">
   <header>
     <nav class="navbar navbar-expand-sm navbar-dark navbar-right ">
-       <a class="navbar-brand" href="#"><img class="logonav" src="media/flc_design2023010398390.png" alt="logo"></a>
-       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-           aria-expanded="false" aria-label="Toggle navigation"></button>
-       <div class="collapse navbar-collapse" id="collapsibleNavId">
-           <ul class="navbar-nav me-auto mt-2 mt-lg-0" >
-               <li class="nav-item">
-                   <a class="nav-link active" href="index.html" aria-current="page">Inicio<span class="visually-hidden">(current)</span></a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="animal_regist.html" aria-current="page">Dar en Adopcion</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="login.html" aria-current="page">Iniciar Sesion</a>
-               </li>
-           </ul>
-       </div>
+      <a class="navbar-brand" href="#"><img class="logonav" src="media/flc_design2023010398390.png" alt="logo"></a>
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+        aria-label="Toggle navigation"></button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html" aria-current="page">Inicio<span
+                class="visually-hidden">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="animal_regist.html" aria-current="page">Dar en Adopcion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html" aria-current="page">Iniciar Sesion</a>
+          </li>
+        </ul>
+      </div>
     </nav>
   </header>
-  <main>
+  <main class="animal-container">
     <h1 class="formtitle mb-4 mt-5">Nuestros Animales</h1>
-    <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4">
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
+    <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4 card-container">
 
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-        <div class="col-md-3">
 
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
-    <div class="row justify-content-center align-items-center g-2 mt-2 mx-4">
-        <div class="col-md-3">
+    <div class="row justify-content-center align-items-center g-2 mt-2 mx-4 card-container">
+      <div class="col-md-3">
 
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+            alt="">
+          <div class="card-body">
+            <h4 class="animal-name">Walter blanco</h4>
+            <h5 class="animal-data">Liebre</h5>
+            <h5 class="animal-data">9 meses</h5>
+            <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
+            <div class="row">
+              <div class="col-md-6">
+                <a href="" class="btn btn-lg btn-hero">Adoptar</a>
+              </div>
+              <div class="col-md-6">
+                <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
+              </div>
             </div>
-
+          </div>
         </div>
-        <div class="col-md-3">
 
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class="col-md-3">
+
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+            alt="">
+          <div class="card-body">
+            <h4 class="animal-name">Walter blanco</h4>
+            <h5 class="animal-data">Liebre</h5>
+            <h5 class="animal-data">9 meses</h5>
+            <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
+            <div class="row">
+              <div class="col-md-6">
+                <a href="" class="btn btn-lg btn-hero">Adoptar</a>
+              </div>
+              <div class="col-md-6">
+                <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
+              </div>
             </div>
-
+          </div>
         </div>
-        <div class="col-md-3">
 
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class="col-md-3">
+
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+            alt="">
+          <div class="card-body">
+            <h4 class="animal-name">Walter blanco</h4>
+            <h5 class="animal-data">Liebre</h5>
+            <h5 class="animal-data">9 meses</h5>
+            <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
+            <div class="row">
+              <div class="col-md-6">
+                <a href="" class="btn btn-lg btn-hero">Adoptar</a>
+              </div>
+              <div class="col-md-6">
+                <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
+              </div>
             </div>
-
+          </div>
         </div>
-        <div class="col-md-3">
 
-            <div class="card">
-                <img class="card-img-top" src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" alt="">
-                <div class="card-body">
-                    <h4 class="animal-name">Walter blanco</h4>
-                    <h5 class="animal-data">Liebre</h5>
-                    <h5 class="animal-data">9 meses</h5>
-                    <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class="col-md-3">
+
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+            alt="">
+          <div class="card-body">
+            <h4 class="animal-name">Walter blanco</h4>
+            <h5 class="animal-data">Liebre</h5>
+            <h5 class="animal-data">9 meses</h5>
+            <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
+            <div class="row">
+              <div class="col-md-6">
+                <a href="" class="btn btn-lg btn-hero">Adoptar</a>
+              </div>
+              <div class="col-md-6">
+                <a href="animal_info.html" class="btn btn-lg btn-hero">Ver mas</a>
+              </div>
             </div>
-
+          </div>
         </div>
+
+      </div>
     </div>
   </main>
   <footer class="text-center text-white" style="background-color: #132A13">
@@ -307,25 +239,23 @@
     <!-- Grid container -->
 
     <!-- Copyright -->
-    <div
-         class="text-center p-3"
-         style="background-color: rgba(0, 0, 0, 0.2)"
-         >
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
       © 2020 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/"
-         >MDBootstrap.com</a
-        >
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
     <!-- Copyright -->
   </footer>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-  </script>
+    </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-  </script>
+    </script>
+
+    <!--custom js for fetching animals-->
+    <script src="./scripts/animal_adopt.js"></script>
 </body>
 
 </html>
