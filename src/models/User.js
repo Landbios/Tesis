@@ -27,17 +27,25 @@ class User {
 
     static loginUser = (username, password) => {
         const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
-        db.query(query, (err, results, fields) => {
-            if (err) throw err;
-            
-            const hashedPassword = results[0].password;
-            if (!bCrypt.compareSync(password, hashedPassword)) {
-                console.log("clave errónea");
-                return;
-            }
-            console.log("clave exitosa"); 
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, results, fields) => {
+                if (err) throw err;
 
+                const hashedPassword = results[0].password;
+                if (!bCrypt.compareSync(password, hashedPassword)) {
+                    reject({
+                        login: false,
+                        link: 'http://localhost:8081/login'
+                    })
+                }
+                resolve({
+                    login: true,
+                    user: username,
+                    link: 'http://localhost:8081/animal'
+                })
+            });
         });
+
     }
 }
 

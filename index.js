@@ -37,9 +37,13 @@ app.post('/login', (req, res) => {
     const userName = req.body.user;
     const pwd = req.body.password;
 
-    userModel.loginUser(userName, pwd);
-
-    res.end();
+    userModel.loginUser(userName, pwd)
+        .then((resolve) => {
+            res.redirect(resolve.link);
+        })
+        .catch((rej) => {
+            res.redirect(rej.link);
+        });
 
 })
 
@@ -84,7 +88,7 @@ app.get('/animal', (req, res) => {
 
 //form for animal registration
 app.get('/animalRegister', (req, res) => {
-    
+
     res.sendFile('./public/animal_regist.html', {
         root: __dirname
     });

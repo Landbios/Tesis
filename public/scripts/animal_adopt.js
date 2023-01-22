@@ -1,3 +1,31 @@
+const utils = {
+    makeGenderFull(shortGender) {
+        if (shortGender !== 'f') {
+            return 'Macho';  
+        } else {
+            return 'Hembra';
+        }
+        //error
+        return false;
+    }, 
+
+    makeSpecieFull(shortSpecie) {
+        switch(shortSpecie) {
+            case 'p':
+                return 'Perro';
+            case 'g':
+                return 'Gato';
+            case 'c':
+                return 'Conejo';
+            case 'h':
+                return 'Hámster';
+            default:
+                //error
+                return false
+        }
+    }
+}
+
 fetch('http://localhost:8081/animal/animalDB', { method: 'POST' })
     .then((results) => {
         return results.json();
@@ -5,10 +33,8 @@ fetch('http://localhost:8081/animal/animalDB', { method: 'POST' })
     .then((data) => {
         const cardContainer = document.querySelector(".card-container");
         const container = document.querySelector(".animal-container");
-        console.log(data);
 
         while (cardContainer.childElementCount < data.length) {
-            console.log(cardContainer.childElementCount);
             cardContainer.innerHTML += `
                     <div class="col-md-3">
 
@@ -19,9 +45,9 @@ fetch('http://localhost:8081/animal/animalDB', { method: 'POST' })
                         alt="">
                     <div class="card-body">
                         <h4 class="animal-name">${data[cardContainer.childElementCount].nombre}</h4>
-                        <h5 class="animal-data">Liebre</h5>
-                        <h5 class="animal-data">9 meses</h5>
-                        <p class="animal-descrip">Amigable, jugueton y sabe rodar</p>
+                        <h5 class="animal-data">${utils.makeSpecieFull(data[cardContainer.childElementCount].especie)}</h5>
+                        <h5 class="animal-data">${data[cardContainer.childElementCount].edad}</h5>
+                        <p class="animal-descrip">${data[cardContainer.childElementCount].descripcion}</p>
                         <div class="row">
                         <div class="col-md-6">
                             <a href="" class="btn btn-lg btn-hero">Adoptar</a>
@@ -35,8 +61,6 @@ fetch('http://localhost:8081/animal/animalDB', { method: 'POST' })
             
                 </div>
             `
-            console.log(cardContainer.childElementCount);
-            console.log(cardContainer.innerHTML);
         }
 
     });
