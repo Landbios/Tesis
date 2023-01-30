@@ -11,7 +11,20 @@ class Utils {
     static isNeutered = (state) => {
         if (state === 'true') return 1;
         if (state === 'false') return 0;
-    };
+    }
+
+    static specieTo1Char = (longSpecieName) => {
+        switch (longSpecieName) {
+            case 'gato':
+                return 'g';
+            case 'perro':
+                return 'p';
+            case 'Conejo':
+                return 'c';
+            case 'hámster':
+                return 'h';
+        }
+    }
 }
 
 module.exports = Utils;

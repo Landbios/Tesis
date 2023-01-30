@@ -46,7 +46,19 @@ class User {
             });
         });
 
-    }
+    };
+
+    static getUserInfo = (username) => {
+        const query = `SELECT * FROM usuarios WHERE usuario='${username}'`
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, res, fields) => {
+                if (err) throw reject(err);
+
+                return resolve(res[0]);
+
+            });
+        });
+    };
 }
 
 module.exports = User;

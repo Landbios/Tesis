@@ -39,6 +39,7 @@ app.post('/login', (req, res) => {
 
     userModel.loginUser(userName, pwd)
         .then((resolve) => {
+            res.cookie("user", userName);
             res.redirect(resolve.link);
         })
         .catch((rej) => {
@@ -74,7 +75,8 @@ app.post('/signup', (req, res) => {
 
     userModel.createUser(user);
 
-    res.end();
+    res.cookie("username", userName);
+    res.redirect("http://localhost:8081/animal");
 });
 
 
@@ -95,10 +97,23 @@ app.get('/animalRegister', (req, res) => {
 
 });
 
+app.get('/animal/:id', (req, res) => {
+    res.sendFile('/public/animal_info.html', {
+        root: __dirname
+    });
+});
+
+app.post('/animal/:id', (req, res) => {
+    AnimalModel.getAnimal(req.params.id)
+        .then((resolve) => {
+            res.json(resolve);
+        });
+});
+
 app.post('/animalRegister', (req, res) => {
 
     const name = req.body.name;
-    const specie = req.body.specie
+    const specie = utils.specieTo1Char(req.body.specie);
     const description = req.body.description;
     let neuter = utils.isNeutered(req.body.isNeutered);
     const age = req.body.animal_age;
@@ -107,15 +122,27 @@ app.post('/animalRegister', (req, res) => {
 
     const animal = new AnimalModel(name, specie, breed, description, age, neuter, gender);
 
-    AnimalModel.addAnimal(animal);
-
-    res.end();
+    AnimalModel.addAnimal(animal)
+        .then((resolve) => {
+            res.redirect(resolve.link);
+        })
+        .catch((rej) => {
+            res.redirect('http://localhost:8081/animalRegister');
+        });
 });
 
 //list of all animals
-app.post('/animal/animalDB', (req, res) => {
-    AnimalModel.getAllAnimals(res);
+app.post('/animaldb', (req, res) => {
+    AnimalModel.getAllAnimals()
+        .then((resolve) => {
+            res.json(resolve);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
+
+
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
 const port = 8081;
 app.listen(port, (err) => {

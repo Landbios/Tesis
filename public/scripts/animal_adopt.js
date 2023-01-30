@@ -26,14 +26,45 @@ const utils = {
     }
 }
 
-fetch('http://localhost:8081/animal/animalDB', { method: 'POST' })
+const cookies = document.cookie;
+
+const checkCookie = (cookie) => {
+    let cookieName = '';
+    const searchedCookie = cookie + "=";
+    for (let i = 0; i < cookies.length; i++) {
+        if (cookies[i] !== '') {
+            cookieName += cookies[i];
+        }
+        if (cookieName === searchedCookie) {
+            return cookies.replace(searchedCookie, '');
+        }
+    }
+    const checkCookie = (cookie) => {
+        let cookieName = '';
+        const searchedCookie = cookie + "=";
+        for (let i = 0; i < cookies.length; i++) {
+            if (cookies[i] !== '') {
+                cookieName += cookies[i];
+            }
+            if (cookieName === searchedCookie) {
+                return cookies.replace(searchedCookie, '');
+            }
+        }
+    
+        return '';
+    };
+    return '';
+};
+const username = document.querySelector("#username");
+username.innerHTML = checkCookie('user');
+
+fetch('http://localhost:8081/animaldb', { method: 'POST' })
     .then((results) => {
         return results.json();
     })
     .then((data) => {
         const cardContainer = document.querySelector(".card-container");
         const container = document.querySelector(".animal-container");
-
         while (cardContainer.childElementCount < data.length) {
             cardContainer.innerHTML += `
                     <div class="col-md-3">
