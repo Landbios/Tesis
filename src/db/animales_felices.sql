@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 30, 2023 at 03:54 PM
+-- Generation Time: Jan 31, 2023 at 08:49 PM
 -- Server version: 10.9.4-MariaDB
 -- PHP Version: 8.2.1
 
@@ -47,6 +47,7 @@ CREATE TABLE `animales` (
   `descripcion` text NOT NULL,
   `edad` int(11) NOT NULL,
   `es_castrado` tinyint(1) NOT NULL,
+  `es_vacunado` tinyint(1) NOT NULL,
   `es_adoptado` tinyint(1) NOT NULL DEFAULT 0,
   `genero` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -55,16 +56,18 @@ CREATE TABLE `animales` (
 -- Dumping data for table `animales`
 --
 
-INSERT INTO `animales` (`id`, `nombre`, `especie`, `raza`, `descripcion`, `edad`, `es_castrado`, `es_adoptado`, `genero`) VALUES
-(1, 'firulais', 'p', 'mestizo', 'Perro mestizo amable', 2, 1, 1, 'm'),
-(2, 'Marquitos', 'g', 'Puddle', 'Animal arrecho, pa poner en porton pa matar malandro', 3, 1, 0, 'm'),
-(3, 'Dama', 'p', 'mestiza', 'Tiene problemas en los riñones y debe ser atendida a cada rato', 1, 1, 0, 'f'),
-(4, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 1, 0, 'm'),
-(5, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 1, 0, 'm'),
-(6, 'Doña', 'p', 'Mestiza', 'Perrita rescatada en la limpia', 1, 1, 0, 'f'),
-(7, 'Pedro', 'g', 'Mestizo', 'Animal Jugueton', 1, 1, 0, 'm'),
-(8, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 1, 0, 'f'),
-(9, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 1, 0, 'f');
+INSERT INTO `animales` (`id`, `nombre`, `especie`, `raza`, `descripcion`, `edad`, `es_castrado`, `es_vacunado`, `es_adoptado`, `genero`) VALUES
+(1, 'firulais', 'p', 'mestizo', 'Perro mestizo amable', 2, 1, 0, 1, 'm'),
+(2, 'Marquitos', 'g', 'Puddle', 'Animal arrecho, pa poner en porton pa matar malandro', 3, 1, 0, 0, 'm'),
+(3, 'Dama', 'p', 'mestiza', 'Tiene problemas en los riñones y debe ser atendida a cada rato', 1, 1, 0, 0, 'f'),
+(4, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 1, 0, 0, 'm'),
+(5, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 1, 0, 0, 'm'),
+(6, 'Doña', 'p', 'Mestiza', 'Perrita rescatada en la limpia', 1, 1, 0, 0, 'f'),
+(7, 'Pedro', 'g', 'Mestizo', 'Animal Jugueton', 1, 1, 0, 0, 'm'),
+(8, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 1, 0, 0, 'f'),
+(9, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 1, 0, 0, 'f'),
+(10, 'Rubén', 'p', 'Pastor Aleman', 'Perro loco que canta en latin y come corfleis con cuchara', 1, 0, 1, 0, 'm'),
+(11, 'Kitty', 'g', 'Bengalí', 'hgkjlkjhlkj', 1, 1, 1, 0, 'f');
 
 -- --------------------------------------------------------
 
@@ -92,6 +95,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `genero`, `parroquia`, `sector`, `telefono`, `email`, `usuario`, `password`) VALUES
+(12, 3, 'John', 'Doe', '2000-10-10', 'm', 'casa', 'calle', '04240000000', 'johndoe@gmail.com', 'johndoe', '$2a$10$eVCcC75jM3/QD7YfIqq6ueqGP.HR3QaxpJBA/ezuV3/8fcqiNEKxO'),
+(10, 12, 'Antonio', 'de la Cruz', '2010-01-01', 'm', 'Casa', 'Calle', '04260000000', 'antoniodelacruz@gmail.com', 'superantonio', '$2a$10$10qqSB6hQqCU72hqPqmRP.cqqwaIxKBSfsLqOBsOOlZbqrsoHj.tW'),
 (9, 123, 'Mario', 'Castañeda', '1995-10-10', 'm', 'a', 'b', '111111111', 'castañeda_cobrador@gmail.com', 'cobrador3000', '$2a$10$7CwbFzffJK3JCvghW0xNv.UmLL3s8Ek8mn387cGSfc1xFVkWkc90u'),
 (6, 8506421, 'Ruben', 'Gonzalez', '1967-11-18', 'm', 'Idelfonso Vásquez', 'Ciudadela Faría', '04167641689', 'gonzalezruben.67@gmail.com', 'rubentermi', '$2a$10$5wJr3KnKIFrnWA9glXQUq.GrIle4HGo9A2uHyOoIzfCItpXyQbSgC'),
 (8, 11111111, 'Alberto', 'Henriquez', '2000-10-10', 'm', 'Juana de Ávila', 'San Jacinto', '04140000000', 'alberto@gmail.com', 'Albertito', '$2a$10$yuWofQC5tfhAYYPyEF8VtOLJdRF2SqIq/sdrfhTIEMnqTMcIg/e.i'),
@@ -139,13 +144,13 @@ ALTER TABLE `adopciones`
 -- AUTO_INCREMENT for table `animales`
 --
 ALTER TABLE `animales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
