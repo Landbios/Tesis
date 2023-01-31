@@ -137,8 +137,8 @@ app.post('/animal/:id', (req, res) => {
 
 
 //list of all animals
-app.post('/animaldb', (req, res) => {
-    AnimalModel.getAllAnimals()
+app.post('/animal', (req, res) => {
+    AnimalModel.getAllAnimals(parseInt(req.query.page))
         .then((resolve) => {
             res.json(resolve);
         })

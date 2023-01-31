@@ -58,7 +58,7 @@ const checkCookie = (cookie) => {
 const username = document.querySelector("#username");
 username.innerHTML = checkCookie('user');
 
-fetch('http://localhost:8081/animaldb', { method: 'POST' })
+fetch(location.href, { method: 'POST' })
     .then((results) => {
         return results.json();
     })

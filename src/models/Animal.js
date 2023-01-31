@@ -1,7 +1,7 @@
 const db = require('../db/db');
 
 class Animal {
-    constructor(name, specie, breed, description, age, isNeutered, isVaccinated,  gender) {
+    constructor(name, specie, breed, description, age, isNeutered, isVaccinated, gender) {
         this.name = name;
         this.specie = specie;
         this.breed = breed;
@@ -33,20 +33,25 @@ class Animal {
     }
 
     //parameter is response (res) object from express
-    static getAllAnimals = () => {
-        const query = "SELECT * FROM animales";
+    static getAllAnimals = (page) => {
+        if (typeof page !== 'number') {
+            return;
+        }
+        let to = page * 10;
+        let from = to - 10;
+        const query = `SELECT * FROM animales WHERE id BETWEEN ${from} AND ${to}`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
                 if (err) throw reject(err);
                 resolve(results);
             });
         });
-        
+
     }
 
     static getAnimal = (id) => {
         const query = `SELECT * FROM animales WHERE id=${id}`;
-        return new Promise ((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
                 if (err) throw err;
                 console.log(typeof results[0]);
@@ -56,7 +61,7 @@ class Animal {
                 resolve(results[0]);
             });
         });
-        
+
     }
 };
 
