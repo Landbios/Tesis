@@ -29,7 +29,10 @@ class User {
         const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
-                if (err) throw err;
+                if (err) return reject({
+                    login: false,
+                    link: 'http://localhost:8081/login'
+                });
 
                 const hashedPassword = results[0].password;
                 if (!bCrypt.compareSync(password, hashedPassword)) {

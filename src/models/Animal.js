@@ -1,18 +1,19 @@
 const db = require('../db/db');
 
 class Animal {
-    constructor(name, specie, breed, description, age, isNeutered, gender) {
+    constructor(name, specie, breed, description, age, isNeutered, isVaccinated,  gender) {
         this.name = name;
         this.specie = specie;
         this.breed = breed;
         this.description = description;
         this.age = age;
         this.isNeutered = isNeutered;
+        this.isVaccinated = isVaccinated;
         this.gender = gender;
     }
 
     static addAnimal = (animal) => {
-        const query = `INSERT INTO animales (nombre, especie, raza, descripcion, edad, es_castrado, genero) VALUES ('${animal.name}', '${animal.specie}', '${animal.breed}', '${animal.description}', '${animal.age}', '${animal.isNeutered}', '${animal.gender}')`;
+        const query = `INSERT INTO animales (nombre, especie, raza, descripcion, edad, es_castrado, es_vacunado, genero) VALUES ('${animal.name}', '${animal.specie}', '${animal.breed}', '${animal.description}', '${animal.age}', '${animal.isNeutered}', '${animal.isVaccinated}', '${animal.gender}')`;
 
         return new Promise((resolve, reject) => {
             db.query(query, (err, res, fields) => {
@@ -20,9 +21,8 @@ class Animal {
                     reject({
                         link: '',
                         state: 'not added',
-                        errmsg: 'err.sqlMessage'
+                        errmsg: err.sqlMessage
                     });
-                    throw err;
                 };
                 resolve({
                     link: 'http://localhost:8081/animal',
@@ -48,7 +48,11 @@ class Animal {
         const query = `SELECT * FROM animales WHERE id=${id}`;
         return new Promise ((resolve, reject) => {
             db.query(query, (err, results, fields) => {
-                if (err) throw reject(err);
+                if (err) throw err;
+                console.log(typeof results[0]);
+                if (typeof results[0] === 'undefined') reject({
+                    msg: 'Animal no encontrado'
+                });
                 resolve(results[0]);
             });
         });

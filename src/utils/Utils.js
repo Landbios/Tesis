@@ -7,8 +7,8 @@ class Utils {
         if (fullGenderWord === 'femenino') return 'f';
     }
 
-    //utility function to set 1 if animal is neutered or 0 if otherwise
-    static isNeutered = (state) => {
+    //utility function to set 1 if category is true or 0 if otherwise
+    static stringBoolToInt = (state) => {
         if (state === 'true') return 1;
         if (state === 'false') return 0;
     }

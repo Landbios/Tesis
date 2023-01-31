@@ -36,7 +36,7 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     const userName = req.body.user;
     const pwd = req.body.password;
-
+    console.log("login");
     userModel.loginUser(userName, pwd)
         .then((resolve) => {
             res.cookie("user", userName);
@@ -90,11 +90,32 @@ app.get('/animal', (req, res) => {
 
 //form for animal registration
 app.get('/animalRegister', (req, res) => {
-
     res.sendFile('./public/animal_regist.html', {
         root: __dirname
     });
 
+});
+
+app.post('/animalRegister', (req, res) => {
+
+    const name = req.body.name;
+    const specie = utils.specieTo1Char(req.body.specie);
+    const description = req.body.description;
+    const neuter = utils.stringBoolToInt(req.body.isNeutered);
+    const age = req.body.animal_age;
+    const gender = utils.genderTo1Char(req.body.gender);
+    const breed = req.body.breed;
+    const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
+
+    const animal = new AnimalModel(name, specie, breed, description, age, neuter, isVaccinated, gender);
+
+    AnimalModel.addAnimal(animal)
+        .then((resolve) => {
+            res.redirect(resolve.link);
+        })
+        .catch((rej) => {
+            res.redirect('http://localhost:8081/animalRegister');
+        });
 });
 
 app.get('/animal/:id', (req, res) => {
@@ -107,29 +128,13 @@ app.post('/animal/:id', (req, res) => {
     AnimalModel.getAnimal(req.params.id)
         .then((resolve) => {
             res.json(resolve);
-        });
-});
-
-app.post('/animalRegister', (req, res) => {
-
-    const name = req.body.name;
-    const specie = utils.specieTo1Char(req.body.specie);
-    const description = req.body.description;
-    const neuter = utils.isNeutered(req.body.isNeutered);
-    const age = req.body.animal_age;
-    const gender = utils.genderTo1Char(req.body.gender);
-    const breed = req.body.breed;
-
-    const animal = new AnimalModel(name, specie, breed, description, age, neuter, gender);
-
-    AnimalModel.addAnimal(animal)   
-        .then((resolve) => {
-            res.redirect(resolve.link);
         })
         .catch((rej) => {
-            res.redirect('http://localhost:8081/animalRegister');
-        });
+            res.json(rej);
+        })
 });
+
+
 
 //list of all animals
 app.post('/animaldb', (req, res) => {
