@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesion</title>
-
+    <script src="index.js"></script>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
@@ -20,7 +20,7 @@
 
             <h1 class="formtitle">Ellos te esperan </h1>
             <h2 class="formsubtitle">Adopta tu mascota ideal </h2>
-
+            <p id="wronguser"><%= wronguser %></p>
             <label class="formlabel">Usuario</label>
             <input type="text" name="user" id="login_user" class="form_input" required>
 
@@ -32,6 +32,7 @@
             <p class="p_registrar">¿No tienes cuenta? <a class="hyperlink" href="register.html">registrate</a> gratis</p>
 
         </form>
+        
 
     </div>
 

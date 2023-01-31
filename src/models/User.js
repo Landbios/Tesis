@@ -26,16 +26,18 @@ class User {
     }
 
     static loginUser = (username, password) => {
-        const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
-        return new Promise((resolve, reject) => {
-            db.query(query, (err, results, fields) => {
-                if (err) throw err;
+    const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
+    return new Promise((resolve, reject) => {
+        db.query(query, (err, results, fields) => {
+            console.log(results[0]);
+            if (err) throw err;
+            if(typeof results[0] !== "undefined"){
 
                 const hashedPassword = results[0].password;
                 if (!bCrypt.compareSync(password, hashedPassword)) {
                     reject({
                         login: false,
-                        link: 'http://localhost:8081/login'
+                        link: 'http://localhost:8081/login.html'
                     })
                 }
                 resolve({
@@ -43,10 +45,19 @@ class User {
                     user: username,
                     link: 'http://localhost:8081/animal'
                 })
-            });
+            }
+            else{
+               reject({
+                        login: false,
+                        link: 'http://localhost:8081/login'
+                })
+                
+            }
+                       
         });
+    });
 
-    }
+}
 }
 
 module.exports = User;

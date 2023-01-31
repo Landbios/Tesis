@@ -13,6 +13,11 @@ const utils = require('./src/utils/Utils');
 const server = express();
 const app = server;
 
+// defining our view engine
+
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+
 //to parse form data
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,9 +33,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    res.sendFile('./public/login.html', {
-        root: __dirname
-    });
+    res.render("login",{wronguser:""})
 });
 
 app.post('/login', (req, res) => {
@@ -42,7 +45,10 @@ app.post('/login', (req, res) => {
             res.redirect(resolve.link);
         })
         .catch((rej) => {
-            res.redirect(rej.link);
+            res.render("login",{wronguser:"Usuario o contraseña incorrecta"})
+
+            
+            
         });
 
 })
