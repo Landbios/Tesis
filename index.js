@@ -115,14 +115,14 @@ app.post('/animalRegister', (req, res) => {
     const name = req.body.name;
     const specie = utils.specieTo1Char(req.body.specie);
     const description = req.body.description;
-    let neuter = utils.isNeutered(req.body.isNeutered);
+    const neuter = utils.isNeutered(req.body.isNeutered);
     const age = req.body.animal_age;
     const gender = utils.genderTo1Char(req.body.gender);
     const breed = req.body.breed;
 
     const animal = new AnimalModel(name, specie, breed, description, age, neuter, gender);
 
-    AnimalModel.addAnimal(animal)
+    AnimalModel.addAnimal(animal)   
         .then((resolve) => {
             res.redirect(resolve.link);
         })
