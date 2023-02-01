@@ -19,9 +19,9 @@ class Utils {
                 return 'g';
             case 'perro':
                 return 'p';
-            case 'Conejo':
+            case 'conejo':
                 return 'c';
-            case 'hámster':
+            case 'hamster':
                 return 'h';
         }
     }

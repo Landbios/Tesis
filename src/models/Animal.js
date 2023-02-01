@@ -33,9 +33,19 @@ class Animal {
     }
 
     //parameter is response (res) object from express
-    static getAllAnimals = (page) => {
-        let to = page * 10;
-        let from = to - 10;
+    static getAllAnimals = (page, latest = false) => {
+        if (latest) {
+            const query = `(SELECT * FROM animales ORDER BY id DESC LIMIT 8) ORDER BY ID ASC`; //sql query to get last 4 results by id in descending order, then order it by ascending order
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, results, fields) => {
+                    if (err) throw reject(err);
+                    resolve(results);
+                });
+            })
+            
+        }
+        let to = page * 12;
+        let from = to - 12;
         const query = `SELECT * FROM animales WHERE id BETWEEN ${from} AND ${to}`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
