@@ -34,9 +34,6 @@ class Animal {
 
     //parameter is response (res) object from express
     static getAllAnimals = (page) => {
-        if (typeof page !== 'number') {
-            return;
-        }
         let to = page * 10;
         let from = to - 10;
         const query = `SELECT * FROM animales WHERE id BETWEEN ${from} AND ${to}`;
