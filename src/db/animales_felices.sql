@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 31, 2023 at 08:49 PM
+-- Generation Time: Feb 04, 2023 at 04:19 PM
 -- Server version: 10.9.4-MariaDB
 -- PHP Version: 8.2.1
 
@@ -46,28 +46,33 @@ CREATE TABLE `animales` (
   `raza` varchar(100) NOT NULL,
   `descripcion` text NOT NULL,
   `edad` int(11) NOT NULL,
+  `tipo` varchar(1) NOT NULL,
   `es_castrado` tinyint(1) NOT NULL,
   `es_vacunado` tinyint(1) NOT NULL,
   `es_adoptado` tinyint(1) NOT NULL DEFAULT 0,
-  `genero` varchar(1) NOT NULL
+  `genero` varchar(1) NOT NULL,
+  `propietario` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `animales`
 --
 
-INSERT INTO `animales` (`id`, `nombre`, `especie`, `raza`, `descripcion`, `edad`, `es_castrado`, `es_vacunado`, `es_adoptado`, `genero`) VALUES
-(1, 'firulais', 'p', 'mestizo', 'Perro mestizo amable', 2, 1, 0, 1, 'm'),
-(2, 'Marquitos', 'g', 'Puddle', 'Animal arrecho, pa poner en porton pa matar malandro', 3, 1, 0, 0, 'm'),
-(3, 'Dama', 'p', 'mestiza', 'Tiene problemas en los riñones y debe ser atendida a cada rato', 1, 1, 0, 0, 'f'),
-(4, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 1, 0, 0, 'm'),
-(5, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 1, 0, 0, 'm'),
-(6, 'Doña', 'p', 'Mestiza', 'Perrita rescatada en la limpia', 1, 1, 0, 0, 'f'),
-(7, 'Pedro', 'g', 'Mestizo', 'Animal Jugueton', 1, 1, 0, 0, 'm'),
-(8, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 1, 0, 0, 'f'),
-(9, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 1, 0, 0, 'f'),
-(10, 'Rubén', 'p', 'Pastor Aleman', 'Perro loco que canta en latin y come corfleis con cuchara', 1, 0, 1, 0, 'm'),
-(11, 'Kitty', 'g', 'Bengalí', 'hgkjlkjhlkj', 1, 1, 1, 0, 'f');
+INSERT INTO `animales` (`id`, `nombre`, `especie`, `raza`, `descripcion`, `edad`, `tipo`, `es_castrado`, `es_vacunado`, `es_adoptado`, `genero`, `propietario`) VALUES
+(1, 'firulais', 'p', 'mestizo', 'Perro mestizo amable', 2, 'a', 1, 0, 1, 'm', 'citynewcity'),
+(2, 'Marquitos', 'g', 'Puddle', 'Animal arrecho, pa poner en porton pa matar malandro', 3, 'a', 1, 0, 0, 'm', 'rubentermi'),
+(3, 'Dama', 'p', 'mestiza', 'Tiene problemas en los riñones y debe ser atendida a cada rato', 1, 'a', 1, 0, 0, 'f', 'quikiesamus'),
+(4, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 'a', 1, 0, 0, 'm', 'johndoe'),
+(5, 'Raul', 'g', 'Tonkinés', 'Gato que maulla por las noches invocando el espiritu de un ejercito de gatos', 1000, 'a', 1, 0, 0, 'm', 'Albertito'),
+(6, 'Doña', 'p', 'Mestiza', 'Perrita rescatada en la limpia', 1, 'a', 1, 0, 0, 'f', 'cobrador3000'),
+(7, 'Pedro', 'g', 'Mestizo', 'Animal Jugueton', 1, 'a', 1, 0, 0, 'm', 'superantonio'),
+(8, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 'a', 1, 0, 0, 'f', 'quikiesamus'),
+(9, 'Equisde', 'g', 'Mestizo', 'Gato xd', 1, 'a', 1, 0, 0, 'f', 'citynewcity'),
+(10, 'Rubén', 'p', 'Pastor Aleman', 'Perro loco que canta en latin y come corfleis con cuchara', 1, 'a', 0, 1, 0, 'm', 'rubentermi'),
+(11, 'Kitty', 'g', 'Bengalí', 'hgkjlkjhlkj', 1, 'a', 1, 1, 0, 'f', 'quikiesamus'),
+(12, 'Carlos', 'c', 'Europeo', 'Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo Conejo ', 1, 'a', 1, 1, 0, 'm', 'quikiesamus'),
+(13, 'Mario', 'p', 'San Bernardo', 'Perro', 2, 'a', 1, 1, 0, 'm', 'cobrador3000'),
+(14, 'Lutero', 'g', 'Mestizo/Desconocida', 'Gato Fascista', 9, 'm', 1, 1, 0, 'm', 'cobrador3000');
 
 -- --------------------------------------------------------
 
@@ -119,7 +124,9 @@ ALTER TABLE `adopciones`
 -- Indexes for table `animales`
 --
 ALTER TABLE `animales`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `propietario` (`propietario`),
+  ADD KEY `propietario_2` (`propietario`);
 
 --
 -- Indexes for table `usuarios`
@@ -144,7 +151,7 @@ ALTER TABLE `adopciones`
 -- AUTO_INCREMENT for table `animales`
 --
 ALTER TABLE `animales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
@@ -162,6 +169,12 @@ ALTER TABLE `usuarios`
 ALTER TABLE `adopciones`
   ADD CONSTRAINT `adopciones_ibfk_1` FOREIGN KEY (`adoptante`) REFERENCES `usuarios` (`cedula`),
   ADD CONSTRAINT `adopciones_ibfk_2` FOREIGN KEY (`adoptado`) REFERENCES `animales` (`id`);
+
+--
+-- Constraints for table `animales`
+--
+ALTER TABLE `animales`
+  ADD CONSTRAINT `propietario` FOREIGN KEY (`propietario`) REFERENCES `usuarios` (`usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
