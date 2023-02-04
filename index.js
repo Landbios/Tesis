@@ -42,6 +42,8 @@ app.post('/login', (req, res) => {
 
     userModel.loginUser(userName, pwd)
         .then((resolve) => {
+            console.log(resolve.login)
+            console.log(resolve.user)
             res.redirect(resolve.link);
         })
         .catch((rej) => {
