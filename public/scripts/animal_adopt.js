@@ -39,20 +39,6 @@ const checkCookie = (cookie) => {
             return cookies.replace(searchedCookie, '');
         }
     }
-    const checkCookie = (cookie) => {
-        let cookieName = '';
-        const searchedCookie = cookie + "=";
-        for (let i = 0; i < cookies.length; i++) {
-            if (cookies[i] !== '') {
-                cookieName += cookies[i];
-            }
-            if (cookieName === searchedCookie) {
-                return cookies.replace(searchedCookie, '');
-            }
-        }
-    
-        return '';
-    };
     return '';
 };
 const username = document.querySelector("#username");
@@ -77,8 +63,7 @@ fetch(location.href, { method: 'POST' })
                     <div class="card-body">
                         <h4 class="animal-name">${data[cardContainer.childElementCount].nombre}</h4>
                         <h5 class="animal-data">${utils.makeSpecieFull(data[cardContainer.childElementCount].especie)}</h5>
-                        <h5 class="animal-data">${data[cardContainer.childElementCount].edad}</h5>
-                        <p class="animal-descrip">${data[cardContainer.childElementCount].descripcion}</p>
+                        <h5 class="animal-data">${data[cardContainer.childElementCount].edad} <span>${data[cardContainer.childElementCount].tipo === 'a' ? 'años' : 'meses'}</span></h5>
                         <div class="row">
                         <div class="col-md-6">
                             <a href="" class="btn btn-lg btn-hero">Adoptar</a>

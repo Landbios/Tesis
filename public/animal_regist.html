@@ -19,7 +19,7 @@
 
 
 
-        <form action="/animalRegister" method="post" name="animal_form" class="formulario_animal">
+        <form action="/animalRegister" id="animal_regist_form" method="post" name="animal_form" class="formulario_animal">
 
 
             <h1 class="formtitle">Registra tu Mascota</h1>
@@ -62,6 +62,13 @@
                     <label class="regis_formlabel">Edad</label>
                     <input type="number" name="animal_age" id="regist_password" class="form_input">
                 </div>
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">¿Meses o Años?</label>
+                    <select name="edad_tipo" id="animal_age_type" class="form_input">
+                        <option value="a">Años</option>
+                        <option value="m">Meses</option>
+                    </select>
+                </div>
             </div>
 
             <div class="medium-width">
@@ -87,12 +94,15 @@
                             name="gender" value="femenino"></label>
                 </div>
 
+                <label for="address" class="regis_formlabel">Usuario</label>
+                <input type="text" name="usuario" id="usuario" class="form_input" readonly>
+
                 <label for="address" class="regis_formlabel">Raza</label>
                 <input type="text" name="breed" class="form_input">
 
                 <input type="submit" class="registform_button hoverable" value="Registrar">
         </form>
-
+        <script src="./scripts/animal_regist.js"></script>
 
 
     </div>

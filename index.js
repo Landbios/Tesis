@@ -107,17 +107,18 @@ app.get('/animalRegister', (req, res) => {
 });
 
 app.post('/animalRegister', (req, res) => {
-    console.log("estoy en animalRegister")
     const name = req.body.name;
     const specie = utils.specieTo1Char(req.body.specie);
     const description = req.body.description;
     const neuter = utils.stringBoolToInt(req.body.isNeutered);
     const age = req.body.animal_age;
+    const edad_tipo = req.body.edad_tipo;
     const gender = utils.genderTo1Char(req.body.gender);
     const breed = req.body.breed;
     const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
+    const owner = req.body.usuario;
 
-    const animal = new AnimalModel(name, specie, breed, description, age, neuter, isVaccinated, gender);
+    const animal = new AnimalModel(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
     console.log(animal);
 
     AnimalModel.addAnimal(animal)
@@ -125,7 +126,7 @@ app.post('/animalRegister', (req, res) => {
             res.redirect(resolve.link);
         })
         .catch((rej) => {
-            console.log("error");
+            console.log(rej);
             res.redirect('http://localhost:8081/animalRegister');
         });
 });

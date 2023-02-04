@@ -19,7 +19,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
             return;
         }
 
-
+        propietario.innerHTML = data.propietario;
         nombre.innerHTML = data.nombre;
         raza.innerHTML = data.raza;
         genero.innerHTML = data.genero === 'm' ? 'macho' : 'hembra';
