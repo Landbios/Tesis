@@ -43,7 +43,7 @@ class User {
                 resolve({
                     login: true,
                     user: username,
-                    link: 'http://localhost:8081/animal'
+                    link: 'http://localhost:8081/'
                 })
             }
             else{

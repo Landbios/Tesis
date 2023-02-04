@@ -1,6 +1,8 @@
 //express framework
 const express = require('express');
 
+
+
 //models
 const userModel = require('./src/models/User');
 const AnimalModel = require('./src/models/Animal');
@@ -12,6 +14,21 @@ const utils = require('./src/utils/Utils');
 //creating express app
 const server = express();
 const app = server;
+
+//express session 
+
+const session = require('express-session');
+const User = require('./src/models/User');
+app.use(session({
+
+    secret:'secret',
+    resave:true,
+    saveUninitialized:true,
+
+
+
+}));
+
 
 // defining our view engine
 
@@ -26,11 +43,7 @@ app.use(express.static(__dirname + '/public'));
 
 //routes
 
-app.get('/', (req, res) => {
-    res.sendFile('./public/main.html', {
-        root: __dirname
-    });
-})
+
 
 app.get('/login', (req, res) => {
     res.render("login",{wronguser:""})
@@ -39,21 +52,78 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     const userName = req.body.user;
     const pwd = req.body.password;
-
+    
     userModel.loginUser(userName, pwd)
         .then((resolve) => {
-            console.log(resolve.login)
-            console.log(resolve.user)
+            req.session.logged = resolve.login;
+            req.session.name = resolve.user;
+            
+            
             res.redirect(resolve.link);
         })
         .catch((rej) => {
-            res.render("login",{wronguser:"Usuario o contraseña incorrecta"})
+            rej.render("login",{wronguser:"Usuario o contraseña incorrecta"})
 
             
             
         });
 
 })
+
+//Session autentication
+
+app.get('/',(req, res)=>{
+    if(req.session.logged){
+        
+        res.render('main', {
+            login: true,
+            name: req.session.name,
+            page_name:'home'
+
+        });
+
+    }else{
+        console.log(User);
+        res.render('main',{
+            login:false,
+            name:'',
+            page_name:'home'
+
+        })
+    }
+})
+
+
+app.get('/animal',(req, res)=>{
+    if(req.session.logged){
+        res.render('animal_adopt', {
+            login: true,
+            name: req.session.name,
+            page_name:'animal'
+
+        });
+
+    }else{
+
+        res.render('animal_adopt',{
+            login:false,
+            name:'',
+            page_name:'animal'
+        })
+    }
+})
+
+
+//Log-out
+
+app.get('/logout',(req,res)=>{
+
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
+
+})
+
 
 //user registration
 app.get('/signup', (req, res) => {
@@ -85,14 +155,6 @@ app.post('/signup', (req, res) => {
     res.end();
 });
 
-
-//animal list
-
-app.get('/animal', (req, res) => {
-    res.sendFile('./public/animal_adopt.html', {
-        root: __dirname
-    });
-});
 
 //form for animal registration
 app.get('/animalRegister', (req, res) => {
