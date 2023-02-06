@@ -1,16 +1,16 @@
 const utils = {
     makeGenderFull(shortGender) {
         if (shortGender !== 'f') {
-            return 'Macho';  
+            return 'Macho';
         } else {
             return 'Hembra';
         }
         //error
         return false;
-    }, 
+    },
 
     makeSpecieFull(shortSpecie) {
-        switch(shortSpecie) {
+        switch (shortSpecie) {
             case 'p':
                 return 'Perro';
             case 'g':
@@ -26,23 +26,11 @@ const utils = {
     }
 }
 
-const cookies = document.cookie;
-
-const checkCookie = (cookie) => {
-    let cookieName = '';
-    const searchedCookie = cookie + "=";
-    for (let i = 0; i < cookies.length; i++) {
-        if (cookies[i] !== '') {
-            cookieName += cookies[i];
-        }
-        if (cookieName === searchedCookie) {
-            return cookies.replace(searchedCookie, '');
-        }
-    }
-    return '';
-};
+const getUsernameFromSingleCookie = (individualCookie) => {
+    return individualCookie.replace(/user=/g, "");
+}
 const username = document.querySelector("#username");
-username.innerHTML = checkCookie('user');
+username.innerHTML = getUsernameFromSingleCookie(document.cookie);
 
 fetch(location.href, { method: 'POST' })
     .then((results) => {
@@ -66,7 +54,7 @@ fetch(location.href, { method: 'POST' })
                         <h5 class="animal-data">${data[cardContainer.childElementCount].edad} <span>${data[cardContainer.childElementCount].tipo === 'a' ? 'años' : 'meses'}</span></h5>
                         <div class="row">
                         <div class="col-md-6">
-                            <a href="" class="btn btn-lg btn-hero">Adoptar</a>
+                            <a href=""  class="btn btn-adopt btn-lg btn-hero">${getUsernameFromSingleCookie(document.cookie) === data[cardContainer.childElementCount].propietario ? '' : 'Adoptar'}</a>
                         </div>
                         <div class="col-md-6">
                             <a href="/animal/${data[cardContainer.childElementCount].id}" class="btn btn-lg btn-hero">Ver mas</a>
@@ -79,4 +67,13 @@ fetch(location.href, { method: 'POST' })
             `
         }
 
+        const btnAdopt = document.querySelectorAll('.btn-adopt');
+
+        for (let i = 0; i < btnAdopt.length; i++) {
+            if (btnAdopt[i].innerHTML === '') {
+                btnAdopt[i].parentElement.remove();
+            }
+        }
+
     });
+
