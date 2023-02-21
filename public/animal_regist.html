@@ -19,16 +19,17 @@
 
 
 
-        <form action="/animalRegister" id="animal_regist_form" method="post" name="animal_form" class="formulario_animal">
+        <form action="/animalRegister" id="animal_regist_form" method="post" name="animal_form"
+            class="formulario_animal">
 
 
-            <h1 class="formtitle">Registra tu Mascota</h1>
+            <h1 class="formtitle">Registro de animal</h1>
 
             <div class="medium-width">
                 <div class="halfcontainer">
 
                     <label class="regis_formlabel">Nombre</label>
-                    <input type="text" name="name" id="animal_name" class="form_input">
+                    <input type="text" name="name" id="animal_name" class="form_input" required>
 
                 </div>
                 <div class="halfcontainer">
@@ -45,22 +46,23 @@
 
             </div>
             <label class="regis_formlabel">Descripcion</label>
-            <textarea name="description" rows="5" cols="50" id="regist_user" class="form_input  messagebox"></textarea>
+            <textarea name="description" rows="5" cols="50" id="regist_user" class="form_input  messagebox"
+                required></textarea>
 
             <div class="medium-width">
                 <div class="halfcontainer">
                     <label class="regis_formlabel">¿Esterilizado(a)?</label>
                     <div class="radio_container">
                         <label for="castrated" class="radiolabel">Si<input type="radio" class="gender_input"
-                                name="isNeutered" value="true"></label>
+                                name="isNeutered" value="true" required></label>
 
                         <label for="notcastrated" class="radiolabel">No<input type="radio" class="gender_input"
-                                name="isNeutered" value="false"></label>
+                                name="isNeutered" value="false" required></label>
                     </div>
                 </div>
                 <div class="halfcontainer">
                     <label class="regis_formlabel">Edad</label>
-                    <input type="number" name="animal_age" id="regist_password" class="form_input">
+                    <input type="number" name="animal_age" id="regist_password" required class="form_input">
                 </div>
                 <div class="halfcontainer">
                     <label class="regis_formlabel">¿Meses o Años?</label>
@@ -75,10 +77,10 @@
                 <div class="halfcontainer">
                     <label class="regis_formlabel">¿Vacunado contra la rabia?</label>
                     <div class="radio_container">
-                        <label for="castrated" class="radiolabel">Si<input type="radio" class="gender_input"
+                        <label for="castrated" class="radiolabel">Si<input type="radio" required class="gender_input"
                                 name="isVaccinated" value="true"></label>
 
-                        <label for="notcastrated" class="radiolabel">No<input type="radio" class="gender_input"
+                        <label for="notcastrated" class="radiolabel">No<input type="radio" required class="gender_input"
                                 name="isVaccinated" value="false"></label>
                     </div>
                 </div>
@@ -87,10 +89,10 @@
             <div>
                 <label class="regis_formlabel">Género</label>
                 <div class="radio_container">
-                    <label for="male" class="radiolabel">Macho<input type="radio" class="gender_input" name="gender"
+                    <label for="male" class="radiolabel">Macho<input type="radio" required class="gender_input" name="gender"
                             value="masculino"></label>
 
-                    <label for="notcastrated" class="radiolabel">Hembra<input type="radio" class="gender_input"
+                    <label for="notcastrated" class="radiolabel">Hembra<input type="radio" required class="gender_input"
                             name="gender" value="femenino"></label>
                 </div>
 
@@ -98,14 +100,15 @@
                 <input type="text" name="usuario" id="usuario" class="form_input" readonly>
 
                 <label for="address" class="regis_formlabel">Raza</label>
-                <input type="text" name="breed" class="form_input">
+                <input type="text" required id="animal_race" name="breed" class="form_input">
 
                 <input type="submit" class="registform_button hoverable" value="Registrar">
         </form>
-        <script src="./scripts/animal_regist.js"></script>
 
 
     </div>
+    <script src="./scripts/validations.js"></script>
+
 </body>
 
 </html>

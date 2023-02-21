@@ -3,7 +3,7 @@
 
 
 
-.formularybody{
+.formularybody {
 
     background-color: #90A955;
     align-items: center;
@@ -11,26 +11,26 @@
 
 }
 
-.form_image{
+.form_image {
     max-height: auto;
 
 }
 
-.messagebox{
+.messagebox {
 
-    height: 100px !important; 
-        
-}
-
-.top-form-banner{
-        border-top-right-radius:10px;
-        border-top-left-radius: 10px;
-        width: 745px;
-        height: 200px;
+    height: 100px !important;
 
 }
 
-.top-img-container{
+.top-form-banner {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 745px;
+    height: 200px;
+
+}
+
+.top-img-container {
 
     margin-top: 4rem;
     margin-bottom: -5px;
@@ -39,7 +39,7 @@
 
 }
 
-.formlabel{
+.formlabel {
 
     display: block;
     margin-top: 2rem;
@@ -53,7 +53,7 @@
     color: #132A13;
 }
 
-.formtitle{
+.formtitle {
     font-family: 'Fanwood Text';
     font-style: normal;
     font-weight: 400;
@@ -65,7 +65,7 @@
 
 }
 
-.formsubtitle{
+.formsubtitle {
     font-family: 'Fanwood Text';
     font-style: normal;
     font-weight: 400;
@@ -78,104 +78,105 @@
 
 }
 
-.form_input{
+.form_input {
 
     width: 100%;
     height: 25px;
     border: solid 1px #132A13;
 }
 
-#login_password{
+#login_password {
 
     width: 100%;
     height: 25px;
     border: solid 1px #132A13;
-    
+
 }
 
-.radio_container{
+.radio_container {
 
     display: flex;
     gap: 5rem;
 
 }
 
-.radiolabel{
+.radiolabel {
 
     margin-top: 0.5rem;
     text-align: left;
     font-family: 'Fanwood Text';
     font-style: normal;
     font-weight: 300;
-    font-size:16px;
-    
+    font-size: 16px;
 
-    color:#132A13;
+
+    color: #132A13;
 
 }
 
-.medium-width{
+.medium-width {
 
     display: flex;
     gap: 4rem;
 
 }
 
-.halfcontainer{
+.halfcontainer {
 
     width: 50%;
 
 }
 
-.hyperlink{
+.hyperlink {
     color: #4F772D;
     cursor: pointer;
 
 }
 
-.hoverable:hover{
-    background:#132A13 !important ;
-   
+.hoverable:hover {
+    background: #132A13 !important;
+
     color: #FFFFFF !important;
     cursor: pointer !important;
 }
 
-.formbody{
+.formbody {
 
-background-color: #90A955;
+    background-color: #90A955;
 
 }
 
 /* <-----Barra de navegacion ---->*/
-.navbar{
+.navbar {
 
     padding-left: 2rem;
     padding-right: 2rem;
     background-color: #132A13;
 }
 
-.logonav{
+.logonav {
 
     width: 100%;
     height: 75px;
-    }
+}
 
-.navbar-toggler{
+.navbar-toggler {
 
-background-color: white;
+    background-color: white;
 
 }
 
-.navbar-collapse{
+.navbar-collapse {
 
-text-align: center;
+    text-align: center;
 
 }
 
-.navbar-nav{
+.navbar-nav {
 
     justify-content: end;
-    flex: auto;}
+    flex: auto;
+}
 
 
 .nav-link {
@@ -185,36 +186,36 @@ text-align: center;
     padding-left: 2rem !important;
     font-size: 18px;
     padding-left: 2rem !important;
- 
-    
+
+
 }
 
 /* <--- Estilos Login ---> */
 
-.loginform_container{
+.loginform_container {
 
     display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     text-align: center;
     justify-content: center;
     width: 80%;
 
 }
 
-.formulario_login{
+.formulario_login {
     background-color: #ECF39E;
-    border-top-right-radius:10px;
+    border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-top: 1rem;
     padding-left: 4rem;
     padding-right: 4rem;
-    
+
 }
 
-.loginform_button{
+.loginform_button {
     background: #31572C;
     border-radius: 15px;
     padding: 1rem;
@@ -224,13 +225,13 @@ text-align: center;
     font-size: 18px;
     line-height: 10rem;
     color: #FFFFFF;
-    
+
 }
 
 /* <--- Estilos Registro ---> */
 
 
-.regis_formlabel{
+.regis_formlabel {
 
     display: block;
     margin-top: 2rem;
@@ -244,9 +245,9 @@ text-align: center;
     color: #132A13;
 }
 
-.registform_container{
-     display: flex;
-  
+.registform_container {
+    display: flex;
+
 
     text-align: center;
     justify-content: center;
@@ -255,41 +256,40 @@ text-align: center;
     margin-bottom: 4rem;
 }
 
-.formulario_registro{
-     background-color: #ECF39E;
-    border-top-right-radius:10px;
+.formulario_registro {
+    background-color: #ECF39E;
+    border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    border-bottom-right-radius:10px;
+    border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     padding-top: 1rem;
     padding-left: 3rem;
     padding-right: 3rem;
-    min-width: 650px ;
+    min-width: 650px;
     padding-bottom: 1rem;
     max-width: fit-content;
-    
+
     margin-bottom: 1rem;
 
 
 }
 
-.registform_button{
+.registform_button {
     background: #31572C;
     border-radius: 15px;
     padding-top: 1rem;
-    padding-bottom:1rem ;
+    padding-bottom: 1rem;
     padding-left: 2rem;
     padding-right: 2rem;
     font-family: 'Fanwood Text';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 10rem;
+    /* line-height: 10rem; */
     color: #FFFFFF;
-    
 }
 
-.p_registrar{
+.p_registrar {
     margin-top: 5rem;
     font-family: 'Fanwood Text';
     font-style: normal;
@@ -304,27 +304,27 @@ text-align: center;
 
 /* <---- Registro Animales Estilo ----> */
 
-.animalform_container{
+.animalform_container {
     display: flex;
-  
-   
+
+
     text-align: center;
     justify-content: center;
     width: 100%;
     margin-bottom: 4rem;
 }
 
-.formulario_animal{
-     background-color: #ECF39E;
-    border-bottom-right-radius:10px;
+.formulario_animal {
+    background-color: #ECF39E;
+    border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     padding-top: 1rem;
     padding-left: 3rem;
     padding-right: 3rem;
-    min-width: 650px ;
+    min-width: 650px;
     padding-bottom: 1rem;
     max-width: fit-content;
-    
+
     margin-bottom: 1rem;
 
 
@@ -335,30 +335,32 @@ text-align: center;
 
 @media (max-width:767px) {
 
-.radio_container {
-    display: flex;
-    gap: 5rem;
-    text-align: center;
-    justify-content: center;
-}
-    .form_image{
+    .radio_container {
+        display: flex;
+        gap: 5rem;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .form_image {
 
         display: none;
     }
-    
-    .formtitle{
+
+    .formtitle {
         font-size: 30px;
     }
 
-    .formsubtitle{
-    
+    .formsubtitle {
+
         font-size: 25px;
     }
-    .formulario_login{
-  
+
+    .formulario_login {
+
         padding-left: 2rem;
         padding-right: 2rem;
-        
+
     }
 
     .registform_container {
@@ -373,7 +375,7 @@ text-align: center;
 
     }
 
-    .formulario_registro{
+    .formulario_registro {
 
         min-width: 200px;
     }
@@ -382,37 +384,38 @@ text-align: center;
         display: block;
         gap: 4rem;
     }
+
     .halfcontainer {
         width: 100%;
         display: block;
     }
 
-    .regis_formlabel{
+    .regis_formlabel {
 
         text-align: center;
 
     }
 
-      .animalform_container {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 4rem;
-    /* margin-right: 1rem; */
-    /* margin-left: 1rem; */
+    .animalform_container {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 4rem;
+        /* margin-right: 1rem; */
+        /* margin-left: 1rem; */
     }
 
-    .formulario_animal{
+    .formulario_animal {
 
         min-width: 200px;
     }
 
     .top-form-banner {
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    width: 100%;
-    height: 180px;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        width: 100%;
+        height: 180px;
     }
 }
 
@@ -426,89 +429,99 @@ text-align: center;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
+
 .btn-hero {
     background-color: #31572C;
     border-color: #31572C;
     color: #FFFFFF;
 }
 
-.btn-hero:hover{
+.btn-hero:hover {
 
-background:#132A13 !important;
-   
+    background: #132A13 !important;
+
     color: #FFFFFF !important;
     cursor: pointer !important;
 
 
 }
-.banner-image{
+
+.banner-image {
     background: linear-gradient(rgba(96, 108, 56, 0.8), rgba(40, 54, 24, 0.8)), url(https://images.unsplash.com/photo-1660739675627-ab1b48421122?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80);
     background-size: cover;
     background-position: center;
 }
-.banner-phone-image img{
-    width:300px;
+
+.banner-phone-image img {
+    width: 300px;
 }
-.star-rating a{
-color:rgba(255,255,255,0.5);
-margin-right:10px;
+
+.star-rating a {
+    color: rgba(255, 255, 255, 0.5);
+    margin-right: 10px;
 }
-.star-rating a:hover{
-color:#fff;
+
+.star-rating a:hover {
+    color: #fff;
 }
-.aa{
-line-height:26px;    
+
+.aa {
+    line-height: 26px;
 }
 
 
 /* Latest Added */
 
 
-.card-img-top{
+.card-img-top {
 
     max-height: 200px;
     min-height: 200px;
 
 }
 
-.card-body{
+.card-body {
 
     background-color: #ecf39e;
 
 
 }
 
-.card{
+.card {
     border: none;
 }
 
 .carousel-control-next-icon,
 .carousel-control-prev-icon {
-  filter: invert(1);
+    filter: invert(1);
 }
 
 
-@media screen and (min-width: 576px){
+@media screen and (min-width: 576px) {
 
-  .carousel-inner {
-    display: flex;
-  }
-  .carousel-item {
-    margin-right: 0;
-    flex: 0 0 33.333333%;
-    display: block;
-  }
+    .carousel-inner {
+        display: flex;
+    }
+
+    .carousel-item {
+        margin-right: 0;
+        flex: 0 0 33.333333%;
+        display: block;
+    }
 }
 
-.carousel-inner{
+.carousel-inner {
     padding: 1em;
 }
-.card{
+
+.card {
     margin: 0 .5em;
     box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
     border: none;
 }
-.carousel-control-prev, .carousel-control-next{
+
+.carousel-control-prev,
+.carousel-control-next {
     background-color: #e1e1e1;
     width: 6vh;
     height: 6vh;
@@ -520,11 +533,11 @@ line-height:26px;
 
 /*Informacion del animal */
 
-.animalinfo_container{
+.animalinfo_container {
 
-   background-color: #ECF39E;
-   border-top-right-radius:10px;
-   border-bottom-right-radius: 10px;
-   margin:5rem;
+    background-color: #ECF39E;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 5rem;
 
 }

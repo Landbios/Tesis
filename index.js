@@ -56,7 +56,7 @@ app.post('/login', (req, res) => {
             res.redirect(rej.link);
         });
 
-})
+});
 
 //user registration
 app.get('/signup', (req, res) => {
