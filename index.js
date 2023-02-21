@@ -33,7 +33,7 @@ app.post('/', (req, res) => {
             res.json(results);
         })
         .catch((rej) => {
-            console.log(rej);hsflkhda
+            console.log(rej); hsflkhda
         })
 });
 
@@ -147,6 +147,17 @@ app.post('/animal/:id', (req, res) => {
         })
 });
 
+app.post('/usuario/:user', (req, res) => {
+    let userinfo = req.params.user;
+
+    userModel.getUserInfo(userinfo, utils.checkUserInfo(userinfo))
+        .then((resolve) => {
+            res.json(resolve);
+        })
+        .catch((reject) => {
+            res.json(reject);
+        });
+})
 
 
 //list of all animals

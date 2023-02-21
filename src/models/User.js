@@ -51,16 +51,42 @@ class User {
 
     };
 
-    static getUserInfo = (username) => {
-        const query = `SELECT * FROM usuarios WHERE usuario='${username}'`
-        return new Promise((resolve, reject) => {
-            db.query(query, (err, res, fields) => {
-                if (err) throw reject(err);
+    static getUserInfo = (info, type) => {
+        if (type === "user") {
+            const query = `SELECT * FROM usuarios WHERE usuario='${info}'`
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) throw reject(err);
 
-                return resolve(res[0]);
+                    return resolve(res[0]);
 
+                });
             });
-        });
+        }
+        if (type === "email") {
+            const query = `SELECT * FROM usuarios WHERE email='${info}'`
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) throw reject(err);
+
+                    return resolve(res[0]);
+
+                });
+            });
+        }
+
+        if (type === "cedula") {
+            const query = `SELECT * FROM usuarios WHERE cedula='${info}'`
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) throw reject(err);
+
+                    return resolve(res[0]);
+
+                });
+            });
+        }
+
     };
 }
 

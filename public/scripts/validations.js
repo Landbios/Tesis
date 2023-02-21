@@ -17,6 +17,7 @@ if (location.href === "http://localhost:8081/signUp") {
     const gender_input = document.getElementById('.gender_input');
 
     const regist_password = document.getElementById('regist_password');
+    const password_confirm = document.getElementById("confirm_password");
     const regist_address = document.getElementById('regist_address');
     const regist_sector = document.getElementById('regist_sector');
 
@@ -108,6 +109,19 @@ if (location.href === "http://localhost:8081/signUp") {
             return;
         }
         warning.innerHTML = "";
+        fetch(`http://localhost:8081/usuario/${e.target.value}`, { method: 'POST' })
+            .then((resolve) => {
+                return resolve.json();
+            })
+            .then((data) => {
+                if (typeof data.usuario === "string") {
+                    warning.innerHTML = "El nombre de usuario ya está en uso";
+                }
+            })
+            .catch((reject) => {
+                console.log(reject);
+            });
+
 
 
 
@@ -132,6 +146,22 @@ if (location.href === "http://localhost:8081/signUp") {
         // let filteredValue = value.replace(/[!"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
         // e.target.value = filteredValue;
         e.target.value = e.target.value.replace(/[!"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        const mail_warning = document.querySelector("#mail_warning");
+        fetch(`http://localhost:8081/usuario/${e.target.value}`, { method: 'POST' })
+            .then((resolve) => {
+                return resolve.json();
+            })
+            .then((data) => {
+                if (typeof data.email === "string") {
+                    mail_warning.innerHTML = "El correo ya está en uso";
+                    mail_warning.style.color = "red";
+                    mail_warning.style.fontSize = "10px";
+                }
+            })
+            .catch((reject) => {
+                mail_warning.innerHTML = "";
+                console.log(reject);
+            });
         return;
     });
 
@@ -147,6 +177,20 @@ if (location.href === "http://localhost:8081/signUp") {
             return;
         }
         warning.innerHTML = "";
+        fetch(`http://localhost:8081/usuario/${e.target.value}`, { method: 'POST' })
+            .then((resolve) => {
+                return resolve.json();
+            })
+            .then((data) => {
+                if (typeof data.cedula === 'number') {
+                    warning.innerHTML = "Una cuenta ya está registrada con esta cédula";
+                    warning.style.color = "red";
+                    warning.style.fontSize = "10px";
+                }
+            })
+            .catch((reject) => {
+                console.log(reject);
+            });
         e.target.value = e.target.value.replace(/[a-zA-Zñ]/g, "");
         return;
 
@@ -161,6 +205,18 @@ if (location.href === "http://localhost:8081/signUp") {
             return;
         }
         warning.innerHTML = "";
+    });
+
+    password_confirm.addEventListener('input', (e) => {
+        const warning = document.querySelector("#password_warning");
+        if (e.target.value !== regist_password.value) {
+            warning.innerHTML = "Las contraseñas no concuerdan"
+            warning.style.color = "red";
+            warning.style.fontSize = "10px";
+        }
+        else {
+            warning.innerHTML = "";
+        }
     });
 }
 /*

@@ -3,7 +3,15 @@
  */
 
 class Statistics {
-    static getStats = () => {
+    static getUserStats = () => {
+        
+    }
+
+    static getAnimalStats = () => {
+
+    }
+
+    static getAdoptionStats = () => {
         
     }
 }

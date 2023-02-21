@@ -25,6 +25,20 @@ class Utils {
                 return 'h';
         }
     }
+
+    static checkUserInfo = (info) => {
+        let isThereLetters = info.match(/[a-zA-Zñ]/g);
+
+        if (isThereLetters === null) {
+            return "cedula"
+        }
+
+        for (let i = 0; i < info.length; i++) {
+            if (info[i] === "@") return "email";
+
+        }
+        return "user"
+    }
 }
 
 module.exports = Utils;
