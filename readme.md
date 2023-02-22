@@ -1,4 +1,4 @@
-# Amigos Felices
+# Pet Society
 ## Sistema bajo entorno web para la adopción de animales domésticos.
 ### Maracaibo, Venezuela.  
 El objetivo de este sistema es el de proporcionar a la población un entorno web donde puedan realizar todas las tareas pertinentes a la adopción. Es un sitio que permite a aquellos interesados en adoptar un animal doméstico en no tener que usar aplicaciones (como instagram, facebook, twitter) cuyo objetivo no es el de poner y dar animales en adopción. Asimismo, aquellos individuos u organizaciones que deseen poner en adopción a sus animales, pues este es el mejor lugar donde pueden hacerlo.
@@ -9,6 +9,7 @@ El objetivo de este sistema es el de proporcionar a la población un entorno web
 
 1. NodeJS.
 2. Acceso a un terminal o cmd.
+3. Internet
 
 En el directorio del proyecto, escriba lo siguiente: 
 

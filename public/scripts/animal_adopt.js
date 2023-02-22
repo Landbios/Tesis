@@ -75,6 +75,9 @@ fetch(location.href, { method: 'POST' })
         return results.json();
     })
     .then((data) => {
+        if (typeof data[0] === 'undefined') {
+            location.href = "http://localhost:8081/animal?page=1";
+        }
         const cardContainer = document.querySelector(".card-container");
         const container = document.querySelector(".animal-container");
         while (cardContainer.childElementCount < data.length) {
