@@ -21,9 +21,9 @@ const session = require('express-session');
 
 app.use(session({
 
-    secret:'secret',
-    resave:true,
-    saveUninitialized:true,
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
 
 
 
@@ -45,67 +45,77 @@ app.use(express.static(__dirname + '/public'));
 
 //Session autentication
 
-app.get('/',(req, res)=>{
-    if(req.session.logged){
-        
+app.get('/', (req, res) => {
+    if (req.session.logged) {
+
         res.render('main', {
             login: true,
             name: req.session.name,
-            page_name:'home'
+            page_name: 'home'
 
         });
 
-    }else{
-        res.render('main',{
-            login:false,
-            name:'',
-            page_name:'home'
+    } else {
+        res.render('main', {
+            login: false,
+            name: '',
+            page_name: 'home'
 
         });
     }
 });
 
+app.post('/', (req, res) => {
+    AnimalModel.getAllAnimals(0, true)
+        .then((results) => {
+            res.json(results);
+        })
+        .catch((rej) => {
+            console.log(rej);
+        });
+});
+
 app.get('/login', (req, res) => {
-    res.render("login",{wronguser:""})
+    res.render("login", { wronguser: "" })
 });
 
 app.post('/login', (req, res) => {
     const userName = req.body.user;
     const pwd = req.body.password;
-    
+
     userModel.loginUser(userName, pwd)
         .then((resolve) => {
             req.session.logged = resolve.login;
             req.session.name = resolve.user;
-            
+
             res.cookie("user", userName);
             res.redirect(resolve.link);
         })
         .catch((rej) => {
-            res.render("login",{wronguser:"Usuario o contraseña incorrecta"})
+            res.render("login", { wronguser: "Usuario o contraseña incorrecta" })
 
-            
-            
+
+
         });
 
 });
 
 
-app.get('/animal',(req, res)=>{
-    if(req.session.logged){
+app.get('/animal', (req, res) => {
+    if (req.session.logged) {
         res.render('animal_adopt', {
             login: true,
             name: req.session.name,
-            page_name:'animal'
+            page_name: 'animal'
 
         });
 
-    }else{
+    } else {
 
-        res.render('animal_adopt',{
-            login:false,
-            name:'',
-            page_name:'animal'
+        res.render('animal_adopt', {
+            login: false,
+            name: '',
+            page_name: 'animal'
         })
     }
 });
@@ -113,9 +123,9 @@ app.get('/animal',(req, res)=>{
 
 //Log-out
 
-app.get('/logout',(req,res)=>{
+app.get('/logout', (req, res) => {
 
-    req.session.destroy(()=>{
+    req.session.destroy(() => {
         res.redirect('/')
     })
 
