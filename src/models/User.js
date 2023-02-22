@@ -33,19 +33,29 @@ class User {
                     login: false,
                     link: 'http://localhost:8081/login'
                 });
+                if (typeof results[0] !== "undefined") {
 
-                const hashedPassword = results[0].password;
-                if (!bCrypt.compareSync(password, hashedPassword)) {
+                    const hashedPassword = results[0].password;
+                    if (!bCrypt.compareSync(password, hashedPassword)) {
+                        reject({
+                            login: false,
+                            link: 'http://localhost:8081/login.html'
+                        })
+                    }
+                    resolve({
+                        login: true,
+                        user: username,
+                        link: 'http://localhost:8081/'
+                    })
+                }
+                else {
                     reject({
                         login: false,
                         link: 'http://localhost:8081/login'
                     })
+
                 }
-                resolve({
-                    login: true,
-                    user: username,
-                    link: 'http://localhost:8081/animal'
-                })
+
             });
         });
 
@@ -87,7 +97,18 @@ class User {
             });
         }
 
-    };
+    }
+
+    static updateUserField = (username, field, value) => {
+        const query = `UPDATE usuarios SET ${field}='${value}' WHERE usuario='${username}'`;
+        switch(field) {
+            case 'session':
+                db.query(query, (err, res, fields) => {
+                    if (err) throw err;
+                });
+                break;
+        }
+    }
 }
 
 module.exports = User;

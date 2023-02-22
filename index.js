@@ -1,6 +1,8 @@
 //express framework
 const express = require('express');
 
+
+
 //models
 const userModel = require('./src/models/User');
 const AnimalModel = require('./src/models/Animal');
@@ -13,6 +15,26 @@ const utils = require('./src/utils/Utils');
 const server = express();
 const app = server;
 
+//express session 
+
+const session = require('express-session');
+
+app.use(session({
+
+    secret:'secret',
+    resave:true,
+    saveUninitialized:true,
+
+
+
+}));
+
+
+// defining our view engine
+
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+
 //to parse form data
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,42 +43,84 @@ app.use(express.static(__dirname + '/public'));
 
 //routes
 
-app.get('/', (req, res) => {
-    res.sendFile('./public/main.html', {
-        root: __dirname
-    });
-});
+//Session autentication
 
-app.post('/', (req, res) => {
-    AnimalModel.getAllAnimals(0, true)
-        .then((results) => {
-            res.json(results);
-        })
-        .catch((rej) => {
-            console.log(rej); hsflkhda
-        })
+app.get('/',(req, res)=>{
+    if(req.session.logged){
+        
+        res.render('main', {
+            login: true,
+            name: req.session.name,
+            page_name:'home'
+
+        });
+
+    }else{
+        res.render('main',{
+            login:false,
+            name:'',
+            page_name:'home'
+
+        });
+    }
 });
 
 app.get('/login', (req, res) => {
-    res.sendFile('./public/login.html', {
-        root: __dirname
-    });
+    res.render("login",{wronguser:""})
 });
 
 app.post('/login', (req, res) => {
     const userName = req.body.user;
     const pwd = req.body.password;
-    console.log("login");
+    
     userModel.loginUser(userName, pwd)
         .then((resolve) => {
+            req.session.logged = resolve.login;
+            req.session.name = resolve.user;
+            
             res.cookie("user", userName);
             res.redirect(resolve.link);
         })
         .catch((rej) => {
-            res.redirect(rej.link);
+            res.render("login",{wronguser:"Usuario o contraseña incorrecta"})
+
+            
+            
         });
 
 });
+
+
+app.get('/animal',(req, res)=>{
+    if(req.session.logged){
+        res.render('animal_adopt', {
+            login: true,
+            name: req.session.name,
+            page_name:'animal'
+
+        });
+
+    }else{
+
+        res.render('animal_adopt',{
+            login:false,
+            name:'',
+            page_name:'animal'
+        })
+    }
+});
+
+
+//Log-out
+
+app.get('/logout',(req,res)=>{
+
+    req.session.destroy(()=>{
+        res.redirect('/')
+    })
+
+})
+
 
 //user registration
 app.get('/signup', (req, res) => {
@@ -85,18 +149,10 @@ app.post('/signup', (req, res) => {
 
     userModel.createUser(user);
 
-    res.cookie("username", userName);
+    res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
 });
 
-
-//animal list
-
-app.get('/animal', (req, res) => {
-    res.sendFile('./public/animal_adopt.html', {
-        root: __dirname
-    });
-});
 
 //form for animal registration
 app.get('/animalRegister', (req, res) => {

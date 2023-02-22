@@ -22,37 +22,17 @@
 
 <body style="background:#90a955">
   <header>
-    <nav class="navbar navbar-expand-sm navbar-dark navbar-right ">
-      <a class="navbar-brand" href="#"><img class="logonav" src="media/flc_design2023010398390.png" alt="logo"></a>
-      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-        aria-label="Toggle navigation"></button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="/" aria-current="page">Inicio<span
-                class="visually-hidden">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/animalRegister" aria-current="page">Dar en Adopcion</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link username" href="/login" aria-current="page">Iniciar Sesion</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link username" id="username" href="" aria-current="page">User</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <%- include('partials/header.ejs',{username:name},{login:login}); %>
   </header>
   <main class="animal-container">
     <h1 class="formtitle mb-4 mt-5">Nuestros Animales</h1>
     <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4 card-container">
 
-
+      <!--Animal list will render here-->
 
     </div>
+    <button id="back">Anterior Página</button>
+    <button id="next">Siguiente Página</button>
   </main>
   <footer class="text-center text-white" style="background-color: #132A13">
     <!-- Grid container -->
@@ -163,8 +143,8 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
 
-  <!--custom js for fetching animals-->
-  <script src="./scripts/animal_adopt.js"></script>
+    <!--custom js for fetching animals-->
+    <script src="./scripts/animal_adopt.js"></script>
 </body>
 
 </html>

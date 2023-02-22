@@ -26,11 +26,49 @@ const utils = {
     }
 }
 
+/**
+ * Begin of buttons paging system
+ * next is for going to the next page of the animal list
+ * back is for the opposite
+ */
+const btnNext = document.getElementById("next");
+const btnBack = document.getElementById("back");
+
+let pageNumber = null;
+
+if (location.href === "http://localhost:8081/animal") {
+    pageNumber = 1;
+} else {
+    pageNumber = location.href.replace("http://localhost:8081/animal?page=", "");
+}
+
+btnNext.addEventListener("click", () => {
+    let page = parseInt(pageNumber);
+    page++;
+    location.href = `?page=${page}`;
+});
+
+btnBack.addEventListener("click", () => {
+    let page = parseInt(pageNumber);
+    page--;
+    if (page <= 1) {
+        page = 1;
+    }
+    location.href = `?page=${page}`;
+});
+
+/**
+ * End of buttons config
+ */
+
 const getUsernameFromSingleCookie = (individualCookie) => {
     return individualCookie.replace(/user=/g, "");
 }
-const username = document.querySelector("#username");
-username.innerHTML = getUsernameFromSingleCookie(document.cookie);
+
+if (document.querySelector(".username") !== null) {
+    const username = document.querySelector(".username");
+    username.innerHTML = getUsernameFromSingleCookie(document.cookie);
+} 
 
 fetch(location.href, { method: 'POST' })
     .then((results) => {

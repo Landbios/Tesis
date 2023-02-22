@@ -1,6 +1,17 @@
 /* <--- Estilos Generales ---> */
 
+#wronguser{
 
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+  
+    color: #5e1919;
+
+
+}
 
 
 .formularybody {
@@ -223,9 +234,10 @@
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 10rem;
+    margin-top: 4rem;
     color: #FFFFFF;
-
+    border: none;
+    
 }
 
 /* <--- Estilos Registro ---> */
@@ -268,8 +280,9 @@
     min-width: 650px;
     padding-bottom: 1rem;
     max-width: fit-content;
-
-    margin-bottom: 1rem;
+    
+    margin-bottom: 1.5rem;
+   
 
 
 }
@@ -285,8 +298,10 @@
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    /* line-height: 10rem; */
+    margin-top: 1rem;
     color: #FFFFFF;
+    border: none;
+    
 }
 
 .p_registrar {
@@ -360,7 +375,8 @@
 
         padding-left: 2rem;
         padding-right: 2rem;
-
+        border-radius: 10px;
+        
     }
 
     .registform_container {
