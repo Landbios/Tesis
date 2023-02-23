@@ -121,6 +121,24 @@ app.get('/animal', (req, res) => {
     }
 });
 
+//list of all animals
+app.post('/animal', (req, res) => {
+    AnimalModel.getAllAnimals(
+        parseInt(
+            typeof req.query.page === 'undefined'
+                ? 1
+                : req.query.page
+        ), undefined,
+        req.query.specie
+    )
+        .then((resolve) => {
+            res.json(resolve);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
 
 //Log-out
 
@@ -167,6 +185,9 @@ app.post('/signup', (req, res) => {
 
 //form for animal registration
 app.get('/animalRegister', (req, res) => {
+    if (!req.session.logged) {
+        res.redirect("/login");
+    }
     res.sendFile('./public/animal_regist.html', {
         root: __dirname
     });
@@ -186,14 +207,12 @@ app.post('/animalRegister', (req, res) => {
     const owner = req.body.usuario;
 
     const animal = new AnimalModel(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
-    console.log(animal);
 
     AnimalModel.addAnimal(animal)
         .then((resolve) => {
             res.redirect(resolve.link);
         })
         .catch((rej) => {
-            console.log(rej);
             res.redirect('http://localhost:8081/animalRegister');
         });
 });
@@ -227,16 +246,7 @@ app.post('/usuario/:user', (req, res) => {
 });
 
 
-//list of all animals
-app.post('/animal', (req, res) => {
-    AnimalModel.getAllAnimals(parseInt(typeof req.query.page === 'undefined' ? 1 : req.query.page))
-        .then((resolve) => {
-            res.json(resolve);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-});
+
 
 app.get('/statistics/:kind', (req, res) => {
     switch (req.params.kind) {
@@ -269,7 +279,7 @@ app.get('/statistics/:kind', (req, res) => {
                 .then((resolved) => {
                     res.json({
                         tipo: "Adopciones",
-                        total: resolved[0]['count(*)'   ]
+                        total: resolved[0]['count(*)']
                     });
                 })
                 .catch((reject) => {

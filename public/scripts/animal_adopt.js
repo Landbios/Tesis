@@ -26,6 +26,19 @@ const utils = {
     }
 }
 
+
+
+// search filter by specie
+const filterSearch = document.getElementById("filter");
+
+filterSearch.addEventListener("change", () => {
+    location.href = `http://localhost:8081/animal?page=${pageNumber}&specie=${filterSearch.value}`;
+});
+
+// page queries
+
+const queries = new URLSearchParams(document.location.search);
+
 /**
  * Begin of buttons paging system
  * next is for going to the next page of the animal list
@@ -39,12 +52,22 @@ let pageNumber = null;
 if (location.href === "http://localhost:8081/animal") {
     pageNumber = 1;
 } else {
-    pageNumber = location.href.replace("http://localhost:8081/animal?page=", "");
+    pageNumber = location.href.replace(/[a-zA-Z"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/gi, "");
+    pageNumber = pageNumber.replace("8081", "");
+    console.log(pageNumber);
 }
+
+
+
+// getting specie url query variable
+let filteredSpecie = queries.get("specie");
 
 btnNext.addEventListener("click", () => {
     let page = parseInt(pageNumber);
     page++;
+    if (filteredSpecie !== null) {
+        location.href = `?page=${page}&specie=${filteredSpecie}`;
+    }
     location.href = `?page=${page}`;
 });
 
@@ -53,6 +76,9 @@ btnBack.addEventListener("click", () => {
     page--;
     if (page <= 1) {
         page = 1;
+    }
+    if (filteredSpecie !== null) {
+        location.href = `?page=${page}&specie=${filteredSpecie}`;
     }
     location.href = `?page=${page}`;
 });
@@ -68,7 +94,7 @@ const getUsernameFromSingleCookie = (individualCookie) => {
 if (document.querySelector(".username") !== null) {
     const username = document.querySelector(".username");
     username.innerHTML = getUsernameFromSingleCookie(document.cookie);
-} 
+}
 
 fetch(location.href, { method: 'POST' })
     .then((results) => {

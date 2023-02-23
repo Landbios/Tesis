@@ -34,7 +34,48 @@ class Animal {
         });
     }
 
-    static getAllAnimals = (page, latest = false) => {
+    static getAllAnimals = (page, latest = false, specie) => {
+        let to = page * 12;
+        let from = to - 12;
+        if (typeof specie != 'undefined') {
+            let query = `SELECT * FROM animales WHERE especie=`
+            switch (specie) {
+                case 'g':
+                    query += `'g'`;
+                    return new Promise((resolve, reject) => {
+                        db.query(query, (err, res, fields) => {
+                            if (err) throw reject(err);
+                            resolve(res);
+                        });
+                    });
+                case 'p':
+                    query += `'p'`;
+                    return new Promise((resolve, reject) => {
+                        db.query(query, (err, res, fields) => {
+                            if (err) throw reject(err);
+                            resolve(res);
+                        });
+                    });
+                case 'h':
+                    query += `'h'`;
+                    return new Promise((resolve, reject) => {
+                        db.query(query, (err, res, fields) => {
+                            if (err) throw reject(err);
+                            resolve(res);
+                        });
+                    });
+                case 'c':
+                    query += `'c'`;
+                    return new Promise((resolve, reject) => {
+                        db.query(query, (err, res, fields) => {
+                            if (err) throw reject(err);
+                            resolve(res);
+                        });
+                    });
+                default:
+                    throw new Error("Specie doesn't exist");
+            }
+        }
         if (latest) {
             const query = `(SELECT * FROM animales ORDER BY id DESC LIMIT 5) ORDER BY ID ASC`; //sql query to get last 4 results by id in descending order, then order it by ascending order
             return new Promise((resolve, reject) => {
@@ -43,10 +84,9 @@ class Animal {
                     resolve(results);
                 });
             })
-            
+
         }
-        let to = page * 12;
-        let from = to - 12;
+
         const query = `SELECT * FROM animales WHERE id BETWEEN ${from} AND ${to}`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
