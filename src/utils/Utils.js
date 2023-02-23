@@ -5,6 +5,7 @@ class Utils {
     static genderTo1Char = (fullGenderWord) => {
         if (fullGenderWord === 'masculino') return 'm';
         if (fullGenderWord === 'femenino') return 'f';
+        if (fullGenderWord === 'indefinido') return 'i';
     }
 
     //utility function to set 1 if category is true or 0 if otherwise

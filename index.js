@@ -6,6 +6,7 @@ const express = require('express');
 //models
 const userModel = require('./src/models/User');
 const AnimalModel = require('./src/models/Animal');
+const statistics = require('./src/models/Statistics');
 
 
 //utility class (specific purposes methods)
@@ -223,7 +224,7 @@ app.post('/usuario/:user', (req, res) => {
         .catch((reject) => {
             res.json(reject);
         });
-})
+});
 
 
 //list of all animals
@@ -235,6 +236,49 @@ app.post('/animal', (req, res) => {
         .catch((err) => {
             console.log(err);
         });
+});
+
+app.get('/statistics/:kind', (req, res) => {
+    switch (req.params.kind) {
+        case 'animal':
+            statistics.getAnimalStats()
+                .then((resolved) => {
+                    res.json({
+                        tipo: "Animales",
+                        total: resolved[0]['count(*)']
+                    });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                });
+            break;
+        case 'usuario':
+            statistics.getUserStats()
+                .then((resolved) => {
+                    res.json({
+                        tipo: "Usuarios",
+                        total: resolved[0]['count(*)']
+                    });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                });
+            break;
+        case 'adopcion':
+            statistics.getAdoptionStats()
+                .then((resolved) => {
+                    res.json({
+                        tipo: "Adopciones",
+                        total: resolved[0]['count(*)'   ]
+                    });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                });
+            break;
+        default:
+            res.redirect("/");
+    }
 });
 
 
