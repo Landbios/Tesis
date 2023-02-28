@@ -557,3 +557,10 @@
     margin: 5rem;
 
 }
+
+.btn-heart {
+    background-color: #89913b;
+    border: black 2px solid;
+    border-radius: 300px;
+
+}
