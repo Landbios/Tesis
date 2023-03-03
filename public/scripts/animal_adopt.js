@@ -1,3 +1,8 @@
+/**
+ * Utility functions to help when rendering cards
+ * I hope names are self-explanatory
+ */
+
 const utils = {
     makeGenderFull(shortGender) {
         if (shortGender !== 'f') {
@@ -28,7 +33,7 @@ const utils = {
 
 
 
-// search filter by specie
+// filter search by specie
 const filterSearch = document.getElementById("filter");
 
 filterSearch.addEventListener("change", () => {
@@ -36,7 +41,6 @@ filterSearch.addEventListener("change", () => {
 });
 
 // page queries
-
 const queries = new URLSearchParams(document.location.search);
 
 /**
@@ -109,6 +113,7 @@ fetch(location.href, { method: 'POST' })
         }
         const cardContainer = document.querySelector(".card-container");
         const container = document.querySelector(".animal-container");
+        let i = 0;
         while (cardContainer.childElementCount < data.length) {
             cardContainer.innerHTML += `
                     <div class="col-md-3">
@@ -119,7 +124,7 @@ fetch(location.href, { method: 'POST' })
                                 alt="">
                             <div class="card-body">
                                 
-                                    <button class="btn-heart">🤍</button>
+                                    <button class="btn-heart" id="favorite_${i}">🤍</button>
                                     <h4 class="animal-name">${data[cardContainer.childElementCount].nombre}</h4>
                                 
                                 
@@ -143,8 +148,42 @@ fetch(location.href, { method: 'POST' })
             
                 </div>
             `;
+
+            i++;
         }
 
+        for
+            (
+            let i = 0;
+            i < document.querySelectorAll(".btn-heart").length;
+            i++) {
+
+            const btnFavorite =
+                document.getElementById(`favorite_${i}`);
+            
+
+            /**
+             * Favorite button functionality
+             */
+            btnFavorite.addEventListener("click", (e) => {
+                const animalName = e.target.nextSibling.nextSibling.innerHTML;
+                const animalId = e.target.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].href.replace("http://localhost:8081/animal/", "");
+                console.log(animalId);
+                switch (e.target.innerHTML) {
+                    case '💖':
+                        // remove favorite
+                        e.target.innerHTML = '🤍';
+                        break;
+                    case '🤍':
+                        // new favorite
+                        e.target.innerHTML = '💖';
+                        break;
+                    default:
+                        e.target.innerHTML = '🤍';
+                }
+            });
+
+        }
         const btnAdopt = document.querySelectorAll('.btn-adopt');
 
         for (let i = 0; i < btnAdopt.length; i++) {
