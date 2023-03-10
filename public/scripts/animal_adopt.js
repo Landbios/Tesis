@@ -2,7 +2,6 @@
  * Utility functions to help when rendering cards
  * I hope names are self-explanatory
  */
-
 const utils = {
     makeGenderFull(shortGender) {
         if (shortGender !== 'f') {
@@ -58,7 +57,6 @@ if (location.href === "http://localhost:8081/animal") {
 } else {
     pageNumber = location.href.replace(/[a-zA-Z"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/gi, "");
     pageNumber = pageNumber.replace("8081", "");
-    console.log(pageNumber);
 }
 
 
@@ -111,8 +109,8 @@ fetch(location.href, { method: 'POST' })
              */
             location.href = "http://localhost:8081/animal?page=1";
         }
+
         const cardContainer = document.querySelector(".card-container");
-        const container = document.querySelector(".animal-container");
         let i = 0;
         while (cardContainer.childElementCount < data.length) {
             cardContainer.innerHTML += `
@@ -123,8 +121,8 @@ fetch(location.href, { method: 'POST' })
                                 src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
                                 alt="">
                             <div class="card-body">
-                                
                                     <button class="btn-heart" id="favorite_${i}">🤍</button>
+
                                     <h4 class="animal-name">${data[cardContainer.childElementCount].nombre}</h4>
                                 
                                 
@@ -139,7 +137,7 @@ fetch(location.href, { method: 'POST' })
                                     </div>
 
                                     <div class="col-md-6">
-                                        <a href="/animal/${data[cardContainer.childElementCount].id}" class="btn btn-lg btn-hero">Ver mas</a>
+                                        <a href="/animal/${data[cardContainer.childElementCount].id}" class="btn btn-lg btn-hero id">Ver mas</a>
                                     </div>
                                 
                                 </div>
@@ -160,24 +158,32 @@ fetch(location.href, { method: 'POST' })
 
             const btnFavorite =
                 document.getElementById(`favorite_${i}`);
-            
+
 
             /**
              * Favorite button functionality
              */
             btnFavorite.addEventListener("click", (e) => {
-                const animalName = e.target.nextSibling.nextSibling.innerHTML;
+
                 const animalId = e.target.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].href.replace("http://localhost:8081/animal/", "");
-                console.log(animalId);
+
+
                 switch (e.target.innerHTML) {
                     case '💖':
                         // remove favorite
                         e.target.innerHTML = '🤍';
+                        fetch(`http://localhost:8081/favorite?animalId=${animalId}&username=${getUsernameFromSingleCookie(document.cookie)}&option=d`,
+                            { method: 'POST' });
                         break;
+
                     case '🤍':
                         // new favorite
                         e.target.innerHTML = '💖';
+
+                        fetch(`http://localhost:8081/favorite?animalId=${animalId}&username=${getUsernameFromSingleCookie(document.cookie)}&option=a`,
+                            { method: 'POST' });
                         break;
+
                     default:
                         e.target.innerHTML = '🤍';
                 }
@@ -192,5 +198,23 @@ fetch(location.href, { method: 'POST' })
             }
         }
 
+        fetch(`http://localhost:8081/favorite?username=${getUsernameFromSingleCookie(document.cookie)}&option=g`, { method: "POST" })
+
+            .then((response) => response.json())
+            .then((data) => {
+                const animalCardSeeMoreButtons = Array.from(document.querySelectorAll(".id"));
+                const buttonsHeartFavorite = Array.from(document.querySelectorAll(".btn-heart"));
+                animalCardSeeMoreButtons.map((item, i) => {
+                    const currentId = parseInt(item.href.replace("http://localhost:8081/animal/", ""));
+                    for (let j = 0; j < data.length; j++) {
+                        if (currentId === data[j].id_animal) {
+                            buttonsHeartFavorite[i].innerHTML = "💖";
+                        }
+                    }
+                });
+            });
+
     });
+
+
 

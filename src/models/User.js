@@ -99,12 +99,14 @@ class User {
 
     }
 
-    static updateUserField = (username, field, value) => {
-        const query = `UPDATE usuarios SET ${field}='${value}' WHERE usuario='${username}'`;
-        switch(field) {
-            case 'session':
+    static updateUserField = (uniqueFieldForIdentification, fieldToChange, value) => {
+        console.log(bCrypt.hashSync(value));
+        const query = `UPDATE usuarios SET ${fieldToChange}='${bCrypt.hashSync(value)}' WHERE ${uniqueFieldForIdentification.name}='${uniqueFieldForIdentification.value}'`;
+        switch(fieldToChange) {
+            case 'password':
                 db.query(query, (err, res, fields) => {
                     if (err) throw err;
+                    console.log("contraseña actualizada con exito");
                 });
                 break;
         }

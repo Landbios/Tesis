@@ -264,3 +264,65 @@ if (location.href === "http://localhost:8081/animalRegister") {
         e.target.value = e.target.value.replace(/[0-9!"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
     });
 }
+
+if (location.href === "http://localhost:8081/recover?step=0") {
+
+    const btnSubmit = document.getElementById("btn_submit");
+    btnSubmit.disabled = true;
+
+    regist_mail.addEventListener('input', (e) => {
+
+        e.target.value = e.target.value.replace(/[!"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+
+        const mail_warning = document.querySelector("#mail_warning");
+
+        mail_warning.style.color = "red";
+        mail_warning.style.fontSize = "10px";
+
+        fetch(`http://localhost:8081/usuario/${e.target.value}`, { method: 'POST' })
+            .then((resolve) => {
+                return resolve.json();
+            })
+            .then(() => {
+                mail_warning.innerHTML = "";
+                btnSubmit.disabled = false;
+
+            })
+            .catch(() => {
+                mail_warning.innerHTML = "El correo no existe";
+                btnSubmit.disabled = true;
+
+            });
+
+        return;
+    });
+}
+
+const queries = new URLSearchParams(location.search);
+
+if (queries.get("mail") !== "") {
+    
+    const mailInput = document.querySelector(".email");
+    mailInput.value = queries.get("mail");
+    mailInput.readOnly = true;
+    mailInput.style.display = "none";
+
+    const regist_password = document.getElementById("regist_password");
+
+    const btn_submit = document.getElementById("btn_submit");
+    btn_submit.disabled = true;
+
+    regist_password.addEventListener('input', (e) => {
+        const warning = document.querySelector("#password_warning");
+        if (e.target.value.length < 8 || e.target.value.length > 32) {
+            warning.innerHTML = "La contraseña no puede ser menor a 8 o mayor a 32 caracteres";
+            warning.style.fontSize = "10px";
+            warning.style.color = "red";
+            btn_submit.disabled = true;
+            return;
+        }
+        warning.innerHTML = "";
+        btn_submit.disabled = false;
+    });
+
+}

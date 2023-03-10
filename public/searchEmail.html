@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Email</title>
+
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="formbody">
+
+    <div class="registform_container">
+
+
+
+        <form action="/recover?step=1" id="registro" method="get" class="formulario_registro">
+
+
+            <h1 class="formtitle">Busca tú email</h1>
+
+            <div class="medium-width">
+                <div class="halfcontainer">
+
+
+                    <label class="regis_formlabel">Email</label>
+                    <label for="warning" id="mail_warning"></label>
+                    <input required type="text" name="mail" id="regist_mail" class="form_input">
+
+
+
+                    <input id="btn_submit" type="submit" value="Cambiar">
+        </form>
+
+
+
+    </div>
+
+    <script src="./scripts/validations.js"></script>
+</body>
+
+</html>

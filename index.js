@@ -4,9 +4,10 @@ const express = require('express');
 
 
 //models
-const userModel = require('./src/models/User');
-const AnimalModel = require('./src/models/Animal');
+const User = require('./src/models/User');
+const Animal = require('./src/models/Animal');
 const statistics = require('./src/models/Statistics');
+const Favorite = require('./src/models/Favorites');
 
 
 //utility class (specific purposes methods)
@@ -67,7 +68,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-    AnimalModel.getAllAnimals(0, true)
+    Animal.getAllAnimals(0, true)
         .then((results) => {
             res.json(results);
         })
@@ -84,7 +85,7 @@ app.post('/login', (req, res) => {
     const userName = req.body.user;
     const pwd = req.body.password;
 
-    userModel.loginUser(userName, pwd)
+    User.loginUser(userName, pwd)
         .then((resolve) => {
             req.session.logged = resolve.login;
             req.session.name = resolve.user;
@@ -101,6 +102,29 @@ app.post('/login', (req, res) => {
 
 });
 
+
+app.get("/recover", (req, res) => {
+    const step = parseInt(req.query.step);
+
+    if (step === 0) {
+        res.sendFile("./public/searchEmail.html", {
+            root: __dirname
+        });
+        return;
+    }
+    res.sendFile("./public/reset.html", {
+        root: __dirname
+    });
+});
+
+
+// reset password
+app.post("/reset", (req, res) => {
+    const password = req.body.r_password;
+    const email = req.body.email;
+    User.updateUserField({name: "email", value: email}, 'password', password);
+    res.redirect("/login");
+});
 
 app.get('/animal', (req, res) => {
     if (req.session.logged) {
@@ -123,7 +147,7 @@ app.get('/animal', (req, res) => {
 
 //list of all animals
 app.post('/animal', (req, res) => {
-    AnimalModel.getAllAnimals(
+    Animal.getAllAnimals(
         parseInt(
             typeof req.query.page === 'undefined'
                 ? 1
@@ -174,9 +198,9 @@ app.post('/signup', (req, res) => {
     const userName = req.body.user;
     const password = req.body.r_password;
 
-    const user = new userModel(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
+    const user = new User(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
 
-    userModel.createUser(user);
+    User.createUser(user);
 
     res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
@@ -206,9 +230,9 @@ app.post('/animalRegister', (req, res) => {
     const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
     const owner = req.body.usuario;
 
-    const animal = new AnimalModel(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
+    const animal = new Animal(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
 
-    AnimalModel.addAnimal(animal)
+    Animal.addAnimal(animal)
         .then((resolve) => {
             res.redirect(resolve.link);
         })
@@ -224,7 +248,7 @@ app.get('/animal/:id', (req, res) => {
 });
 
 app.post('/animal/:id', (req, res) => {
-    AnimalModel.getAnimal(req.params.id)
+    Animal.getAnimal(req.params.id)
         .then((resolve) => {
             res.json(resolve);
         })
@@ -236,7 +260,7 @@ app.post('/animal/:id', (req, res) => {
 app.post('/usuario/:user', (req, res) => {
     let userinfo = req.params.user;
 
-    userModel.getUserInfo(userinfo, utils.checkUserInfo(userinfo))
+    User.getUserInfo(userinfo, utils.checkUserInfo(userinfo))
         .then((resolve) => {
             res.json(resolve);
         })
@@ -245,7 +269,50 @@ app.post('/usuario/:user', (req, res) => {
         });
 });
 
+app.post('/favorite', (req, res) => {
+    const animalId = req.query.animalId;
+    const username = req.query.username;
+    const option = req.query.option;
 
+    switch (option) {
+        case 'a':
+            const favorite = new Favorite(animalId, username);
+
+            Favorite.addFavorite(favorite)
+                .then((resolved) => {
+                    res.end();
+                });
+            break;
+        case 'g':
+            Favorite.getFavorites(username)
+                .then((resolved) => {
+                    res.json(resolved);
+                    res.end();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.end();
+                });
+            break;
+        case 'd':
+            Favorite.deleteFavorite(animalId, username)
+                .then((resolved) => {
+                    res.json(resolved);
+                    res.end();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.end();
+                });
+                break;
+        default:
+            res.send("Error");
+            res.end();
+            
+    }
+
+
+});
 
 
 app.get('/statistics/:kind', (req, res) => {
