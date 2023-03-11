@@ -33,7 +33,6 @@ app.use(session({
 
 
 // defining our view engine
-
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
