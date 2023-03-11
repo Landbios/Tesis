@@ -35,8 +35,15 @@ const utils = {
 // filter search by specie
 const filterSearch = document.getElementById("filter");
 
-filterSearch.addEventListener("change", () => {
-    location.href = `http://localhost:8081/animal?page=${pageNumber}&specie=${filterSearch.value}`;
+
+filterSearch.addEventListener("change", (e) => {
+    if (e.target.value !== "") {
+        location.href = `http://localhost:8081/animal?page=${pageNumber}&specie=${filterSearch.value}`;
+        return;
+    }
+
+    location.href = "http://localhost:8081/animal";
+
 });
 
 // page queries

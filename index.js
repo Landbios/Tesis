@@ -268,6 +268,20 @@ app.post('/usuario/:user', (req, res) => {
         });
 });
 
+app.get('/favorite/:username', (req, res) => {
+    if (req.session.logged) {
+        res.render('favorite', {
+            login: true,
+            name: req.session.name,
+            page_name: "favorite"
+        });
+        res.end();
+        return;
+    }
+
+    res.redirect("/login");
+});
+
 app.post('/favorite', (req, res) => {
     const animalId = req.query.animalId;
     const username = req.query.username;
