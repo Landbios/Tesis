@@ -8,6 +8,7 @@ const User = require('./src/models/User');
 const Animal = require('./src/models/Animal');
 const statistics = require('./src/models/Statistics');
 const Favorite = require('./src/models/Favorites');
+const Adoption = require('./src/models/Adoption');
 
 
 //utility class (specific purposes methods)
@@ -121,7 +122,7 @@ app.get("/recover", (req, res) => {
 app.post("/reset", (req, res) => {
     const password = req.body.r_password;
     const email = req.body.email;
-    User.updateUserField({name: "email", value: email}, 'password', password);
+    User.updateUserField({ name: "email", value: email }, 'password', password);
     res.redirect("/login");
 });
 
@@ -317,11 +318,11 @@ app.post('/favorite', (req, res) => {
                     console.log(err);
                     res.end();
                 });
-                break;
+            break;
         default:
             res.send("Error");
             res.end();
-            
+
     }
 
 
@@ -371,6 +372,32 @@ app.get('/statistics/:kind', (req, res) => {
     }
 });
 
+app.post("/adoption", (req, res) => {
+    const option = req.query.option;
+    const starter = req.query.starter;
+    const animalId = req.query.animalId;
+
+    switch (option) {
+        case 'a':
+            //add
+            Animal.getAnimal(animalId)
+                .then((response) => {
+                    if (response.propietario !== starter) {
+                        Adoption.startAdoption(starter, response.id, response.propietario);
+                    }
+                })
+                .catch((err) => {
+                    res.json({
+                        err: err
+                    });
+                })
+            break;
+        default:
+            res.redirect("/");
+    }
+    res.end();
+
+});
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
 const port = 8081;

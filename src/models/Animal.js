@@ -102,7 +102,7 @@ class Animal {
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
                 if (err) throw err;
-                console.log(typeof results[0]);
+
                 if (typeof results[0] === 'undefined') reject({
                     msg: 'Animal no encontrado'
                 });
