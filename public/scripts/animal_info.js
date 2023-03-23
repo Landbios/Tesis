@@ -69,18 +69,15 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                     .then((response) => response.json())
                     .then((data) => {
                         if (!data.response) {
+                            const requestRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=a`;
                             fetch(requestRoute, { method: "POST" })
-                                .then((response) => {
-                                    console.log("adoption performed");
-                                });
                         } else {
                             const warning = document.querySelector(".warning");
                             warning.style.color = "red";
                             warning.innerHTML = "Ya te encuentras en el proceso de adoptar a este animalito, ponte en contacto con el postulador";
                         }
                     });
-                const requestRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=a`;
-                console.log(requestRoute);
+
 
             });
         } else {
