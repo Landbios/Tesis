@@ -22,13 +22,13 @@ const app = server;
 
 const session = require('express-session');
 
+console.clear();
+
 app.use(session({
 
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
-
-
 
 }));
 
@@ -387,16 +387,35 @@ app.post("/adoption", (req, res) => {
                     }
                 })
                 .catch((err) => {
+                    console.log("error");
                     res.json({
                         err: err
                     });
+                });
+            break;
+        case 'c':
+            //check
+            Adoption.isUserAlreadyAdoptingAnimal(starter, animalId)
+                .then((resolved) => {
+                    res.json({
+                        response: resolved
+                    });
                 })
+                .catch((err) => {
+                    console.log(err);
+                    res.json(err);
+                });
             break;
         default:
             res.redirect("/");
     }
-    res.end();
+    // res.end();  causes bug
 
+});
+
+app.use((req, res) => {
+    res.send("404 not found");
+    res.end();
 });
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc

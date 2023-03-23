@@ -1,16 +1,29 @@
 const db = require("../db/db");
 
 class Adoption {
-    static startAdoption = (starterUserName, animalToAdoptId, adoptionPosterUsername) => {
+    static isUserAlreadyAdoptingAnimal = (user, animalId) => {
+        let query = `SELECT * FROM adopciones WHERE adoptante='${user}' AND adoptado='${animalId}'`;
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, res, fields) => {
+                if (err) throw reject(err);
+                if (res.length > 0) {
+                    return resolve(true);
+                }
+                resolve(false)
+            });
+        });
+          
+    }
+
+    static startAdoption = (adopterUserName, animalToAdoptId, posterUsername) => {
         // error message if error exists
         let reason = "Something went wrong in static method startAdoption from Adoption";
 
-        if (starterUserName !== adoptionPosterUsername) {
+        if (adopterUserName !== posterUsername) {
 
-            let query = `INSERT INTO adopciones (adoptante, adoptado, postulador) values ('${starterUserName}', '${animalToAdoptId}', '${adoptionPosterUsername}')`;
-            db.query(query, async (err, res, fields) => {
+            let query = `INSERT INTO adopciones (adoptante, adoptado, postulador) values ('${adopterUserName}', '${animalToAdoptId}', '${posterUsername}')`;
+            db.query(query, (err, res, fields) => {
                 if (err) {
-                    reason = "starterUserName and adoptionPosterUsername cannot be the same in static method startAdoption from adoption class";
                     throw {
                         isSuccess: false,
                         reason: reason,
