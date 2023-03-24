@@ -242,9 +242,15 @@ app.post('/animalRegister', (req, res) => {
 });
 
 app.get('/animal/:id', (req, res) => {
-    res.sendFile('/public/animal_info.html', {
-        root: __dirname
-    });
+    if (req.session.logged) {
+        res.render('animal_info', {
+            login: true,
+            name: req.session.name,
+            page_name: "animal_info"
+        });
+        return;
+    }
+    res.redirect("/login");
 });
 
 app.post('/animal/:id', (req, res) => {
@@ -269,7 +275,7 @@ app.post('/usuario/:user', (req, res) => {
         });
 });
 
-app.get('/favorite/:username', (req, res) => {
+app.get('/favorite', (req, res) => {
     if (req.session.logged) {
         res.render('favorite', {
             login: true,
@@ -372,6 +378,19 @@ app.get('/statistics/:kind', (req, res) => {
     }
 });
 
+app.get("/adoption", (req, res) => {
+    if (req.session.logged) {
+        res.render('adoption', {
+            login: true,
+            name: req.session.name,
+            page_name: "adoption"
+        });
+        res.end();
+        return;
+    }
+    res.redirect("/login");
+});
+
 app.post("/adoption", (req, res) => {
     const option = req.query.option;
     const starter = req.query.starter;
@@ -405,6 +424,15 @@ app.post("/adoption", (req, res) => {
                     console.log(err);
                     res.json(err);
                 });
+            break;
+        case 'gp':
+            Adoption.getPetsForUser(starter)
+            .then((resolve) => {
+                res.json({resolve});
+            })
+            .catch((reject) => {
+                res.json(reject);
+            })
             break;
         default:
             res.redirect("/");

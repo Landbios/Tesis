@@ -5,8 +5,6 @@ const utils = {
         } else {
             return 'Hembra';
         }
-        //error
-        return false;
     },
 
     makeSpecieFull(shortSpecie) {
@@ -72,7 +70,6 @@ const fillContainer = () => {
     });
 
 }
-
 
 fillContainer()
     .then(() => {

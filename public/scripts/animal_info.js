@@ -68,13 +68,17 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                 fetch(checkIfUserIsAlreadyAdoptingAnimalRoute, { method: "POST" })
                     .then((response) => response.json())
                     .then((data) => {
+                        const msg = document.querySelector(".msg");
                         if (!data.response) {
                             const requestRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=a`;
+                            
                             fetch(requestRoute, { method: "POST" })
+                            
+                            msg.innerHTML = "EXCELENTE! Solo debes ponerte en contacto ahora con el postulador; Revisa la sección de adopciones";
                         } else {
-                            const warning = document.querySelector(".warning");
-                            warning.style.color = "red";
-                            warning.innerHTML = "Ya te encuentras en el proceso de adoptar a este animalito, ponte en contacto con el postulador";
+
+                            msg.style.color = "red";
+                            msg.innerHTML = "Ya te encuentras en el proceso de adoptar a este animalito, ponte en contacto con el postulador";
                         }
                     });
 
