@@ -134,27 +134,15 @@ app.get('/animal', (req, res) => {
             page_name: 'animal'
 
         });
-
-    } else {
-
-        res.render('animal_adopt', {
-            login: false,
-            name: '',
-            page_name: 'animal'
-        })
+        return;
     }
+    res.redirect("/login");
 });
 
 //list of all animals
 app.post('/animal', (req, res) => {
-    Animal.getAllAnimals(
-        parseInt(
-            typeof req.query.page === 'undefined'
-                ? 1
-                : req.query.page
-        ), undefined,
-        req.query.specie
-    )
+    let page = parseInt(typeof req.query.page === 'undefined' ? 1 : req.query.page)
+    Animal.getAllAnimals(page, false, req.query.specie)
         .then((resolve) => {
             res.json(resolve);
         })
@@ -426,13 +414,24 @@ app.post("/adoption", (req, res) => {
                 });
             break;
         case 'gp':
+            // get pets that you want
             Adoption.getPetsForUser(starter)
-            .then((resolve) => {
-                res.json({resolve});
-            })
-            .catch((reject) => {
-                res.json(reject);
-            })
+                .then((resolve) => {
+                    res.json({ resolve });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                })
+            break;
+        case 'ga':
+            // get the adoptions for your posted animals
+            Adoption.getAdoptionsForUser(starter)
+                .then((resolve) => {
+                    res.json({ resolve });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                })
             break;
         default:
             res.redirect("/");

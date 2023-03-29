@@ -63,27 +63,32 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         // for adoption
         const starter = getUsernameFromSingleCookie(document.cookie);
         if (starter !== "") {
-            adoptionLinkBtn.addEventListener("click", (e) => {
-                const checkIfUserIsAlreadyAdoptingAnimalRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=c`;
-                fetch(checkIfUserIsAlreadyAdoptingAnimalRoute, { method: "POST" })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const msg = document.querySelector(".msg");
-                        if (!data.response) {
-                            const requestRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=a`;
-                            
-                            fetch(requestRoute, { method: "POST" })
-                            
-                            msg.innerHTML = "EXCELENTE! Solo debes ponerte en contacto ahora con el postulador; Revisa la sección de adopciones";
-                        } else {
+            if (starter !== propietario.innerHTML) {
+                adoptionLinkBtn.addEventListener("click", (e) => {
+                    const checkIfUserIsAlreadyAdoptingAnimalRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=c`;
+                    fetch(checkIfUserIsAlreadyAdoptingAnimalRoute, { method: "POST" })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const msg = document.querySelector(".msg");
+                            if (!data.response) {
+                                const requestRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=a`;
 
-                            msg.style.color = "red";
-                            msg.innerHTML = "Ya te encuentras en el proceso de adoptar a este animalito, ponte en contacto con el postulador";
-                        }
-                    });
+                                fetch(requestRoute, { method: "POST" })
+                                if (starter !== propietario.innerHTML) {
+                                    msg.innerHTML = "EXCELENTE! Solo debes ponerte en contacto ahora con el postulador; Revisa la sección de adopciones";
+                                    return;
+                                }
+                            } else {
+                                msg.style.color = "red";
+                                msg.innerHTML = "Ya te encuentras en el proceso de adoptar a este animalito, ponte en contacto con el postulador";
+                            }
+                        });
+                });
+            } else {
+                adoptionLinkBtn.remove();
+            }
 
 
-            });
         } else {
             location.href = "/login";
 
