@@ -26,38 +26,91 @@ class User {
     }
 
     static loginUser = (username, password) => {
-    const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
-    return new Promise((resolve, reject) => {
-        db.query(query, (err, results, fields) => {
-            console.log(results[0]);
-            if (err) throw err;
-            if(typeof results[0] !== "undefined"){
+        const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, results, fields) => {
+                if (err) return reject({
+                    login: false,
+                    link: 'http://localhost:8081/login'
+                });
+                if (typeof results[0] !== "undefined") {
 
-                const hashedPassword = results[0].password;
-                if (!bCrypt.compareSync(password, hashedPassword)) {
-                    reject({
-                        login: false,
-                        link: 'http://localhost:8081/login.html'
+                    const hashedPassword = results[0].password;
+                    if (!bCrypt.compareSync(password, hashedPassword)) {
+                        reject({
+                            login: false,
+                            link: 'http://localhost:8081/login.html'
+                        })
+                    }
+                    resolve({
+                        login: true,
+                        user: username,
+                        link: 'http://localhost:8081/'
                     })
                 }
-                resolve({
-                    login: true,
-                    user: username,
-                    link: 'http://localhost:8081/'
-                })
-            }
-            else{
-               reject({
+                else {
+                    reject({
                         login: false,
                         link: 'http://localhost:8081/login'
-                })
-                
-            }
-                       
-        });
-    });
+                    })
 
-}
+                }
+
+            });
+        });
+
+    };
+
+    static getUserInfo = (info, type) => {
+        if (type === "user") {
+            const query = `SELECT * FROM usuarios WHERE usuario='${info}'`
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) throw reject(err);
+
+                    return resolve(res[0]);
+
+                });
+            });
+        }
+        if (type === "email") {
+            const query = `SELECT * FROM usuarios WHERE email='${info}'`
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) throw reject(err);
+
+                    return resolve(res[0]);
+
+                });
+            });
+        }
+
+        if (type === "cedula") {
+            const query = `SELECT * FROM usuarios WHERE cedula='${info}'`
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) throw reject(err);
+
+                    return resolve(res[0]);
+
+                });
+            });
+        }
+
+    }
+
+    static updateUserField = (uniqueFieldForIdentification, fieldToChange, value) => {
+        console.log(bCrypt.hashSync(value));
+        const query = `UPDATE usuarios SET ${fieldToChange}='${bCrypt.hashSync(value)}' WHERE ${uniqueFieldForIdentification.name}='${uniqueFieldForIdentification.value}'`;
+        switch(fieldToChange) {
+            case 'password':
+                db.query(query, (err, res, fields) => {
+                    if (err) throw err;
+                    console.log("contraseña actualizada con exito");
+                });
+                break;
+        }
+    }
 }
 
 module.exports = User;

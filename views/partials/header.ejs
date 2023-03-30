@@ -1,57 +1,68 @@
- 
 <% if (login) { %>
 
-<nav class="navbar navbar-expand-sm navbar-dark navbar-right ">
-    <a class="navbar-brand" href="#"><img class="logonav" src="media/flc_design2023010398390.png" alt="logo"></a>
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-       <div class="collapse navbar-collapse" id="collapsibleNavId">
-           <ul class="navbar-nav me-auto mt-2 mt-lg-0" >
-               <li class="nav-item">
-                   <a class="nav-link <%= page_name === 'home' && 'active' %>" href="/" aria-current="page">Inicio</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link <%= page_name === 'animal' && 'active' %>" href="/animal" aria-current="page">Adoptar</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="animal_regist.html" aria-current="page">Dar en Adopcion</a>
-               </li>
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-right ">
+        <a class="navbar-brand" href="#"><img class="logonav" src="/media/flc_design2023010398390.png" alt="logo"></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+            aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link <%= page_name === 'home' && 'active' %>" href="/" aria-current="page">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= page_name === 'animal' && 'active' %>" href="/animal"
+                        aria-current="page">Adoptar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/animalRegister" aria-current="page">Dar en Adopcion
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%= username %></a>
+                    <a class="nav-link dropdown-toggle username" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <%= username %>
+                    </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">Perfil</a></li>
-                        <li><a class="dropdown-item" href="logout">Cerrar Sesion</a></li>
+                        <li><a class="dropdown-item favorite" href="/favorite">Favoritos</a></li>
+                        <li><a class="dropdown-item favorite" href="/adoption">Adopciones</a></li>
+                        <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
                         <li><a class="dropdown-item" href="#"></a></li>
                     </ul>
                 </li>
-           </ul>
-       </div>
-   </nav>
+            </ul>
+        </div>
+    </nav>
 <% } else { %>
 
-<nav class="navbar navbar-expand-sm navbar-dark navbar-right ">
-    <a class="navbar-brand" href="#"><img class="logonav" src="media/flc_design2023010398390.png" alt="logo"></a>
-    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-       <div class="collapse navbar-collapse" id="collapsibleNavId">
-           <ul class="navbar-nav me-auto mt-2 mt-lg-0" >
-               <li class="nav-item">
-                   <a class="nav-link <%= page_name === 'home' && 'active' %>" href="/" aria-current="page">Inicio<span class="visually-hidden">(current)</span></a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link <%= page_name === 'animal' && 'active' %>" href="/animal" aria-current="page">Adoptar</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="animal_regist.html" aria-current="page">Dar en Adopcion</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="/login" aria-current="page">Iniciar Sesion</a>
-               </li>
-           </ul>
-       </div>
-   </nav>
+        <nav class="navbar navbar-expand-sm navbar-dark navbar-right ">
+            <a class="navbar-brand" href="#"><img class="logonav" src="media/flc_design2023010398390.png"
+                    alt="logo"></a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation"></button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link <%= page_name === 'home' && 'active' %>" href="/"
+                            aria-current="page">Inicio<span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= page_name === 'animal' && 'active' %>" href="/animal"
+                            aria-current="page">Adoptar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/animalRegister" aria-current="page">Dar en Adopcion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login" aria-current="page">Iniciar Sesion</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
 
 
 
-<% } %> 
-
-
+<% } %>
