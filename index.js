@@ -1,13 +1,14 @@
 //express framework
 const express = require('express');
 
-
+//testing
 
 //models
 const User = require('./src/models/User');
 const Animal = require('./src/models/Animal');
 const statistics = require('./src/models/Statistics');
 const Favorite = require('./src/models/Favorites');
+const Adoption = require('./src/models/Adoption');
 
 
 //utility class (specific purposes methods)
@@ -21,13 +22,13 @@ const app = server;
 
 const session = require('express-session');
 
+console.clear();
+
 app.use(session({
 
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
-
-
 
 }));
 
@@ -121,7 +122,7 @@ app.get("/recover", (req, res) => {
 app.post("/reset", (req, res) => {
     const password = req.body.r_password;
     const email = req.body.email;
-    User.updateUserField({name: "email", value: email}, 'password', password);
+    User.updateUserField({ name: "email", value: email }, 'password', password);
     res.redirect("/login");
 });
 
@@ -133,27 +134,15 @@ app.get('/animal', (req, res) => {
             page_name: 'animal'
 
         });
-
-    } else {
-
-        res.render('animal_adopt', {
-            login: false,
-            name: '',
-            page_name: 'animal'
-        })
+        return;
     }
+    res.redirect("/login");
 });
 
 //list of all animals
 app.post('/animal', (req, res) => {
-    Animal.getAllAnimals(
-        parseInt(
-            typeof req.query.page === 'undefined'
-                ? 1
-                : req.query.page
-        ), undefined,
-        req.query.specie
-    )
+    let page = parseInt(typeof req.query.page === 'undefined' ? 1 : req.query.page)
+    Animal.getAllAnimals(page, false, req.query.specie)
         .then((resolve) => {
             res.json(resolve);
         })
@@ -241,9 +230,15 @@ app.post('/animalRegister', (req, res) => {
 });
 
 app.get('/animal/:id', (req, res) => {
-    res.sendFile('/public/animal_info.html', {
-        root: __dirname
-    });
+    if (req.session.logged) {
+        res.render('animal_info', {
+            login: true,
+            name: req.session.name,
+            page_name: "animal_info"
+        });
+        return;
+    }
+    res.redirect("/login");
 });
 
 app.post('/animal/:id', (req, res) => {
@@ -266,6 +261,20 @@ app.post('/usuario/:user', (req, res) => {
         .catch((reject) => {
             res.json(reject);
         });
+});
+
+app.get('/favorite', (req, res) => {
+    if (req.session.logged) {
+        res.render('favorite', {
+            login: true,
+            name: req.session.name,
+            page_name: "favorite"
+        });
+        res.end();
+        return;
+    }
+
+    res.redirect("/login");
 });
 
 app.post('/favorite', (req, res) => {
@@ -303,11 +312,11 @@ app.post('/favorite', (req, res) => {
                     console.log(err);
                     res.end();
                 });
-                break;
+            break;
         default:
             res.send("Error");
             res.end();
-            
+
     }
 
 
@@ -357,6 +366,84 @@ app.get('/statistics/:kind', (req, res) => {
     }
 });
 
+app.get("/adoption", (req, res) => {
+    if (req.session.logged) {
+        res.render('adoption', {
+            login: true,
+            name: req.session.name,
+            page_name: "adoption"
+        });
+        res.end();
+        return;
+    }
+    res.redirect("/login");
+});
+
+app.post("/adoption", (req, res) => {
+    const option = req.query.option;
+    const starter = req.query.starter;
+    const animalId = req.query.animalId;
+
+    switch (option) {
+        case 'a':
+            //add
+            Animal.getAnimal(animalId)
+                .then((response) => {
+                    if (response.propietario !== starter) {
+                        Adoption.startAdoption(starter, response.id, response.propietario);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error");
+                    res.json({
+                        err: err
+                    });
+                });
+            break;
+        case 'c':
+            //check
+            Adoption.isUserAlreadyAdoptingAnimal(starter, animalId)
+                .then((resolved) => {
+                    res.json({
+                        response: resolved
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.json(err);
+                });
+            break;
+        case 'gp':
+            // get pets that you want
+            Adoption.getPetsForUser(starter)
+                .then((resolve) => {
+                    res.json({ resolve });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                })
+            break;
+        case 'ga':
+            // get the adoptions for your posted animals
+            Adoption.getAdoptionsForUser(starter)
+                .then((resolve) => {
+                    res.json({ resolve });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                })
+            break;
+        default:
+            res.redirect("/");
+    }
+    // res.end();  causes bug
+
+});
+
+app.use((req, res) => {
+    res.send("404 not found");
+    res.end();
+});
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
 const port = 8081;

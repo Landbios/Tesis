@@ -35,8 +35,15 @@ const utils = {
 // filter search by specie
 const filterSearch = document.getElementById("filter");
 
-filterSearch.addEventListener("change", () => {
-    location.href = `http://localhost:8081/animal?page=${pageNumber}&specie=${filterSearch.value}`;
+
+filterSearch.addEventListener("change", (e) => {
+    if (e.target.value !== "") {
+        location.href = `http://localhost:8081/animal?page=${pageNumber}&specie=${filterSearch.value}`;
+        return;
+    }
+
+    location.href = "http://localhost:8081/animal";
+
 });
 
 // page queries
@@ -133,7 +140,7 @@ fetch(location.href, { method: 'POST' })
                                 <div class="row">
 
                                     <div class="col-md-6">
-                                        <a href=""  class="btn btn-adopt btn-lg btn-hero">${getUsernameFromSingleCookie(document.cookie) === data[cardContainer.childElementCount].propietario ? '' : 'Adoptar'}</a>
+                                        <a href="/animal/${data[cardContainer.childElementCount].id}"  class="btn btn-adopt btn-lg btn-hero">${getUsernameFromSingleCookie(document.cookie) === data[cardContainer.childElementCount].propietario ? '' : 'Adoptar'}</a>
                                     </div>
 
                                     <div class="col-md-6">

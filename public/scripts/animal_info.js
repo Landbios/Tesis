@@ -1,5 +1,9 @@
 const id = location.href.replace("http://localhost:8081/animal/", "");
 
+const getUsernameFromSingleCookie = (individualCookie) => {
+    return individualCookie.replace(/user=/g, "");
+}
+
 fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
     .then((res) => {
         return res.json();
@@ -15,6 +19,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         const edad = document.querySelector("#edad");
         const ubicacion = document.querySelector("#ubicacion");
         const descripcion = document.querySelector("#descripcion");
+        const adoptionLinkBtn = document.getElementById("adoption-link");
         if (typeof data.msg !== 'undefined') {
             nombre.innerHTML = data.msg;
             return;
@@ -37,7 +42,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         }
         nombre.innerHTML = data.nombre;
         propietario.innerHTML = data.propietario;
-        especie.innerHTML = makeSpecieFull(data.especie);
+        specie.innerHTML = makeSpecieFull(data.especie);
         raza.innerHTML = data.raza;
         genero.innerHTML = data.genero === 'm' ? 'macho' : 'hembra';
         es_vacunado.innerHTML = data.es_vacunado === 0 ? 'no' : 'si';
@@ -53,5 +58,39 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
             })
             .catch((err) => {
                 console.log(err);
-            })
+            });
+
+        // for adoption
+        const starter = getUsernameFromSingleCookie(document.cookie);
+        if (starter !== "") {
+            if (starter !== propietario.innerHTML) {
+                adoptionLinkBtn.addEventListener("click", (e) => {
+                    const checkIfUserIsAlreadyAdoptingAnimalRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=c`;
+                    fetch(checkIfUserIsAlreadyAdoptingAnimalRoute, { method: "POST" })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const msg = document.querySelector(".msg");
+                            if (!data.response) {
+                                const requestRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=a`;
+
+                                fetch(requestRoute, { method: "POST" })
+                                if (starter !== propietario.innerHTML) {
+                                    msg.innerHTML = "EXCELENTE! Solo debes ponerte en contacto ahora con el postulador; Revisa la sección de adopciones";
+                                    return;
+                                }
+                            } else {
+                                msg.style.color = "red";
+                                msg.innerHTML = "Ya te encuentras en el proceso de adoptar a este animalito, ponte en contacto con el postulador";
+                            }
+                        });
+                });
+            } else {
+                adoptionLinkBtn.remove();
+            }
+
+
+        } else {
+            location.href = "/login";
+
+        }
     });

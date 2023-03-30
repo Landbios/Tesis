@@ -20,7 +20,7 @@ fetch('http://localhost:8081/', { method: 'POST' })
     })
     .then((data) => {
         const cardBodies = document.querySelectorAll('.card-body');
-        console.log(data);
+
         data.map((item, i) => {
             cardBodies[i].innerHTML = `
             <h4 class="animal-name">${data[i].nombre}</h4>
