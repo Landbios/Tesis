@@ -37,7 +37,7 @@ class Animal {
     static getAllAnimals = (page, latest = false, specie) => {
         let to = page * 12;
         let from = to - 12;
-        if (typeof specie != 'undefined') {
+        if (typeof specie !== 'undefined') {
             let query = `SELECT * FROM animales WHERE especie=`
             switch (specie) {
                 case 'g':
@@ -87,7 +87,7 @@ class Animal {
 
         }
 
-        const query = `SELECT * FROM animales WHERE id BETWEEN ${from} AND ${to}`;
+        const query = `SELECT * FROM animales WHERE es_adoptado=0`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
                 if (err) throw reject(err);

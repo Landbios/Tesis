@@ -22,13 +22,13 @@ const app = server;
 
 const session = require('express-session');
 
+console.clear();
+
 app.use(session({
 
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
-
-
 
 }));
 
@@ -134,27 +134,15 @@ app.get('/animal', (req, res) => {
             page_name: 'animal'
 
         });
-
-    } else {
-
-        res.render('animal_adopt', {
-            login: false,
-            name: '',
-            page_name: 'animal'
-        })
+        return;
     }
+    res.redirect("/login");
 });
 
 //list of all animals
 app.post('/animal', (req, res) => {
-    Animal.getAllAnimals(
-        parseInt(
-            typeof req.query.page === 'undefined'
-                ? 1
-                : req.query.page
-        ), undefined,
-        req.query.specie
-    )
+    let page = parseInt(typeof req.query.page === 'undefined' ? 1 : req.query.page)
+    Animal.getAllAnimals(page, false, req.query.specie)
         .then((resolve) => {
             res.json(resolve);
         })
@@ -242,9 +230,15 @@ app.post('/animalRegister', (req, res) => {
 });
 
 app.get('/animal/:id', (req, res) => {
-    res.sendFile('/public/animal_info.html', {
-        root: __dirname
-    });
+    if (req.session.logged) {
+        res.render('animal_info', {
+            login: true,
+            name: req.session.name,
+            page_name: "animal_info"
+        });
+        return;
+    }
+    res.redirect("/login");
 });
 
 app.post('/animal/:id', (req, res) => {
@@ -269,7 +263,7 @@ app.post('/usuario/:user', (req, res) => {
         });
 });
 
-app.get('/favorite/:username', (req, res) => {
+app.get('/favorite', (req, res) => {
     if (req.session.logged) {
         res.render('favorite', {
             login: true,
@@ -372,6 +366,19 @@ app.get('/statistics/:kind', (req, res) => {
     }
 });
 
+app.get("/adoption", (req, res) => {
+    if (req.session.logged) {
+        res.render('adoption', {
+            login: true,
+            name: req.session.name,
+            page_name: "adoption"
+        });
+        res.end();
+        return;
+    }
+    res.redirect("/login");
+});
+
 app.post("/adoption", (req, res) => {
     const option = req.query.option;
     const starter = req.query.starter;
@@ -387,16 +394,55 @@ app.post("/adoption", (req, res) => {
                     }
                 })
                 .catch((err) => {
+                    console.log("error");
                     res.json({
                         err: err
                     });
+                });
+            break;
+        case 'c':
+            //check
+            Adoption.isUserAlreadyAdoptingAnimal(starter, animalId)
+                .then((resolved) => {
+                    res.json({
+                        response: resolved
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.json(err);
+                });
+            break;
+        case 'gp':
+            // get pets that you want
+            Adoption.getPetsForUser(starter)
+                .then((resolve) => {
+                    res.json({ resolve });
+                })
+                .catch((reject) => {
+                    res.json(reject);
+                })
+            break;
+        case 'ga':
+            // get the adoptions for your posted animals
+            Adoption.getAdoptionsForUser(starter)
+                .then((resolve) => {
+                    res.json({ resolve });
+                })
+                .catch((reject) => {
+                    res.json(reject);
                 })
             break;
         default:
             res.redirect("/");
     }
-    res.end();
+    // res.end();  causes bug
 
+});
+
+app.use((req, res) => {
+    res.send("404 not found");
+    res.end();
 });
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc

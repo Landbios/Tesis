@@ -140,7 +140,7 @@ fetch(location.href, { method: 'POST' })
                                 <div class="row">
 
                                     <div class="col-md-6">
-                                        <a href=""  class="btn btn-adopt btn-lg btn-hero">${getUsernameFromSingleCookie(document.cookie) === data[cardContainer.childElementCount].propietario ? '' : 'Adoptar'}</a>
+                                        <a href="/animal/${data[cardContainer.childElementCount].id}"  class="btn btn-adopt btn-lg btn-hero">${getUsernameFromSingleCookie(document.cookie) === data[cardContainer.childElementCount].propietario ? '' : 'Adoptar'}</a>
                                     </div>
 
                                     <div class="col-md-6">
