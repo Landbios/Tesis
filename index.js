@@ -39,6 +39,9 @@ app.set("views", __dirname + "/views");
 //to parse form data
 app.use(express.urlencoded({ extended: true }));
 
+//to parse incoming json
+app.use(express.json());
+
 //serving static content
 app.use(express.static(__dirname + '/public'));
 
@@ -249,6 +252,17 @@ app.post('/animal/:id', (req, res) => {
             res.json(rej);
         })
 });
+
+app.post('/animal/:action/:id', (req, res) => {
+    if (req.params.action === 'update') {
+        Animal.updateAnimalInfo(req.params.id, req.body)
+        .then((resolve) => res.json(resolve))
+        .catch((reject) => res.json(reject));
+    }
+    if (req.params.action === 'delete') {
+        Animal.deleteAnimal(req.params.id);
+    }
+})
 
 app.post('/usuario/:user', (req, res) => {
     let userinfo = req.params.user;
