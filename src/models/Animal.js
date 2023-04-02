@@ -14,7 +14,7 @@ class Animal {
         this.owner = owner;
     }
 
-    static addAnimal = (animal) => {
+    static addAnimal(animal) {
         const query = `INSERT INTO animales (nombre, especie, raza, descripcion, edad, tipo, es_castrado, es_vacunado, genero, propietario) VALUES ('${animal.name}', '${animal.specie}', '${animal.breed}', '${animal.description}', '${animal.age}', '${animal.edad_tipo}', '${animal.isNeutered}', '${animal.isVaccinated}', '${animal.gender}', '${animal.owner}')`;
 
         return new Promise((resolve, reject) => {
@@ -34,11 +34,11 @@ class Animal {
         });
     }
 
-    static getAllAnimals = (page, latest = false, specie) => {
+    static getAllAnimals(page, latest = false, specie) {
         let to = page * 12;
         let from = to - 12;
         if (typeof specie !== 'undefined') {
-            let query = `SELECT * FROM animales WHERE especie=`
+            let query = `SELECT * FROM animales WHERE es_adoptado=0 AND especie=`
             switch (specie) {
                 case 'g':
                     query += `'g'`;
@@ -97,7 +97,7 @@ class Animal {
 
     }
 
-    static getAnimal = (id) => {
+    static getAnimal(id) {
         const query = `SELECT * FROM animales WHERE id=${id}`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
@@ -110,6 +110,34 @@ class Animal {
             });
         });
 
+    }
+
+    static updateAnimalInfo(id, objValues) {
+        const query = `UPDATE animales SET nombre='${objValues.name}', especie='${objValues.specie}', raza='${objValues.raza}', descripcion="${objValues.descripcion.trim()}", edad='${objValues.edad}', tipo='${objValues.ageType}', es_castrado=${objValues.neuter}, es_vacunado=${objValues.vaccine}, genero='${objValues.gender}' WHERE id='${id}'`;
+
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, res, fields) => {
+                if (err) reject(false);
+                resolve(true);
+            });
+        })
+
+    }
+
+    static deleteAnimal(id) {
+        let queryAdoptionTableDelete = `DELETE FROM adopciones WHERE adoptado=${id}`;
+        let queryFavoriteDelete = `DELETE FROM favoritos WHERE id_animal=${id}`;
+        let queryAnimalTableDelete = `DELETE FROM animales WHERE id=${id}`;
+
+        db.query(queryAdoptionTableDelete, (err, res, fields) => {
+            if (err) throw err;
+            db.query(queryFavoriteDelete, (err, res, fields) => {
+                if (err) throw err;
+                db.query(queryAnimalTableDelete, (err, res, fields) => {
+                    if (err) throw err;
+                });
+            })
+        });
     }
 };
 

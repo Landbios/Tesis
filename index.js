@@ -32,13 +32,15 @@ app.use(session({
 
 }));
 
-
 // defining our view engine
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
 //to parse form data
 app.use(express.urlencoded({ extended: true }));
+
+//to parse incoming json
+app.use(express.json());
 
 //serving static content
 app.use(express.static(__dirname + '/public'));
@@ -251,6 +253,17 @@ app.post('/animal/:id', (req, res) => {
         })
 });
 
+app.post('/animal/:action/:id', (req, res) => {
+    if (req.params.action === 'update') {
+        Animal.updateAnimalInfo(req.params.id, req.body)
+        .then((resolve) => res.json(resolve))
+        .catch((reject) => res.json(reject));
+    }
+    if (req.params.action === 'delete') {
+        Animal.deleteAnimal(req.params.id);
+    }
+})
+
 app.post('/usuario/:user', (req, res) => {
     let userinfo = req.params.user;
 
@@ -385,6 +398,18 @@ app.post("/adoption", (req, res) => {
     const animalId = req.query.animalId;
 
     switch (option) {
+        case 'per':
+            // perform adoption
+            Animal.getAnimal(animalId)
+                .then((response) => {
+                    if (response.propietario !== starter) {
+                        Adoption.makeAdoption(starter, response.propietario, response.id);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            break;
         case 'a':
             //add
             Animal.getAnimal(animalId)
@@ -441,8 +466,7 @@ app.post("/adoption", (req, res) => {
 });
 
 app.use((req, res) => {
-    res.send("404 not found");
-    res.end();
+    res.sendStatus(404);
 });
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc
