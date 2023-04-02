@@ -20,6 +20,55 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         const ubicacion = document.querySelector("#ubicacion");
         const descripcion = document.querySelector("#descripcion");
         const adoptionLinkBtn = document.getElementById("adoption-link");
+        const modifyBtn = document.querySelector(".modify");
+        const deleteBtn = document.querySelector(".delete");
+
+        if (getUsernameFromSingleCookie(document.cookie) !== data.propietario) {
+            modifyBtn.remove();
+            deleteBtn.remove();
+        } else {
+            modifyBtn.addEventListener("click", () => {
+                
+                modifyBtn.style.display = "none";
+                deleteBtn.style.display = "none";
+                
+                const acceptModifyBtn = document.createElement("button");
+                acceptModifyBtn.classList.add(["btn", "btn-outline-dark"]);
+                acceptModifyBtn.innerHTML = "Realizar Cambios";
+                nombre.parentElement.appendChild(acceptModifyBtn);
+
+                const createInputElement = (type, classes, el) => {
+                    const element = document.createElement("input");
+                    element.type = type;
+                    console.log(el);
+                    if (el.type === 'number') {
+                        el.innerHTML = el.innerHTML.replace(/[a-zA-Z() ]/gi, "");
+                        element.value = parseInt(el.innerHTML);
+                        console.log(el.innerHTML);
+                    }
+                    element.value = el.innerHTML;
+                    element.classList.add(classes);
+                    return element;
+                }
+
+                const specieSelect = document.createElement("select");
+                specieSelect.classList.add(["specie"]);
+                specie.innerHTML = `
+                    <option>Perro</option>
+                    <option>Gato</option>
+                    <option>Hámster</option>
+                    <option>Conejo</option>
+                `;
+
+                specie.parentElement.replaceChild(specieSelect, specie);
+                edad.parentElement.replaceChild(createInputElement("number", ["edad"], edad),edad)
+                nombre.parentElement.replaceChild(createInputElement("text", ["nombre"], nombre), nombre);
+                raza.parentElement.replaceChild(createInputElement("text", ["raza"], raza), raza); 
+                es_vacunado.parentElement.replaceChild(createInputElement("checkbox", ["gender"]), es_vacunado);
+                es_esterilizado.parentElement.replaceChild(createInputElement("checkbox", ["gender"]), es_esterilizado);
+            });
+        }
+
         if (typeof data.msg !== 'undefined') {
             nombre.innerHTML = data.msg;
             return;

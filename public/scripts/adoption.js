@@ -86,13 +86,20 @@ btnYourAnimals.addEventListener("click", () => {
                     .then((response) => response.json())
                     .then((data) => {
                         namesAnimal[i].innerHTML = `Mascota: ${data.nombre}`;
+                        const animalId = data.id;
                         fetch(`http://localhost:8081/usuario/${response[i].adoptante}`, { method: "POST" })
                             .then((response) => response.json())
                             .then((data) => {
                                 interestedName[i].innerHTML = `Interesado: ${data.nombre} ${data.apellido}`;
                                 ownerUsername[i].innerHTML = `Usuario: ${data.usuario}`;
                                 ownerTlf[i].innerHTML = `Teléfono: ${data.telefono}`;
-                                ownerAge[i].innerHTML = `Edad: ${getAge(clearDate(data.fecha_nacimiento))}`
+                                ownerAge[i].innerHTML = `Edad: ${getAge(clearDate(data.fecha_nacimiento))}`;
+                                acceptAdoptionBtn.addEventListener("click", (e) => {
+                                    fetch(`http://localhost:8081/adoption?starter=${data.usuario}&animalId=${animalId}&option=per`, { method: "POST" });
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 2000);
+                                })
                             });
                     });
             });

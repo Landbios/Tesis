@@ -32,7 +32,6 @@ app.use(session({
 
 }));
 
-
 // defining our view engine
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -385,6 +384,18 @@ app.post("/adoption", (req, res) => {
     const animalId = req.query.animalId;
 
     switch (option) {
+        case 'per':
+            // perform adoption
+            Animal.getAnimal(animalId)
+                .then((response) => {
+                    if (response.propietario !== starter) {
+                        Adoption.makeAdoption(starter, response.propietario, response.id);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            break;
         case 'a':
             //add
             Animal.getAnimal(animalId)
@@ -441,8 +452,7 @@ app.post("/adoption", (req, res) => {
 });
 
 app.use((req, res) => {
-    res.send("404 not found");
-    res.end();
+    res.sendStatus(404);
 });
 
 //application port, you can change this to any number port as long as it is not being used by something else on your pc

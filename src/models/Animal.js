@@ -38,7 +38,7 @@ class Animal {
         let to = page * 12;
         let from = to - 12;
         if (typeof specie !== 'undefined') {
-            let query = `SELECT * FROM animales WHERE especie=`
+            let query = `SELECT * FROM animales WHERE es_adoptado=0 AND especie=`
             switch (specie) {
                 case 'g':
                     query += `'g'`;
