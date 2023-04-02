@@ -1,6 +1,20 @@
 const db = require("../db/db");
 
 class Adoption {
+
+    static isanimalAdoptedTrue = (animalId) => {
+        let query = `SELECT * FROM adopciones WHERE adoptado='${animalId}'`;
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, res, fields) => {
+                if (err) return reject(err);
+                res.map((item, i, a) => {
+                    if (item.estado_postulador === 1) return resolve(true);
+                    if (a.length - 1 === i) return resolve(false);
+                })
+            });
+        });
+    }
+
     // get the animal other users want from a specific user's posted animal
     static getAdoptionsForUser = (username) => {
         let query = `SELECT * FROM adopciones WHERE postulador='${username}' AND estado_postulador=0`;
@@ -18,7 +32,18 @@ class Adoption {
         return new Promise((resolve, reject) => {
             db.query(query, (err, res, fields) => {
                 if (err) return reject(err);
-                return resolve(res);
+                let returningItem = [];
+                for (let i = 0; i < res.length; i++) {
+                    Adoption.isanimalAdoptedTrue(res[i].adoptado)
+                        .then((response) => {
+                            if (!response) {
+                                returningItem.push(res[i]);
+                            }
+                        })
+                        .then(() => {
+                            if (i === res.length - 1) resolve(returningItem);
+                        });
+                }
             });
         });
     }
@@ -63,7 +88,17 @@ class Adoption {
         return new Promise((resolve, reject) => {
             db.query(query, (err, res, fields) => {
                 if (err) throw reject(err);
-                let newQuery = `DELETE FROM adopciones WHERE`
+                let queryToUpdateAnimalAdoptionStatus = `UPDATE animales SET es_adoptado=1 WHERE id='${animalId}'`;
+                db.query(queryToUpdateAnimalAdoptionStatus, (err, res, fields) => {
+                    if (err) {
+                        return reject({
+                            isSuccess: false,
+                            sqlError: err.sqlMessage
+                        });
+                    }
+                    return resolve(true);
+
+                });
             });
         });
     }
