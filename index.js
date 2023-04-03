@@ -282,6 +282,7 @@ app.post('/animal/:id', (req, res) => {
         })
 });
 
+// User animals posted
 app.post("/user/:username/animal", (req, res) => {
     Animal.getUserAnimals(req.params.username)
         .then((response) => res.json(response))

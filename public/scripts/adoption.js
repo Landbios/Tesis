@@ -50,33 +50,28 @@ const fillContainer = (option) => {
             fetch(`http://localhost:8081/user/${getUsernameFromSingleCookie(document.cookie)}/animal`, { method: "POST" })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     const cardContainer = document.querySelector(".card-container");
                     cardContainer.innerHTML = "";
-                    data.resolve.map((item) => {
+                    data.map((item) => {
                         cardContainer.innerHTML += `
-                            <div class="col-md-3">
-                            <div class="card">
-    
-                                <img class="card-img-top"
-                                    src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                                    alt="">
-                                <div class="card-body">
-                                    <h4 class="owner-name">nombre</h4>
-                                    <h4 class="owner-username">Nombre de usuario: usuario</h4>
-                                    <h4 class="owner-tlf">xxxx-xxxxxxx</h4>
-                                    <h4 class="owner-age"></h4>
-                                    <h4 class="animal-name"></h4>
-    
-                                    <div class="col-md-6 buttons-container">
-                                        <a href="/animal/${item.adoptado}" class="btn btn-lg btn-hero id">Ver más</a>
-                                    </div>
-    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                `
+                                     <div class="col-md-3">
+                                     <div class="card">
+
+                                         <img class="card-img-top"
+                                             src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                             alt="">
+                                         <div class="card-body">
+                                             <h4 class="animal-name">${item.nombre}</h4>
+                                             <h4 class="animal-status">Estado: ${item.es_adoptado === 1 ? "Adoptado" : "En adopción"}</h4>
+                                             <div class="col-md-6 buttons-container">
+                                         <a href="/animal/${item.id}" class="btn btn-lg btn-hero id">Ver más</a>
+                                            </div>
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                 `
                     });
                 })
                 .catch((err) => console.log(err));
@@ -234,4 +229,9 @@ fillContainer("gp")
         });
     });
 
-const btnAllAnimals = document.querySelector(".all-animals");
+const btnAllAnimals = document.querySelector("#all-animals");
+btnAllAnimals.addEventListener("click", () => {
+    const title = document.querySelector(".title");
+    title.innerHTML = "Todos tus animales";
+    fillContainer("g*");
+});
