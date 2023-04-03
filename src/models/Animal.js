@@ -97,6 +97,17 @@ class Animal {
 
     }
 
+    static getUserAnimals(username) {
+            const query = `SELECT * FROM animales WHERE propietario='${username}'`;
+            return new Promise((resolve, reject) => {
+                db.query(query, (err, res, fields) => {
+                    if (err) return reject(err);
+                    return resolve(res); 
+                });
+            });
+
+    }
+
     static getAnimal(id) {
         const query = `SELECT * FROM animales WHERE id=${id}`;
         return new Promise((resolve, reject) => {

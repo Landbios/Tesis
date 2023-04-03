@@ -253,6 +253,12 @@ app.post('/animal/:id', (req, res) => {
         })
 });
 
+app.post("/user/:username/animal", (req, res) => {
+    Animal.getUserAnimals(req.params.username)
+        .then((response) => res.json(response))
+        .catch((err) => res.json(err));
+});
+
 app.post('/animal/:action/:id', (req, res) => {
     if (req.params.action === 'update') {
         Animal.updateAnimalInfo(req.params.id, req.body)
@@ -446,7 +452,7 @@ app.post("/adoption", (req, res) => {
                 })
                 .catch((reject) => {
                     res.json(reject);
-                })
+                });
             break;
         case 'ga':
             // get the adoptions for your posted animals
@@ -456,7 +462,7 @@ app.post("/adoption", (req, res) => {
                 })
                 .catch((reject) => {
                     res.json(reject);
-                })
+                });
             break;
         default:
             res.redirect("/");
