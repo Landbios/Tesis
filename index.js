@@ -69,6 +69,8 @@ app.get('/', (req, res) => {
     }
 });
 
+
+
 app.post('/', (req, res) => {
     Animal.getAllAnimals(0, true)
         .then((results) => {
@@ -77,6 +79,30 @@ app.post('/', (req, res) => {
         .catch((rej) => {
             console.log(rej);
         });
+});
+
+app.get('/razas', (req, res) => {
+
+    if (req.session.logged) {
+
+        res.render('breeds', {
+            login: true,
+            name: req.session.name,
+            page_name: 'breedpage'
+           
+
+        });
+
+    } else {
+        res.render('breeds', {
+            login: false,
+            name: '',
+            page_name: 'breedpage'
+           
+
+        });
+    }
+
 });
 
 app.get('/login', (req, res) => {
@@ -173,6 +199,9 @@ app.get('/signup', (req, res) => {
     });
 
 });
+
+
+
 
 //user registration processing
 app.post('/signup', (req, res) => {
@@ -468,6 +497,30 @@ app.post("/adoption", (req, res) => {
             res.redirect("/");
     }
     // res.end();  causes bug
+
+});
+
+//Breed page
+
+app.get('/razas', (req, res) => {
+
+    if (req.session.logged) {
+
+        res.render('breeds', {
+            login: true,
+            name: req.session.name,
+            page_name: 'breedspage'
+
+        });
+
+    } else {
+        res.render('breeds', {
+            login: false,
+            name: '',
+            page_name: 'breedspage'
+
+        });
+    }
 
 });
 

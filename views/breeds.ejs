@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razas de Animales</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body style="background:#90a955">
+    <header>
+
+        <%- include('partials/header.ejs',{username:name},{login:login},{page_name:page_name}); %>
+
+    </header>
+    <main>
+        <!-- Hero -->
+        <div class="banner-image breedbanner">
+            <div class="container pb-4">
+                <div class="row py-5 align-items-center">
+                    <div class="col-lg-6">
+                        <h5 class="display-4 mb-4 mt-4 font-weight-bold text-white">Cada Animal es unico</h5>
+                        <p class="h5 aa mb-5 pb-3 text-white-50">Es importante informarte sobre las razas y los cuidados
+                            especificos que necesitan. por ello en esta pagina te explicamos y hablamos sobre las razas
+                            mas comunes de animales y lo que requieren para tener una vida sana y alegre.</p>
+                        <div class="d-flex gap-4">
+                            <a href="/animal" class="btn btn-lg btn-hero mr-2 hoverable">
+                                <i class="lni lni-apple mr-2"></i>
+                                Perros</a>
+
+                            <a href="/animalRegister" class="btn btn-lg btn-hero hoverablee"><i
+                                    class="lni lni-play-store mr-2"></i> Gatos</a>
+                            <a href="/animalRegister" class="btn btn-lg btn-hero hoverablee">
+                                <i class="lni lni-play-store mr-2"></i> Hamsters
+                            </a>
+                            <a href="/animalRegister" class="btn btn-lg btn-hero hoverablee">
+                                <i class="lni lni-play-store mr-2"></i> Conejos
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-lg-right text-center mt-5 mt-lg-0">
+                        <div class="banner-phone-image"> <img src="media/perro_transparente.png"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid py-5">
+            <h1 class="formtitle mb-4 mt-5">Razas de Perros</h1>
+            <div class="h-divider">
+                <div class="shadow"></div>
+             
+              </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="text-center text-white" style="background-color: #132A13">
+        <!-- Grid container -->
+        <div class="container">
+            <!-- Section: Links -->
+
+
+            <!-- Section: Social -->
+            <section class="text-center mb-5">
+                <a href="" class="text-white me-4">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="" class="text-white me-4">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="" class="text-white me-4">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="" class="text-white me-4">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="" class="text-white me-4">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="" class="text-white me-4">
+                    <i class="fab fa-github"></i>
+                </a>
+            </section>
+            <!-- Section: Social -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2020 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+    <!--Jquery-->
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+    <!--Bootstrap JavaScript Libraries-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>
