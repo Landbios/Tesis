@@ -648,6 +648,56 @@
 }
 
 
+/*Estilo de Pagina de Razas */
+
+.breedInfoTitle{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 47px;
+    text-align: center;
+
+    color: #132A13;
+}
+
+.breedInfoSubtitle{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    text-align: center;
+
+    color: #132A13;
+}
+
+.breedInfo{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: center;
+
+    color: #132A13;;
+}
+
+.BreedInfoImg{
+    width: 40vh;
+    height: 40vh;
+}
+
+.breed-right{
+    background: #D9D9D9;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.breed-left{
+    background: #D9D9D9;
+    border-radius: 20px 0px 0px 20px;
+}
+
 /*Estilo de columnas de razas */
 
 @media screen and (min-width: 576px) {
