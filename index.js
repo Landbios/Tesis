@@ -453,6 +453,11 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.startAdoption(starter, response.id, response.propietario);
+                        const notifMessage = `${response.propietario}, ${starter} desea adoptar a ${response.nombre}`;
+                        
+                        const notificacion = new Notification(starter, response.propietario, notifMessage);
+                        
+                        notificacion.sendNotification();
                     }
                 })
                 .catch((err) => {

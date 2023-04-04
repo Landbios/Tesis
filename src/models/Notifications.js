@@ -11,7 +11,7 @@ class Notifications {
         const sender = this.from;
         const receiver = this.to;
         const msg = this.msg;
-        const query = `INSERT INTO notificaciones (emisor, receptor, mensaje) VALUES ('${sender}', '${receptor}', '${msg}')`;
+        const query = `INSERT INTO notificaciones (emisor, receptor, mensaje) VALUES ('${sender}', '${receiver}', '${msg}')`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, res, fields) => {
                 if (err) throw reject(false);

@@ -77,7 +77,7 @@ class Animal {
             }
         }
         if (latest) {
-            const query = `(SELECT * FROM animales ORDER BY id DESC LIMIT 5) ORDER BY ID ASC`; //sql query to get last 4 results by id in descending order, then order it by ascending order
+            const query = `(SELECT * FROM animales WHERE es_adoptado=0 ORDER BY id DESC LIMIT 5) ORDER BY ID ASC`; //sql query to get last 5 results by id in descending order, then order it by ascending order
             return new Promise((resolve, reject) => {
                 db.query(query, (err, results, fields) => {
                     if (err) throw reject(err);
