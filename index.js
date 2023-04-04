@@ -9,6 +9,7 @@ const Animal = require('./src/models/Animal');
 const statistics = require('./src/models/Statistics');
 const Favorite = require('./src/models/Favorites');
 const Adoption = require('./src/models/Adoption');
+const Notification = require("./src/models/Notifications");
 
 
 //utility class (specific purposes methods)
@@ -89,7 +90,7 @@ app.get('/razas', (req, res) => {
             login: true,
             name: req.session.name,
             page_name: 'breedpage'
-           
+
 
         });
 
@@ -98,7 +99,7 @@ app.get('/razas', (req, res) => {
             login: false,
             name: '',
             page_name: 'breedpage'
-           
+
 
         });
     }
@@ -292,8 +293,8 @@ app.post("/user/:username/animal", (req, res) => {
 app.post('/animal/:action/:id', (req, res) => {
     if (req.params.action === 'update') {
         Animal.updateAnimalInfo(req.params.id, req.body)
-        .then((resolve) => res.json(resolve))
-        .catch((reject) => res.json(reject));
+            .then((resolve) => res.json(resolve))
+            .catch((reject) => res.json(reject));
     }
     if (req.params.action === 'delete') {
         Animal.deleteAnimal(req.params.id);
@@ -523,6 +524,26 @@ app.get('/razas', (req, res) => {
         });
     }
 
+});
+
+app.get("notifications", (req, res) => {
+})
+
+app.post("/notifications/send", (req, res) => {
+    const option = req.query.option;
+    const sender = req.query.sender;
+    const receiver = req.query.receiver;
+    const msg = req.query.msg;
+    const newNotification = new Notification(sender, receiver, msg);
+    newNotification.sendNotification()
+        .then((response) => res.json(response))
+        .catch((reject) => res.json(reject));
+});
+
+app.post("/notifications/:username", (req, res) => {
+    Notification.getNotifications(req.params.username)
+        .then((response) => res.json(response))
+        .catch((reject) => res.json(reject));
 });
 
 app.use((req, res) => {
