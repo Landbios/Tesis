@@ -2,6 +2,7 @@
 const express = require('express');
 
 //testing
+const morgan = require("morgan");
 
 //models
 const User = require('./src/models/User');
@@ -24,6 +25,8 @@ const app = server;
 const session = require('express-session');
 
 console.clear();
+
+app.use(morgan("dev"));
 
 app.use(session({
 
@@ -441,6 +444,9 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.makeAdoption(starter, response.propietario, response.id);
+                        const notifMessage = `${starter}, ${response.propietario} ha aceptado tu interés en <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>. Ponte en contacto en él.`;
+                        const newNotification = new Notification(response.propietario, starter, notifMessage);
+                        newNotification.sendNotification();
                     }
                 })
                 .catch((err) => {
@@ -453,10 +459,8 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.startAdoption(starter, response.id, response.propietario);
-                        const notifMessage = `${response.propietario}, ${starter} desea adoptar a ${response.nombre}`;
-                        
+                        const notifMessage = `${response.propietario}, ${starter} desea adoptar a <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>`;
                         const notificacion = new Notification(starter, response.propietario, notifMessage);
-                        
                         notificacion.sendNotification();
                     }
                 })
@@ -531,11 +535,20 @@ app.get('/razas', (req, res) => {
 
 });
 
-app.get("notifications", (req, res) => {
-})
+app.get("/notifications", (req, res) => {
+    if (!req.session.logged) {
+        res.redirect("/login");
+        res.end();
+        return;
+    }
+    res.render("notifications", {
+        login: true,
+        name: req.session.name,
+        page_name: "notifications" 
+        });
+});
 
 app.post("/notifications/send", (req, res) => {
-    const option = req.query.option;
     const sender = req.query.sender;
     const receiver = req.query.receiver;
     const msg = req.query.msg;
@@ -543,6 +556,10 @@ app.post("/notifications/send", (req, res) => {
     newNotification.sendNotification()
         .then((response) => res.json(response))
         .catch((reject) => res.json(reject));
+});
+app.post("/notifications/change/:id", (req, res) => {
+    const id = req.params.id;
+    Notification.setNotificationNotNew(id);
 });
 
 app.post("/notifications/:username", (req, res) => {

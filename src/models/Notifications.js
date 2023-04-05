@@ -34,6 +34,13 @@ class Notifications {
             });
         });
     }
+
+    static setNotificationNotNew(id) {
+        const query = `UPDATE notificaciones SET es_nueva=0 WHERE id='${id}'`;
+        db.query(query, (err, res, fields) => {
+            if (err) throw err;    
+        });
+    }
 }
 
 module.exports = Notifications;
