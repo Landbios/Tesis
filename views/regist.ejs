@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <script src="scripts/imagepreview.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+
+<body class="formbody">
+
+    <div class="registform_container">
+
+
+
+        <form action="/signup" id="registro" method="post" class="formulario_registro">
+
+
+            <h1 class="formtitle">Registrate</h1>
+            <div>
+                <div class="d-flex justify-content-center mb-4">
+                    <img id="preview-selected-image" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                    class="rounded-circle" alt="example placeholder" style="width: 200px;" />
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="butn btn-hero btn-rounded">
+                        <label class="form-label text-white m-1" for="customFile2">Elije una imagen</label>
+                        <input type="file" class="form-control d-none" id="customFile2" onchange="previewImage(event);" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="medium-width">
+                <div class="halfcontainer">
+
+                    <label class="regis_formlabel">Nombre</label>
+                    <label for="warning" id="name_warning"></label>
+                    <input type="text" name="name" id="regist_name" required class="form_input">
+
+                </div>
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">Apellido</label>
+                    <label for="warning" id="lastname_warning"></label>
+                    <input required type="text" name="lastname" id="regist_lastname" class="form_input">
+                </div>
+
+            </div>
+            <label class="regis_formlabel">Usuario</label>
+            <label for="warning" id="user_warning"></label>
+            <input required type="text" name="user" id="regist_user" class="form_input">
+
+            <label class="regis_formlabel">Contraseña</label>
+            <label for="warning" id="password_warning"></label>
+            <input required type="password" name="r_password" id="regist_password" class="form_input">
+
+            <label class="regis_formlabel">Repetir Contraseña</label>
+            <label for="warning" id="password_warning_confirm"></label>
+            <input required type="password" id="confirm_password" class="form_input">
+
+            <label class="formlabel">Telefono</label>
+            <input required type="number" name="tlf" id="regist_tlf" class="form_input">
+
+            <label class="regis_formlabel">Email</label>
+            <label for="warning" id="mail_warning"></label>
+            <input required type="text" name="mail" id="regist_mail" class="form_input">
+
+            <label class="regis_formlabel">Fecha de Nacimiento<abbr title="Solo personas mayores de 13 años pueden registrarse">❓</abbr>   </label>
+            <input required type="date" min="1909-01-01" name="birth" id="regist_birth" class="form_input">
+
+            <label for="national_id" class="regis_formlabel">Cedula</label>
+            <label for="warning" id="cedula_warning"></label>
+            <input required type="number" name="national_id" id="regist_cedula" class="form_input">
+
+            <div class="medium-width">
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">Genero</label>
+                    <div class="radio_container">
+                        <label for="maleradio" class="radiolabel">Masculino <input required type="radio"
+                                class="gender_input" name="gender" value="masculino"></label>
+
+                        <label for="femaleradio" class="radiolabel">Femenino <input required type="radio"
+                                class="gender_input" name="gender" value="femenino"></label>
+
+                        <label for="undefinedradio" class="radiolabel">Indefinido <input required type="radio"
+                                class="gender_input" name="gender" value="indefinido"></label>
+                    </div>
+                </div>
+            </div>
+
+            <label for="address" class="regis_formlabel">Parroquia</label>
+            <input type="text" id="regist_address" name="address" class="form_input">
+
+            <label for="address" class="formlabel">Sector</label>
+            <input type="text" name="sector" id="regist_sector" class="form_input">
+            
+            <input type="submit" class="loginform_button hoverable" value="Registrar">
+        </form>
+
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="./scripts/validations.js"></script>
+</body>
+
+</html>

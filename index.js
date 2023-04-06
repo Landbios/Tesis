@@ -4,6 +4,8 @@ const express = require('express');
 //testing
 const morgan = require("morgan");
 
+// Multer
+
 //models
 const User = require('./src/models/User');
 const Animal = require('./src/models/Animal');
@@ -198,9 +200,7 @@ app.get('/logout', (req, res) => {
 //user registration
 app.get('/signup', (req, res) => {
 
-    res.sendFile('./public/register.html', {
-        root: __dirname
-    });
+    res.render('regist');
 
 });
 
