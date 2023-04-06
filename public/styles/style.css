@@ -523,7 +523,15 @@
 
 /* <------ Hero -------->*/
 
-.btn {
+.butn {
+    padding: 14px 26px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn{
     padding: 14px 26px;
     font-weight: 700;
     font-size: 13px;
