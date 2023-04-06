@@ -295,6 +295,10 @@
     
 }
 
+/* <--- Estilos Perfil --- > */
+
+
+
 /* <--- Estilos Registro ---> */
 
 
@@ -782,4 +786,108 @@
     border: black 2px solid;
     border-radius: 300px;
 
+}
+
+/* Estilos de pagina de perfil */
+
+.profilecont1{
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  
+}
+
+.profimage{
+    width: 20vh;
+    height: 20vh;
+}
+
+.profilename{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    color: #132A13;
+}
+
+.profilemail{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    text-align: center;
+
+    color: #132A13;
+}
+
+.profilecont2{
+    background: #ECF39E;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.profileinput{
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+
+}
+
+.profilelabel{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #132A13;
+
+}
+
+.sendPbtn{
+    background: #31572C;
+    border-radius: 20px;
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    padding: 15px;
+    color: #FFFFFF;
+    width: 45%;
+    text-decoration: none;
+}
+
+@media (max-width:768px)  {
+    .profilecont1{
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+      
+    }
+
+    .profilecont2{
+        background: #ECF39E;
+        border-radius: 0px;
+    }
+    
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .profilecont1{
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        
+        border-radius: 0px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+      
+    }
+
+    .profilecont2{
+        background: #ECF39E;
+        border-radius: 0px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
 }

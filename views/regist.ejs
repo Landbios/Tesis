@@ -17,7 +17,7 @@
 
 
 
-        <form action="/signup" id="registro" method="post" class="formulario_registro">
+        <form action="/signup" id="registro" method="post" class="formulario_registro" enctype="multipart/form-data">
 
 
             <h1 class="formtitle">Registrate</h1>
@@ -29,7 +29,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="butn btn-hero btn-rounded">
                         <label class="form-label text-white m-1" for="customFile2">Elije una imagen</label>
-                        <input type="file" class="form-control d-none" id="customFile2" onchange="previewImage(event);" />
+                        <input type="file" class="form-control d-none" id="customFile2" name="profileimage" onchange="previewImage(event);" />
                     </div>
                 </div>
             </div>
