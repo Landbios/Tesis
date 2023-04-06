@@ -444,7 +444,7 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.makeAdoption(starter, response.propietario, response.id);
-                        const notifMessage = `${starter}, ${response.propietario} ha aceptado tu interés en <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>. Ponte en contacto en él.`;
+                        const notifMessage = `${starter}, ${response.propietario} ha aceptado tu interés en <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>. Pónganse en contacto.`;
                         const newNotification = new Notification(response.propietario, starter, notifMessage);
                         newNotification.sendNotification();
                     }
