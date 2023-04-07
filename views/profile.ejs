@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+
+
+<body style="background:#90a955">
+
+    <header>
+
+        <%- include('partials/header.ejs',{username:name},{login:login},{page_name:page_name}); %>
+    
+    
+    
+    </header>
+
+    <div class="row mx-md-5 my-md-5">
+        <div class="container-fluid d-lg-flex">
+            <div class="col-lg-3 py-md-4 py-5 px-md-4 profilecont1 text-center d-flex align-items-center justify-content-center">
+
+                <div class="d-block">
+                    <div class="profileimageprev">
+                        <img src="media/profilemedia/<%= name %>_profimage.jpg" class="rounded-circle profimage" alt="">
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="profilename"><%= name %></h5>
+                        <h5 class="profilemail">Opbvnzl17@gmail.com</h5>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-9 col-sm-12 col-12 py-5 px-5 profilecont2">
+                <div class="row gx-5">
+                    <div class="col-md-6 my-4 my-md-0 ">
+                        <label class="d-block profilelabel" for="">Nombre</label>
+                        <input class="profileinput" type="text" placeholder="Nombre del usuario">
+                    </div>
+                    <div class="col-md-6 my-4 my-md-0">
+                        <label class="d-block profilelabel" for="">Apellido</label>
+                        <input class="profileinput" type="text" placeholder="apellido del usuario">
+                    </div>
+                </div>
+                <div class="row gx-5 my-md-5">
+                    <div class="col-md-6 my-4 my-md-0 ">
+                        <label class="d-block profilelabel" for="">Usuario</label>
+                        <input class="profileinput" type="text" placeholder="Nombre del usuario">
+                    </div>
+                    <div class="col-md-6 my-4 my-md-0 ">
+                        <label class="d-block profilelabel" for="">Email</label>
+                        <input class="profileinput" type="text" placeholder="apellido del usuario">
+                    </div>
+                </div>
+                <div class="row gx-5 my-md-5">
+                    <div class="col-md-6 my-4 my-md-0 ">
+                        <label class="d-block profilelabel" for="">Contraseña</label>
+                        <input class="profileinput" type="text" placeholder="Nombre del usuario">
+                    </div>
+                    <div class="col-md-6 my-4 my-md-0">
+                        <label class="d-block profilelabel" for="">Confirmar Contraseña</label>
+                        <input class="profileinput" type="text" placeholder="apellido del usuario">
+                    </div>
+                </div>
+                <div class="row gx-5 my-md-5">
+                    <div class="col-md-6 my-4 my-md-0">
+                        <label class="d-block profilelabel" for="">Cedula</label>
+                        <input class="profileinput" type="text" placeholder="Nombre del usuario">
+                    </div>
+                    <div class="col-md-6 my-4 my-md-0">
+                        <label class="d-block profilelabel" for="">Telefono</label>
+                        <input class="profileinput" type="text" placeholder="apellido del usuario">
+                    </div>
+                </div>
+                <div class="row my-md-5 text-center">
+                    <div class="col-md-12">
+                        <label class=" d-block profilelabel py-md-4">Genero</label>
+                        <div class="radio_container gap-0 d-flex justify-content-between">
+                            <label for="maleradio" class="radiolabel">Masculino <input required type="radio"
+                                    class="gender_input" name="gender" value="masculino"></label>
+    
+                            <label for="femaleradio" class="radiolabel">Femenino <input required type="radio"
+                                    class="gender_input" name="gender" value="femenino"></label>
+    
+                            <label for="undefinedradio" class="radiolabel">Indefinido <input required type="radio"
+                                    class="gender_input" name="gender" value="indefinido"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-4 col-md-12 text-center">
+                    <label class="d-block profilelabel" for="">Fecha de Nacimiento</label>
+                    <input class="profileinput" type="date" placeholder="Nombre del usuario">
+
+                </div>
+                <div class="row py-4 col-md-12 text-center">
+                    <label class="d-block profilelabel" for="">Parroquia</label>
+                    <input class="profileinput" type="text" placeholder="Nombre del usuario">
+
+                </div>
+                <div class="col-md-12 d-flex justify-content-center text-center py-4">
+                    <a href="/razas"  class="sendPbtn d-block hoverable">Enviar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+<!--Bootstrap JavaScript Libraries-->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+</script>
+</html>

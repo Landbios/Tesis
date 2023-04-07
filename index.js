@@ -1,10 +1,12 @@
 //express framework
 const express = require('express');
-
+const upload = require('express-fileupload')
 //testing
 const morgan = require("morgan");
 
-// Multer
+
+
+
 
 //models
 const User = require('./src/models/User');
@@ -42,6 +44,13 @@ app.use(session({
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
+// FileUpload
+
+app.use(upload());
+
+
+
+
 //to parse form data
 app.use(express.urlencoded({ extended: true }));
 
@@ -50,6 +59,8 @@ app.use(express.json());
 
 //serving static content
 app.use(express.static(__dirname + '/public'));
+
+
 
 //routes
 
@@ -105,6 +116,33 @@ app.get('/razas', (req, res) => {
             name: '',
             page_name: 'breedpage'
 
+
+        });
+    }
+
+});
+
+
+//Profile
+
+app.get('/perfil', (req, res) => {
+
+    if (req.session.logged) {
+
+        res.render('profile', {
+            login: true,
+            name: req.session.name,
+            page_name: 'profilepage'
+           
+
+        });
+
+    } else {
+        res.render('profile', {
+            login: false,
+            name: '',
+            page_name: 'profilepage'
+           
 
         });
     }
@@ -220,10 +258,29 @@ app.post('/signup', (req, res) => {
     const mail = req.body.mail;
     const userName = req.body.user;
     const password = req.body.r_password;
+    if(req.files){
+        var file = req.files.profileimage
+        var filename = req.body.user + '_profimage.jpg'
+
+        file.mv('./public/media/profilemedia/' + filename, function (err) {
+            if(err){
+                res.send(err)
+            }
+            else{
+               
+            }
+            
+        })
+
+    }
+    else{
+        console.log('no se subio la imagen')
+    }
 
     const user = new User(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
 
     User.createUser(user);
+   
 
     res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
