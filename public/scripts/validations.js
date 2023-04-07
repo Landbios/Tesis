@@ -127,7 +127,7 @@ if (location.href === "http://localhost:8081/signUp") {
     });
 
     regist_tlf.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[a-zA-Z!"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        e.target.value = e.target.value.replace(/[a-zA-Z!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
         return;
     });
 
@@ -234,7 +234,7 @@ if (location.href === "http://localhost:8081/animalRegister") {
     user.value = cookies.replace(/user=/g, "");
 
     regist_age.addEventListener("input", (e) => {
-        const filteredValue = e.target.value.replace(/[a-zA-Z!"#$%&\/()=?¡*¨\[\]_:;,.{}+´¿'|°¬]/gi, "");
+        const filteredValue = e.target.value.replace(/[a-zA-Z!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/gi, "");
         e.target.value = filteredValue;
     });
 
@@ -256,7 +256,7 @@ if (location.href === "http://localhost:8081/animalRegister") {
     });
 
     animalName.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[0-9!"_*$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        e.target.value = e.target.value.replace(/[0-9!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
     });
 
     descripcion.addEventListener('input', (e) => {

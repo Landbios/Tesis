@@ -16,7 +16,7 @@ class User {
         this.password = bCrypt.hashSync(password);
     }
 
-    static createUser = (user) => {
+    static createUser(user) {
         const query = `INSERT INTO usuarios (cedula, nombre, apellido, fecha_nacimiento, genero, parroquia, sector, telefono, email, usuario, password) VALUES ('${user.dni}', '${user.name}', '${user.lastName}', '${user.birthday}', '${user.gender}', '${user.parroquia}', '${user.sector}', '${user.tlf}', '${user.mail}', '${user.userName}','${user.password}')`;
 
         db.query(query, (err, results, fields) => {
@@ -25,7 +25,7 @@ class User {
         });
     }
 
-    static loginUser = (username, password) => {
+    static loginUser(username, password) {
         const query = `SELECT password FROM usuarios WHERE usuario='${username}'`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
@@ -61,7 +61,7 @@ class User {
 
     };
 
-    static getUserInfo = (info, type) => {
+    static getUserInfo(info, type) {
         if (type === "user") {
             const query = `SELECT * FROM usuarios WHERE usuario='${info}'`
             return new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ class User {
 
     }
 
-    static updateUserField = (uniqueFieldForIdentification, fieldToChange, value) => {
+    static updateUserField(uniqueFieldForIdentification, fieldToChange, value) {
         console.log(bCrypt.hashSync(value));
         const query = `UPDATE usuarios SET ${fieldToChange}='${bCrypt.hashSync(value)}' WHERE ${uniqueFieldForIdentification.name}='${uniqueFieldForIdentification.value}'`;
         switch(fieldToChange) {
