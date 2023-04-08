@@ -126,27 +126,19 @@ app.get('/razas', (req, res) => {
 //Profile
 
 app.get('/perfil', (req, res) => {
-
     if (req.session.logged) {
-
         res.render('profile', {
             login: true,
             name: req.session.name,
             page_name: 'profilepage'
-           
-
         });
-
     } else {
         res.render('profile', {
             login: false,
             name: '',
             page_name: 'profilepage'
-           
-
         });
     }
-
 });
 
 app.get('/login', (req, res) => {
@@ -258,29 +250,29 @@ app.post('/signup', (req, res) => {
     const mail = req.body.mail;
     const userName = req.body.user;
     const password = req.body.r_password;
-    if(req.files){
+    if (req.files) {
         var file = req.files.profileimage
         var filename = req.body.user + '_profimage.jpg'
 
         file.mv('./public/media/profilemedia/' + filename, function (err) {
-            if(err){
+            if (err) {
                 res.send(err)
             }
-            else{
-               
+            else {
+
             }
-            
+
         })
 
     }
-    else{
+    else {
         console.log('no se subio la imagen')
     }
 
     const user = new User(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
 
     User.createUser(user);
-   
+
 
     res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
@@ -359,7 +351,20 @@ app.post('/animal/:action/:id', (req, res) => {
     if (req.params.action === 'delete') {
         Animal.deleteAnimal(req.params.id);
     }
-})
+});
+
+app.get("/usuario/:user", (req, res) => {
+    if (!req.session.logged) {
+        res.redirect("/login");
+        return;
+    }
+    res.render("profile", {
+        login: true,
+        name: req.session.name,
+        page_name: "profile"
+    });
+    return;
+});
 
 app.post('/usuario/:user', (req, res) => {
     let userinfo = req.params.user;
@@ -501,7 +506,7 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.makeAdoption(starter, response.propietario, response.id);
-                        const notifMessage = `${starter}, ${response.propietario} ha aceptado tu interés en <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>. Pónganse en contacto.`;
+                        const notifMessage = `${starter}, <a href=\\'/usuario/${response.propietario}\\'>${response.propietario}</a> ha aceptado tu interés en <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>. Pónganse en contacto.`;
                         const newNotification = new Notification(response.propietario, starter, notifMessage);
                         newNotification.sendNotification();
                     }
@@ -516,7 +521,7 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.startAdoption(starter, response.id, response.propietario);
-                        const notifMessage = `${response.propietario}, ${starter} desea adoptar a <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>`;
+                        const notifMessage = `${response.propietario}, <a href=\\'/usuario/${starter}\\'>${starter}</a> desea adoptar a <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>`;
                         const notificacion = new Notification(starter, response.propietario, notifMessage);
                         notificacion.sendNotification();
                     }
@@ -601,8 +606,8 @@ app.get("/notifications", (req, res) => {
     res.render("notifications", {
         login: true,
         name: req.session.name,
-        page_name: "notifications" 
-        });
+        page_name: "notifications"
+    });
 });
 
 app.post("/notifications/send", (req, res) => {

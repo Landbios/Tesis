@@ -206,7 +206,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
             }
         }
         nombre.innerHTML = data.nombre;
-        propietario.innerHTML = data.propietario;
+        propietario.innerHTML = `<a href='/usuario/${data.propietario}'>${data.propietario}</a>`;
         specie.innerHTML = makeSpecieFull(data.especie);
         raza.innerHTML = data.raza;
         genero.innerHTML = data.genero === 'm' ? 'macho' : 'hembra';

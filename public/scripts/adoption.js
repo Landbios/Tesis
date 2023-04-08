@@ -123,7 +123,7 @@ btnYourAnimals.addEventListener("click", () => {
                             .then((response) => response.json())
                             .then((data) => {
                                 interestedName[i].innerHTML = `Interesado: ${data.nombre} ${data.apellido}`;
-                                ownerUsername[i].innerHTML = `Usuario: ${data.usuario}`;
+                                ownerUsername[i].innerHTML = `Usuario: <a href='/usuario/${data.usuario}'>${data.usuario}</a>`;
                                 ownerTlf[i].innerHTML = `Teléfono: ${data.telefono}`;
                                 ownerAge[i].innerHTML = `Edad: ${getAge(clearDate(data.fecha_nacimiento))}`;
                                 acceptAdoptionBtn.addEventListener("click", (e) => {
@@ -216,7 +216,7 @@ fillContainer("gp")
                 { method: "POST" })
                 .then((response) => response.json())
                 .then((data) => {
-                    ownerUsername[i].innerHTML = `Usuario: ${data.propietario}`;
+                    ownerUsername[i].innerHTML = `Usuario: <a href='/usuario/${data.propietario}'>${data.propietario}</a>`;
                     namesAnimal[i].innerHTML = `Mascota: ${data.nombre}`;
                     fetch(`http://localhost:8081/usuario/${data.propietario}`, { method: "POST" })
                         .then((response) => response.json())
