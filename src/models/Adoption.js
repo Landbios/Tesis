@@ -73,7 +73,6 @@ class Adoption {
                 if (err) {
                     throw {
                         isSuccess: false,
-                        reason: reason,
                         sqlError: err
                     };
                 }

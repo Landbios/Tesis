@@ -111,12 +111,9 @@ fetch(location.href, { method: 'POST' })
     })
     .then((data) => {
         if (typeof data[0] === 'undefined') {
-            /**
-             * If no results, take the user to page 1 of the list
-             */
-            location.href = "http://localhost:8081/animal?page=1";
+            const cardContainer = document.querySelector(".card-container");
+            cardContainer.innerHTML = "<h2>No hay nada <a href='http://localhost:8081/animal'>Regresar al inicio</a></h2>";
         }
-
         const cardContainer = document.querySelector(".card-container");
         let i = 0;
         while (cardContainer.childElementCount < data.length) {

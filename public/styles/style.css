@@ -13,6 +13,61 @@
 
 }
 
+.yellowbox{
+    background-color: #ecf39e;
+    border-radius: 20px;
+    
+}
+
+.roundedBreed{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+   
+
+}
+
+.Seemore{
+    background: #31572C;
+    border-radius: 20px;
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+   padding-top: 15px;
+   padding-bottom: 15px;
+   padding-left: 30px;
+   padding-right: 30px;
+    text-align: center;
+
+    color: #FFFFFF;
+    margin-top:2rem;
+    text-decoration: none;
+}
+
+.seemorecontainer{
+   width: 60%;
+}
+
+.breedlink{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
+    text-decoration: none;
+    color: #132A13
+}
+
+.breedlink:hover{
+
+    color: #4F772D;
+    cursor: pointer;
+
+}
+
 
 .formularybody {
 
@@ -240,6 +295,10 @@
     
 }
 
+/* <--- Estilos Perfil --- > */
+
+
+
 /* <--- Estilos Registro ---> */
 
 
@@ -346,9 +405,39 @@
 }
 
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+    .roundedBreed{
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+       
+    
+    }
+    
+  }
 
 
 @media (max-width:767px) {
+    .imagescont{
+       
+        gap: 3rem;
+        justify-content: center;
+    }
+    .seemorecontainer {
+        width: 95%;
+    }
+    
+    .roundedBreed{
+        width: 125px;
+        height: 125px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+       
+    
+    }
+
 
     .radio_container {
         display: flex;
@@ -438,7 +527,15 @@
 
 /* <------ Hero -------->*/
 
-.btn {
+.butn {
+    padding: 14px 26px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn{
     padding: 14px 26px;
     font-weight: 700;
     font-size: 13px;
@@ -467,6 +564,56 @@
     background-size: cover;
     background-position: center;
 }
+
+.breedbanner{
+    background: linear-gradient(rgba(65, 108, 56, 0.8), rgba(40, 54, 24, 0.8)), url(https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80);
+    background-size: cover;
+    background-position: center;
+
+}
+
+/* Dividers */
+
+.h-divider {
+    margin: auto;
+    margin-top: 60px;
+    width: 95%;
+    position: relative;
+  }
+  
+  .h-divider .shadow {
+    overflow: hidden;
+    height: 5px;
+  }
+  
+  .h-divider .shadow:after {
+    content: '';
+    display: block;
+    margin: -25px auto 0;
+    width: 100%;
+    height: 25px;
+    border-radius: 125px/12px;
+    box-shadow: 0 0 8px black;
+  }
+  
+  .h-divider .text {
+    width: 100px;
+    height: 45px;
+    padding: 10px;
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: -33px;
+    left: 50%;
+    margin-left: -60px;
+    border-radius: 100%;
+    box-shadow: 0 2px 4px #999;
+    background: white;
+  }
+  
+
+ 
+  
+ 
 
 .banner-phone-image img {
     width: 300px;
@@ -512,6 +659,82 @@
     filter: invert(1);
 }
 
+
+/*Estilo de Pagina de Razas */
+
+.breedInfoTitle{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 47px;
+    text-align: center;
+
+    color: #132A13;
+}
+
+.breedInfoSubtitle{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 34px;
+    text-align: center;
+
+    color: #132A13;
+}
+
+.breedInfo{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: center;
+
+    color: #132A13;;
+}
+
+.BreedInfoImg{
+    width: 40vh;
+    height: 40vh;
+}
+
+.breed-right{
+    background: #ecf39e;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.breed-left{
+    background: #ecf39e;
+    border-radius: 20px 0px 0px 20px;
+}
+
+
+@media screen and (max-width:768px) {
+    .btncateg{
+        justify-content: center;
+    }
+
+    .breed-right{
+        margin: 10px;
+    }
+
+    .breed-left{
+        margin: 10px;
+    }
+
+    .BreedInfoImg{
+        margin-top: 10px;
+        width: 25vh;
+        height: 25vh;
+    }
+
+
+    
+}
+
+/*Estilo de columnas de razas */
 
 @media screen and (min-width: 576px) {
 
@@ -563,4 +786,108 @@
     border: black 2px solid;
     border-radius: 300px;
 
+}
+
+/* Estilos de pagina de perfil */
+
+.profilecont1{
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  
+}
+
+.profimage{
+    width: 20vh;
+    height: 20vh;
+}
+
+.profilename{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    color: #132A13;
+}
+
+.profilemail{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    text-align: center;
+
+    color: #132A13;
+}
+
+.profilecont2{
+    background: #ECF39E;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.profileinput{
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+
+}
+
+.profilelabel{
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #132A13;
+
+}
+
+.sendPbtn{
+    background: #31572C;
+    border-radius: 20px;
+    font-family: 'Fanwood Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    padding: 15px;
+    color: #FFFFFF;
+    width: 45%;
+    text-decoration: none;
+}
+
+@media (max-width:768px)  {
+    .profilecont1{
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+      
+    }
+
+    .profilecont2{
+        background: #ECF39E;
+        border-radius: 0px;
+    }
+    
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .profilecont1{
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        
+        border-radius: 0px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+      
+    }
+
+    .profilecont2{
+        background: #ECF39E;
+        border-radius: 0px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
 }

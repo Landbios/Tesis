@@ -206,7 +206,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
             }
         }
         nombre.innerHTML = data.nombre;
-        propietario.innerHTML = data.propietario;
+        propietario.innerHTML = `<a href='/usuario/${data.propietario}'><span class='propietario-animal'>${data.propietario}</span></a>`;
         specie.innerHTML = makeSpecieFull(data.especie);
         raza.innerHTML = data.raza;
         genero.innerHTML = data.genero === 'm' ? 'macho' : 'hembra';
@@ -228,7 +228,8 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         // for adoption
         const starter = getUsernameFromSingleCookie(document.cookie);
         if (starter !== "") {
-            if (starter !== propietario.innerHTML) {
+            const propietarioAnimalUsername = document.querySelector(".propietario-animal");
+            if (starter !== propietarioAnimalUsername.innerHTML) {
                 adoptionLinkBtn.addEventListener("click", (e) => {
                     const checkIfUserIsAlreadyAdoptingAnimalRoute = `http://localhost:8081/adoption?starter=${starter}&animalId=${id}&option=c`;
                     fetch(checkIfUserIsAlreadyAdoptingAnimalRoute, { method: "POST" })
