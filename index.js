@@ -1,7 +1,12 @@
 //express framework
 const express = require('express');
-
+const upload = require('express-fileupload')
 //testing
+const morgan = require("morgan");
+
+
+
+
 
 //models
 const User = require('./src/models/User');
@@ -9,6 +14,7 @@ const Animal = require('./src/models/Animal');
 const statistics = require('./src/models/Statistics');
 const Favorite = require('./src/models/Favorites');
 const Adoption = require('./src/models/Adoption');
+const Notification = require("./src/models/Notifications");
 
 
 //utility class (specific purposes methods)
@@ -24,6 +30,8 @@ const session = require('express-session');
 
 console.clear();
 
+app.use(morgan("dev"));
+
 app.use(session({
 
     secret: 'secret',
@@ -36,6 +44,13 @@ app.use(session({
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
+// FileUpload
+
+app.use(upload());
+
+
+
+
 //to parse form data
 app.use(express.urlencoded({ extended: true }));
 
@@ -44,6 +59,8 @@ app.use(express.json());
 
 //serving static content
 app.use(express.static(__dirname + '/public'));
+
+
 
 //routes
 
@@ -69,6 +86,8 @@ app.get('/', (req, res) => {
     }
 });
 
+
+
 app.post('/', (req, res) => {
     Animal.getAllAnimals(0, true)
         .then((results) => {
@@ -77,6 +96,49 @@ app.post('/', (req, res) => {
         .catch((rej) => {
             console.log(rej);
         });
+});
+
+app.get('/razas', (req, res) => {
+
+    if (req.session.logged) {
+
+        res.render('breeds', {
+            login: true,
+            name: req.session.name,
+            page_name: 'breedpage'
+
+
+        });
+
+    } else {
+        res.render('breeds', {
+            login: false,
+            name: '',
+            page_name: 'breedpage'
+
+
+        });
+    }
+
+});
+
+
+//Profile
+
+app.get('/perfil', (req, res) => {
+    if (req.session.logged) {
+        res.render('profile', {
+            login: true,
+            name: req.session.name,
+            page_name: 'profilepage'
+        });
+    } else {
+        res.render('profile', {
+            login: false,
+            name: '',
+            page_name: 'profilepage'
+        });
+    }
 });
 
 app.get('/login', (req, res) => {
@@ -97,11 +159,7 @@ app.post('/login', (req, res) => {
         })
         .catch((rej) => {
             res.render("login", { wronguser: "Usuario o contraseña incorrecta" })
-
-
-
         });
-
 });
 
 
@@ -168,11 +226,12 @@ app.get('/logout', (req, res) => {
 //user registration
 app.get('/signup', (req, res) => {
 
-    res.sendFile('./public/register.html', {
-        root: __dirname
-    });
+    res.render('regist');
 
 });
+
+
+
 
 //user registration processing
 app.post('/signup', (req, res) => {
@@ -187,10 +246,29 @@ app.post('/signup', (req, res) => {
     const mail = req.body.mail;
     const userName = req.body.user;
     const password = req.body.r_password;
+    if (req.files) {
+        var file = req.files.profileimage
+        var filename = req.body.user + '_profimage.jpg'
+
+        file.mv('./public/media/profilemedia/' + filename, function (err) {
+            if (err) {
+                res.send(err)
+            }
+            else {
+
+            }
+
+        })
+
+    }
+    else {
+        console.log('no se subio la imagen')
+    }
 
     const user = new User(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
 
     User.createUser(user);
+
 
     res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
@@ -253,16 +331,37 @@ app.post('/animal/:id', (req, res) => {
         })
 });
 
+// User animals posted
+app.post("/user/:username/animal", (req, res) => {
+    Animal.getUserAnimals(req.params.username)
+        .then((response) => res.json(response))
+        .catch((err) => res.json(err));
+});
+
 app.post('/animal/:action/:id', (req, res) => {
     if (req.params.action === 'update') {
         Animal.updateAnimalInfo(req.params.id, req.body)
-        .then((resolve) => res.json(resolve))
-        .catch((reject) => res.json(reject));
+            .then((resolve) => res.json(resolve))
+            .catch((reject) => res.json(reject));
     }
     if (req.params.action === 'delete') {
         Animal.deleteAnimal(req.params.id);
     }
-})
+
+});
+
+app.get("/usuario/:user", (req, res) => {
+    if (!req.session.logged) {
+        res.redirect("/login");
+        return;
+    }
+    res.render("profile", {
+        login: true,
+        name: req.session.name,
+        page_name: "profile"
+    });
+    return;
+});
 
 app.post('/usuario/:user', (req, res) => {
     let userinfo = req.params.user;
@@ -404,6 +503,9 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.makeAdoption(starter, response.propietario, response.id);
+                        const notifMessage = `${starter}, <a href=\\'/usuario/${response.propietario}\\'>${response.propietario}</a> ha aceptado tu interés en <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>. Pónganse en contacto.`;
+                        const newNotification = new Notification(response.propietario, starter, notifMessage);
+                        newNotification.sendNotification();
                     }
                 })
                 .catch((err) => {
@@ -416,6 +518,9 @@ app.post("/adoption", (req, res) => {
                 .then((response) => {
                     if (response.propietario !== starter) {
                         Adoption.startAdoption(starter, response.id, response.propietario);
+                        const notifMessage = `${response.propietario}, <a href=\\'/usuario/${starter}\\'>${starter}</a> desea adoptar a <a href=\\'/animal/${response.id}\\'>${response.nombre}</a>`;
+                        const notificacion = new Notification(starter, response.propietario, notifMessage);
+                        notificacion.sendNotification();
                     }
                 })
                 .catch((err) => {
@@ -446,7 +551,7 @@ app.post("/adoption", (req, res) => {
                 })
                 .catch((reject) => {
                     res.json(reject);
-                })
+                });
             break;
         case 'ga':
             // get the adoptions for your posted animals
@@ -456,13 +561,70 @@ app.post("/adoption", (req, res) => {
                 })
                 .catch((reject) => {
                     res.json(reject);
-                })
+                });
             break;
         default:
             res.redirect("/");
     }
     // res.end();  causes bug
 
+});
+
+//Breed page
+
+app.get('/razas', (req, res) => {
+
+    if (req.session.logged) {
+
+        res.render('breeds', {
+            login: true,
+            name: req.session.name,
+            page_name: 'breedspage'
+
+        });
+
+    } else {
+        res.render('breeds', {
+            login: false,
+            name: '',
+            page_name: 'breedspage'
+
+        });
+    }
+
+});
+
+app.get("/notifications", (req, res) => {
+    if (!req.session.logged) {
+        res.redirect("/login");
+        res.end();
+        return;
+    }
+    res.render("notifications", {
+        login: true,
+        name: req.session.name,
+        page_name: "notifications"
+    });
+});
+
+app.post("/notifications/send", (req, res) => {
+    const sender = req.query.sender;
+    const receiver = req.query.receiver;
+    const msg = req.query.msg;
+    const newNotification = new Notification(sender, receiver, msg);
+    newNotification.sendNotification()
+        .then((response) => res.json(response))
+        .catch((reject) => res.json(reject));
+});
+app.post("/notifications/change/:id", (req, res) => {
+    const id = req.params.id;
+    Notification.setNotificationNotNew(id);
+});
+
+app.post("/notifications/:username", (req, res) => {
+    Notification.getNotifications(req.params.username)
+        .then((response) => res.json(response))
+        .catch((reject) => res.json(reject));
 });
 
 app.use((req, res) => {
@@ -474,4 +636,4 @@ const port = 8081;
 app.listen(port, (err) => {
     if (err) throw err;
     console.log(`Server on port ${port}`);
-})
+});

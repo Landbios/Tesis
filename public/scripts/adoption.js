@@ -6,45 +6,77 @@ const getUsernameFromSingleCookie = (individualCookie) => {
 
 const fillContainer = (option) => {
     return new Promise((resolve, reject) => {
-        const starter = getUsernameFromSingleCookie(document.cookie);
-        const route = `http://localhost:8081/adoption?starter=${starter}&option=${option}`
-        fetch(route, { method: "POST" })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                const cardContainer = document.querySelector(".card-container");
-                cardContainer.innerHTML = "";
-                data.resolve.map((item) => {
-                    cardContainer.innerHTML += `
-                        <div class="col-md-3">
-                        <div class="card">
-
-                            <img class="card-img-top"
-                                src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                                alt="">
-                            <div class="card-body">
-                                <h4 class="owner-name">nombre</h4>
-                                <h4 class="owner-username">Nombre de usuario: usuario</h4>
-                                <h4 class="owner-tlf">xxxx-xxxxxxx</h4>
-                                <h4 class="owner-age"></h4>
-                                <h4 class="animal-name"></h4>
-
-                                <div class="col-md-6 buttons-container">
-                                    <a href="/animal/${item.adoptado}" class="btn btn-lg btn-hero id">Ver más</a>
-                                </div>
-
+        if (option !== 'g*') {
+            const starter = getUsernameFromSingleCookie(document.cookie);
+            const route = `http://localhost:8081/adoption?starter=${starter}&option=${option}`
+            fetch(route, { method: "POST" })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    const cardContainer = document.querySelector(".card-container");
+                    cardContainer.innerHTML = "";
+                    data.resolve.map((item) => {
+                        cardContainer.innerHTML += `
+                            <div class="col-md-3">
+                            <div class="card">
+    
+                                <img class="card-img-top"
+                                    src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                    alt="">
+                                <div class="card-body">
+                                    <h4 class="owner-name">nombre</h4>
+                                    <h4 class="owner-username">Nombre de usuario: usuario</h4>
+                                    <h4 class="owner-tlf">xxxx-xxxxxxx</h4>
+                                    <h4 class="owner-age"></h4>
+                                    <h4 class="animal-name"></h4>
+    
+                                    <div class="col-md-6 buttons-container">
+                                        <a href="/animal/${item.adoptado}" class="btn btn-lg btn-hero id">Ver más</a>
+                                    </div>
+    
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-            `
+                `
+                    })
+                    resolve(data.resolve);
                 })
-                resolve(data.resolve);
-            })
-            .catch(() => {
-                reject(false);
-            });
+                .catch(() => {
+                    reject(false);
+                });
+        } else {
+            fetch(`http://localhost:8081/user/${getUsernameFromSingleCookie(document.cookie)}/animal`, { method: "POST" })
+                .then((response) => response.json())
+                .then((data) => {
+                    const cardContainer = document.querySelector(".card-container");
+                    cardContainer.innerHTML = "";
+                    data.map((item) => {
+                        cardContainer.innerHTML += `
+                                     <div class="col-md-3">
+                                     <div class="card">
+
+                                         <img class="card-img-top"
+                                             src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                             alt="">
+                                         <div class="card-body">
+                                             <h4 class="animal-name">${item.nombre}</h4>
+                                             <h4 class="animal-status">Estado: ${item.es_adoptado === 1 ? "Adoptado" : "En adopción"}</h4>
+                                             <div class="col-md-6 buttons-container">
+                                         <a href="/animal/${item.id}" class="btn btn-lg btn-hero id">Ver más</a>
+                                            </div>
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                 `
+                    });
+                })
+                .catch((err) => console.log(err));
+        }
+
     });
 }
 
@@ -91,7 +123,7 @@ btnYourAnimals.addEventListener("click", () => {
                             .then((response) => response.json())
                             .then((data) => {
                                 interestedName[i].innerHTML = `Interesado: ${data.nombre} ${data.apellido}`;
-                                ownerUsername[i].innerHTML = `Usuario: ${data.usuario}`;
+                                ownerUsername[i].innerHTML = `Usuario: <a href='/usuario/${data.usuario}'>${data.usuario}</a>`;
                                 ownerTlf[i].innerHTML = `Teléfono: ${data.telefono}`;
                                 ownerAge[i].innerHTML = `Edad: ${getAge(clearDate(data.fecha_nacimiento))}`;
                                 acceptAdoptionBtn.addEventListener("click", (e) => {
@@ -184,7 +216,7 @@ fillContainer("gp")
                 { method: "POST" })
                 .then((response) => response.json())
                 .then((data) => {
-                    ownerUsername[i].innerHTML = `Usuario: ${data.propietario}`;
+                    ownerUsername[i].innerHTML = `Usuario: <a href='/usuario/${data.propietario}'>${data.propietario}</a>`;
                     namesAnimal[i].innerHTML = `Mascota: ${data.nombre}`;
                     fetch(`http://localhost:8081/usuario/${data.propietario}`, { method: "POST" })
                         .then((response) => response.json())
@@ -197,3 +229,9 @@ fillContainer("gp")
         });
     });
 
+const btnAllAnimals = document.querySelector("#all-animals");
+btnAllAnimals.addEventListener("click", () => {
+    const title = document.querySelector(".title");
+    title.innerHTML = "Todos tus animales";
+    fillContainer("g*");
+});

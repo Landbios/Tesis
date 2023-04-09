@@ -24,7 +24,6 @@ if (location.href === "http://localhost:8081/signUp") {
 
     // function for name and lastname
     const names = (value, el) => {
-        console.log(value.length);
         warning = document.querySelector(`#${el}`);
         for (let i = 0; i < value.length; i++) {
             switch (value[i]) {
@@ -128,7 +127,7 @@ if (location.href === "http://localhost:8081/signUp") {
     });
 
     regist_tlf.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[a-zA-Z!"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        e.target.value = e.target.value.replace(/[a-zA-Z!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
         return;
     });
 
@@ -225,15 +224,19 @@ animal_regist.html validations
 
 */
 if (location.href === "http://localhost:8081/animalRegister") {
-    console.log(location.href);
     const cookies = document.cookie;
 
     const user = document.getElementById("usuario");
     const animalName = document.getElementById("animal_name");
     const descripcion = document.getElementById("regist_user");
     const raza = document.getElementById("animal_race");
-
+    const regist_age = document.getElementById("regist_age");
     user.value = cookies.replace(/user=/g, "");
+
+    regist_age.addEventListener("input", (e) => {
+        const filteredValue = e.target.value.replace(/[a-zA-Z!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/gi, "");
+        e.target.value = filteredValue;
+    });
 
     user.addEventListener('input', (e) => {
         user.value = cookies.replace(/user=/g, "");
@@ -253,7 +256,7 @@ if (location.href === "http://localhost:8081/animalRegister") {
     });
 
     animalName.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[0-9!"_*$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        e.target.value = e.target.value.replace(/[0-9!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
     });
 
     descripcion.addEventListener('input', (e) => {
@@ -261,7 +264,7 @@ if (location.href === "http://localhost:8081/animalRegister") {
     });
 
     raza.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[0-9!"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        e.target.value = e.target.value.replace(/[0-9!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/g, "");
     });
 }
 
