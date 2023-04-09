@@ -229,9 +229,20 @@ if (location.href === "http://localhost:8081/animalRegister") {
     const user = document.getElementById("usuario");
     const animalName = document.getElementById("animal_name");
     const descripcion = document.getElementById("regist_user");
+    const animalAgeType = document.querySelector("#animal_age_type");
     const raza = document.getElementById("animal_race");
     const regist_age = document.getElementById("regist_age");
     user.value = cookies.replace(/user=/g, "");
+
+    animalAgeType.addEventListener("change", (e) => {
+
+        if (e.target.value !== 'a') {
+            regist_age.max = 12;
+            return;
+        }
+        regist_age.max = 30;
+
+    });
 
     regist_age.addEventListener("input", (e) => {
         const filteredValue = e.target.value.replace(/[a-zA-Z!¡._°|¬"$#%&/\*\+=()¿?\\¨{}\[\]:;,\^`-]/gi, "");

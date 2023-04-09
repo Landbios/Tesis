@@ -39,7 +39,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                 deleteBtn.style.display = "none";
 
                 const acceptModifyBtn = document.createElement("button");
-                acceptModifyBtn.classList.add(["btn", "btn-outline-dark"]);
+                acceptModifyBtn.classList.add("btn", "btn-outline-dark", "btn-hero");
                 acceptModifyBtn.innerHTML = "Realizar Cambios";
                 nombre.parentElement.appendChild(acceptModifyBtn);
 
