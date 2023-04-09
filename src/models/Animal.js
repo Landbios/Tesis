@@ -35,9 +35,9 @@ class Animal {
     }
 
     static getAllAnimals(page, latest = false, specie) {
+        let to = page * 12;
+        let from = to - 12;
         if (typeof specie !== 'undefined') {
-            let to = page * 12;
-            let from = to - 12;
             let query = `SELECT * FROM animales WHERE es_adoptado=0 AND especie=`
             switch (specie) {
                 case 'g':
