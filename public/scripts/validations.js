@@ -98,7 +98,7 @@ if (location.href === "http://localhost:8081/signUp") {
 
     regist_user.addEventListener('input', (e) => {
         let value = e.target.value;
-        let filteredValue = value.replace(/[!"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
+        let filteredValue = value.replace(/[!'"$#%&/=()¿?\\¨{}\[\]:;,\^`-]/g, "");
         e.target.value = filteredValue;
         const warning = document.querySelector('#user_warning');
         if (e.target.value.length > 16 || e.target.value.length < 6) {
