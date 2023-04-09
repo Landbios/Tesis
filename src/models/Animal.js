@@ -35,9 +35,9 @@ class Animal {
     }
 
     static getAllAnimals(page, latest = false, specie) {
-        let to = page * 12;
-        let from = to - 12;
         if (typeof specie !== 'undefined') {
+            let to = page * 12;
+            let from = to - 12;
             let query = `SELECT * FROM animales WHERE es_adoptado=0 AND especie=`
             switch (specie) {
                 case 'g':
@@ -45,7 +45,14 @@ class Animal {
                     return new Promise((resolve, reject) => {
                         db.query(query, (err, res, fields) => {
                             if (err) throw reject(err);
-                            resolve(res);
+                            if (res.length <= 12) return resolve(res);
+                            let returningArray = [];
+                            for (let i = from; i < to; i++) {
+                                if (typeof res[i] !== 'undefined') {
+                                    returningArray.push(res[i]);
+                                }
+                            }
+                            resolve(returningArray);
                         });
                     });
                 case 'p':
@@ -53,7 +60,13 @@ class Animal {
                     return new Promise((resolve, reject) => {
                         db.query(query, (err, res, fields) => {
                             if (err) throw reject(err);
-                            resolve(res);
+                            let returningArray = [];
+                            for (let i = from; i < to; i++) {
+                                if (typeof res[i] !== 'undefined') {
+                                    returningArray.push(res[i]);
+                                }
+                            }
+                            resolve(returningArray);
                         });
                     });
                 case 'h':
@@ -61,7 +74,13 @@ class Animal {
                     return new Promise((resolve, reject) => {
                         db.query(query, (err, res, fields) => {
                             if (err) throw reject(err);
-                            resolve(res);
+                            let returningArray = [];
+                            for (let i = from; i < to; i++) {
+                                if (typeof res[i] !== 'undefined') {
+                                    returningArray.push(res[i]);
+                                }
+                            }
+                            resolve(returningArray);
                         });
                     });
                 case 'c':
@@ -69,7 +88,13 @@ class Animal {
                     return new Promise((resolve, reject) => {
                         db.query(query, (err, res, fields) => {
                             if (err) throw reject(err);
-                            resolve(res);
+                            let returningArray = [];
+                            for (let i = from; i < to; i++) {
+                                if (typeof res[i] !== 'undefined') {
+                                    returningArray.push(res[i]);
+                                }
+                            }
+                            resolve(returningArray);
                         });
                     });
                 default:
@@ -83,28 +108,37 @@ class Animal {
                     if (err) throw reject(err);
                     resolve(results);
                 });
-            })
+            });
 
         }
 
         const query = `SELECT * FROM animales WHERE es_adoptado=0`;
         return new Promise((resolve, reject) => {
             db.query(query, (err, results, fields) => {
+                let to = page * 12;
+                let from = to - 12;
                 if (err) throw reject(err);
-                resolve(results);
+                if (results.length <= 12) return resolve(results);
+                let returningArray = [];
+                for (let i = from; i < to; i++) {
+                    if (typeof results[i] !== 'undefined') {
+                        returningArray.push(results[i]);
+                    }
+                }
+                resolve(returningArray);
             });
         });
 
     }
 
     static getUserAnimals(username) {
-            const query = `SELECT * FROM animales WHERE propietario='${username}'`;
-            return new Promise((resolve, reject) => {
-                db.query(query, (err, res, fields) => {
-                    if (err) return reject(err);
-                    return resolve(res); 
-                });
+        const query = `SELECT * FROM animales WHERE propietario='${username}'`;
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, res, fields) => {
+                if (err) return reject(err);
+                return resolve(res);
             });
+        });
 
     }
 

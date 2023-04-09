@@ -159,11 +159,7 @@ app.post('/login', (req, res) => {
         })
         .catch((rej) => {
             res.render("login", { wronguser: "Usuario o contraseña incorrecta" })
-
-
-
         });
-
 });
 
 
