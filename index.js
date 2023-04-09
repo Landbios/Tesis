@@ -247,28 +247,19 @@ app.post('/signup', (req, res) => {
     const userName = req.body.user;
     const password = req.body.r_password;
     if (req.files) {
-        var file = req.files.profileimage
-        var filename = req.body.user + '_profimage.jpg'
-
-        file.mv('./public/media/profilemedia/' + filename, function (err) {
+        let file = req.files.profileimage;
+        let filename = userName + '_profimage.jpg';
+        file.mv('./public/media/profilemedia/' + filename, (err) => {
             if (err) {
-                res.send(err)
+                console.log(err);
+                return;
             }
-            else {
-
-            }
-
-        })
-
-    }
-    else {
-        console.log('no se subio la imagen')
+        });
     }
 
     const user = new User(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
 
     User.createUser(user);
-
 
     res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
@@ -441,7 +432,7 @@ app.get('/statistics/:kind', (req, res) => {
                 .then((resolved) => {
                     res.json({
                         tipo: "Animales",
-                        total: resolved[0]['count(*)']
+                        resolved
                     });
                 })
                 .catch((reject) => {
