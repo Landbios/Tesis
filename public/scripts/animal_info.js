@@ -10,6 +10,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
     })
     .then((data) => {
         const nombre = document.querySelector("#nombre");
+        const tlf = document.querySelector("#tlf");
         const propietario = document.querySelector("#propietario");
         const specie = document.querySelector("#especie");
         const raza = document.querySelector("#raza");
@@ -219,6 +220,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                 return res.json();
             })
             .then((data) => {
+                tlf.innerHTML = data.telefono;
                 ubicacion.innerHTML = data.sector;
             })
             .catch((err) => {
