@@ -338,6 +338,7 @@ app.post('/animal/:action/:id', (req, res) => {
     if (req.params.action === 'delete') {
         Animal.deleteAnimal(req.params.id);
     }
+
 });
 
 app.get("/usuario/:user", (req, res) => {
