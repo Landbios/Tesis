@@ -31,7 +31,8 @@
 .Seemore{
     background: #31572C;
     border-radius: 20px;
-    font-family: 'Fanwood Text';
+    font-family: 'Raleway', sans-serif;
+
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -201,6 +202,7 @@
 
 .hoverable:hover {
     background: #132A13 !important;
+    font-family: 'Raleway', sans-serif;
 
     color: #FFFFFF !important;
     cursor: pointer !important;
@@ -544,6 +546,8 @@
 }
 
 .btn-hero {
+    font-family: 'Raleway', sans-serif;
+
     background-color: #31572C;
     border-color: #31572C;
     color: #FFFFFF;
@@ -845,7 +849,8 @@
 .sendPbtn{
     background: #31572C;
     border-radius: 20px;
-    font-family: 'Fanwood Text';
+    font-family: 'Raleway', sans-serif;
+
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
