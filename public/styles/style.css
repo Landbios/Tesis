@@ -395,7 +395,7 @@
     padding-top: 1rem;
     padding-left: 3rem;
     padding-right: 3rem;
-    min-width: 650px;
+    min-width: 745px;
     padding-bottom: 1rem;
     max-width: fit-content;
 
@@ -863,10 +863,17 @@
         border-bottom-left-radius: 0px;
       
     }
+    .adoptbtn{
+        width:100%  !important;
+    }
 
     .profilecont2{
         background: #ECF39E;
         border-radius: 0px;
+    }
+
+    .notification-text{
+        font-size: 15px;
     }
     
 }
@@ -890,4 +897,45 @@
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
+}
+
+/*notification*/
+
+.notificationcontain{
+    background: #ECF39E;
+border-radius: 10px;
+height: 100px;
+}
+
+.notification-text{
+    font-family: 'Raleway';
+font-style: normal;
+font-weight: 400;
+font-size: 26px;
+
+
+align-items: center;
+
+color: #132A13;
+}
+
+.notification-text > a{
+    font-family: 'Raleway';
+    text-decoration: none;
+
+
+    align-items: center;
+
+    color: #4F772D;
+    cursor: pointer;
+}
+
+.icon-container{
+    background-color: #132A13;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    width: 20vh;
+    text-align: center;
+    justify-content: center;
 }

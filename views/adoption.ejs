@@ -25,17 +25,21 @@
         <%- include('partials/header.ejs',{username:name},{login:login}); %>
     </header>
     <main class="animal-container">
-        <button id="on-adoption">Adoptantes</button>
-        <button id="to-make-adoption">Lo que quieres</button>
-        <button id="all-animals">Tus animales en adopción</button>
+        <div class="mx-sm-5 row justify-content-center mx-5 mx-sm-4 mx-lg-0 gap-4 pt-5 aign-items-center">
+            <button id="on-adoption" class="btn btn-hero w-25 adoptbtn">Adoptantes</button>
+            <button id="to-make-adoption" class="btn btn-hero w-25 adoptbtn">Lo que quieres</button>
+            <button id="all-animals" class="btn btn-hero w-25 adoptbtn">Tus animales en adopción</button>
+        </div>
         <h1 class="formtitle mb-4 mt-5 title">Tus adopciones</h1>
         <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4 card-container">
 
             <!--Animal list will render here--> 
 
         </div>
-        <button id="back">Anterior Página</button>
-        <button id="next">Siguiente Página</button>
+        <div class="row justify-content-center gap-5 py-5 aign-items-center">
+            <button id="back" class="btn btn-hero w-25">Anterior Página</button>
+            <button id="next" class="btn btn-hero w-25">Siguiente Página</button>
+          </div>
     </main>
     <footer class="text-center text-white" style="background-color: #132A13">
         <!-- Grid container -->

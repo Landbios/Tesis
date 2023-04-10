@@ -20,19 +20,19 @@
 
 </head>
 
-<body style="background:#90a955">
+<body style="background:#90a955 d-flex flex-column min-vh-100">
   <header>
     <%- include('partials/header.ejs',{username:name},{login:login}); %>
   </header>
   <main class="animal-container">
     <h1 class="formtitle mb-4 mt-5">Tus notificaciones</h1>
-    <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4 card-container">
+    <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4 card-container my-4">
 
       <!--Animal list will render here-->
 
     </div>
   </main>
-  <footer class="text-center text-white" style="background-color: #132A13">
+  <footer class="text-center text-white mt-auto" style="background-color: #132A13">
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
