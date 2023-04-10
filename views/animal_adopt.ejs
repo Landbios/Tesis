@@ -26,8 +26,10 @@
   </header>
   <main class="animal-container">
     <h1 class="formtitle mb-4 mt-5">Nuestros Animales</h1>
-    <label for="">Buscar por especie</label>
-    <select name="filter" id="filter">
+    <div class="justify-content-center text-center mx-lg-5 mx-md-4 mx-2">
+      <label class="py-4 formlabel text-center" for="">Buscar por especie</label>
+      <select name="filter" class="form-select" id="filter">
+    
       <option value="">----</option>
       <option value="">Sin filtros</option>
       <option value="p">Perro</option>
@@ -35,13 +37,17 @@
       <option value="h">Hámster</option>
       <option value="c">Conejo</option>
     </select>
+    </div>
     <div class="row justify-content-center align-items-cenrer g-2 mb-3 mt-5 mx-4 card-container">
 
       <!--Animal list will render here-->
 
     </div>
-    <button class="btn btn-outline-dark" id="back">Anterior Página</button>
-    <button class="btn btn-outline-dark" id="next">Siguiente Página</button>
+    <div class="row justify-content-center gap-5 py-5 aign-items-center">
+      <button id="back" class="btn btn-hero w-25">Anterior Página</button>
+      <button id="next" class="btn btn-hero w-25">Siguiente Página</button>
+    </div>
+
   </main>
   <footer class="text-center text-white" style="background-color: #132A13">
 

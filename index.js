@@ -272,9 +272,7 @@ app.get('/animalRegister', (req, res) => {
     if (!req.session.logged) {
         res.redirect("/login");
     }
-    res.sendFile('./public/animal_regist.html', {
-        root: __dirname
-    });
+    res.render('animal_regist');
 
 });
 

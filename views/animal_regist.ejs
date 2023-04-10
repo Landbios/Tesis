@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Animal</title>
+    <script src="scripts/imagepreview.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+
+<body class="formularybody">
+
+    <div class="top-img-container">
+        <img class="top-form-banner" src="./media/joyful-6FYjNJiA_eE-unsplash.jpg">
+    </div>
+
+    <div class="animalform_container">
+
+
+
+        <form action="/animalRegister" id="animal_regist_form" method="post" name="animal_form"
+            class="formulario_animal" enctype="multipart/form-data">
+
+
+            <h1 class="formtitle">Registro de animal</h1>
+            <div>
+                <div class="d-flex justify-content-center mb-4">
+                    <img id="preview-selected-image" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+                    class="card-img-top" alt="example placeholder" style="width: 200px;" />
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="butn btn-hero btn-rounded">
+                        <label class="form-label text-white m-1" for="customFile2">Elije una imagen</label>
+                        <input type="file" class="form-control d-none" id="customFile2" name="animalimage" onchange="previewImage(event);" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="medium-width">
+                <div class="halfcontainer">
+
+                    <label class="regis_formlabel">Nombre</label>
+                    <input type="text" name="name" id="animal_name" class="form_input" required>
+
+                </div>
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">Especie</label>
+                    <select name="specie" id="animal_specie" class="form_input">
+
+                        <option value="gato">Gato</option>
+                        <option value="perro">Perro</option>
+                        <option value="conejo">Conejo</option>
+                        <option value="hamster">Hamster</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <!-- <label for="images" class="regis_formlabel">Imágen</label>
+            <input type="file" name="file" id="images" class="input_file"> -->
+            <label class="regis_formlabel">Descripcion</label>
+            <textarea name="description" rows="5" cols="50" id="regist_user" class="form_input  messagebox"
+                required></textarea>
+
+            <div class="medium-width">
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">¿Esterilizado(a)?</label>
+                    <div class="radio_container">
+                        <label for="castrated" class="radiolabel">Si<input type="radio" class="gender_input"
+                                name="isNeutered" value="true" required></label>
+
+                        <label for="notcastrated" class="radiolabel">No<input type="radio" class="gender_input"
+                                name="isNeutered" value="false" required></label>
+                    </div>
+                </div>
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">Edad</label>
+                    <input type="number" name="animal_age" id="regist_age" required class="form_input regist_age">
+                </div>
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">¿Meses o Años?</label>
+                    <select name="edad_tipo" id="animal_age_type" class="form_input">
+                        <option value="a">Años</option>
+                        <option value="m">Meses</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="medium-width">
+                <div class="halfcontainer">
+                    <label class="regis_formlabel">¿Vacunado contra la rabia?</label>
+                    <div class="radio_container">
+                        <label for="castrated" class="radiolabel">Si<input type="radio" required class="gender_input"
+                                name="isVaccinated" value="true"></label>
+
+                        <label for="notcastrated" class="radiolabel">No<input type="radio" required class="gender_input"
+                                name="isVaccinated" value="false"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="regis_formlabel">Género</label>
+                <div class="radio_container">
+                    <label for="male" class="radiolabel">Macho<input type="radio" required class="gender_input" name="gender"
+                            value="masculino"></label>
+
+                    <label for="notcastrated" class="radiolabel">Hembra<input type="radio" required class="gender_input"
+                            name="gender" value="femenino"></label>
+                </div>
+
+                <label for="address" class="regis_formlabel">Usuario</label>
+                <input type="text" name="usuario" id="usuario" class="form_input" readonly>
+
+                <label for="address" class="regis_formlabel">Raza</label>
+                <input type="text" required id="animal_race" name="breed" class="form_input">
+
+                <input type="submit" class="registform_button hoverable" value="Registrar">
+        </form>
+
+
+    </div>
+    <script src="./scripts/validations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
