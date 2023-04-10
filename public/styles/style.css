@@ -939,3 +939,13 @@ color: #132A13;
     text-align: center;
     justify-content: center;
 }
+
+.btn-floating{
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    background-color: #132A13;
+    border: none;
+
+}
+
