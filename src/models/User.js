@@ -99,8 +99,21 @@ class User {
 
     }
 
+    static updateUserInformation(user, dataObject) {
+        const query = `UPDATE usuarios SET cedula='${dataObject.cedula}', nombre='${dataObject.nombre}', apellido='${dataObject.apellido}', fecha_nacimiento='${dataObject.fecha_nacimiento}', telefono='${dataObject.telefono}', genero='${dataObject.genero}', parroquia='${dataObject.parroquia}', sector='${dataObject.sector}', email='${dataObject.email}', usuario='${dataObject.usuario}' WHERE usuario='${user}'`;
+        return new Promise((resolve, reject) => {
+            db.query(query, (err, res) => {
+                if (err) {
+                    console.log(err);
+                    reject(false);
+                    return;
+                }
+                resolve(true);
+            })
+        });
+    }
+
     static updateUserField(uniqueFieldForIdentification, fieldToChange, value) {
-        console.log(bCrypt.hashSync(value));
         const query = `UPDATE usuarios SET ${fieldToChange}='${bCrypt.hashSync(value)}' WHERE ${uniqueFieldForIdentification.name}='${uniqueFieldForIdentification.value}'`;
         switch(fieldToChange) {
             case 'password':

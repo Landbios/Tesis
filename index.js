@@ -28,6 +28,7 @@ const app = server;
 
 const session = require('express-session');
 const Statistics = require('./src/models/Statistics');
+const { compareSync } = require('bcryptjs');
 
 console.clear();
 
@@ -371,7 +372,6 @@ app.get("/usuario/:user", (req, res) => {
 
 app.post('/usuario/:user', (req, res) => {
     let userinfo = req.params.user;
-
     User.getUserInfo(userinfo, utils.checkUserInfo(userinfo))
         .then((resolve) => {
             res.json(resolve);
@@ -379,6 +379,13 @@ app.post('/usuario/:user', (req, res) => {
         .catch((reject) => {
             res.json(reject);
         });
+});
+
+app.post("/usuario/update/:user", (req, res) => {
+    const dataObject = req.body;
+    User.updateUserInformation(req.params.user, dataObject)
+        .then((resolve) => res.json(resolve))
+        .catch((err) => res.json(err));
 });
 
 app.get('/favorite', (req, res) => {
