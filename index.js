@@ -280,9 +280,7 @@ app.get('/animalRegister', (req, res) => {
     if (!req.session.logged) {
         res.redirect("/login");
     }
-    res.sendFile('./public/animal_regist.html', {
-        root: __dirname
-    });
+    res.render('animal_regist');
 
 });
 
@@ -297,6 +295,25 @@ app.post('/animalRegister', (req, res) => {
     const breed = req.body.breed;
     const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
     const owner = req.body.usuario;
+    if (req.files) {
+        var file = req.files.animalimage
+        var filename = req.body.usuario + "_" + req.body.name + '.jpg'
+
+        file.mv('./public/media/petsmedia/' + filename, function (err) {
+            if (err) {
+                res.send(err)
+            }
+            else {
+
+            }
+
+        })
+
+    }
+    else {
+        console.log('no se subio la imagen')
+    }
+
 
     const animal = new Animal(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
 
