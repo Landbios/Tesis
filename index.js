@@ -27,6 +27,7 @@ const app = server;
 //express session 
 
 const session = require('express-session');
+const Statistics = require('./src/models/Statistics');
 
 console.clear();
 
@@ -288,16 +289,32 @@ app.post('/animalRegister', (req, res) => {
     const breed = req.body.breed;
     const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
     const owner = req.body.usuario;
-
-    const animal = new Animal(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
-
-    Animal.addAnimal(animal)
-        .then((resolve) => {
-            res.redirect(resolve.link);
-        })
-        .catch((rej) => {
-            res.redirect('http://localhost:8081/animalRegister');
-        });
+    if (req.files) {
+        const file = req.files.profileimage;
+        Statistics.getAnimalStats()
+            .then((resolve) => {
+                const LastId = resolve.animalMasReciente.id;
+                let newId = LastId+1;
+                const fileName = `${newId}_animal.jpg`;
+                const filePath = `./public/media/animalMedia/${fileName}`;
+                file.mv(filePath, (err) => {
+                    if (err) throw err;
+                });
+                const animal = new Animal(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner, fileName);
+                console.log(animal);
+                Animal.addAnimal(animal)
+                    .then((resolve) => {
+                        res.redirect(resolve.link);
+                        res.end();
+                    })
+                    .catch((rej) => {
+                        res.redirect('http://localhost:8081/animalRegister');
+                    });
+            })
+            .catch((err) => {
+                if (err) throw err;
+            })
+    }
 });
 
 app.get('/animal/:id', (req, res) => {

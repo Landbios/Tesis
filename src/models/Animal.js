@@ -1,7 +1,7 @@
 const db = require('../db/db');
 
 class Animal {
-    constructor(name, specie, breed, description, age, edad_tipo, isNeutered, isVaccinated, gender, owner) {
+    constructor(name, specie, breed, description, age, edad_tipo, isNeutered, isVaccinated, gender, owner, imageFile) {
         this.name = name;
         this.specie = specie;
         this.breed = breed;
@@ -12,10 +12,11 @@ class Animal {
         this.isVaccinated = isVaccinated;
         this.gender = gender;
         this.owner = owner;
+        this.imageFile = imageFile;
     }
 
     static addAnimal(animal) {
-        const query = `INSERT INTO animales (nombre, especie, raza, descripcion, edad, tipo, es_castrado, es_vacunado, genero, propietario) VALUES ('${animal.name}', '${animal.specie}', '${animal.breed}', '${animal.description}', '${animal.age}', '${animal.edad_tipo}', '${animal.isNeutered}', '${animal.isVaccinated}', '${animal.gender}', '${animal.owner}')`;
+        const query = `INSERT INTO animales (nombre, especie, raza, descripcion, edad, tipo, es_castrado, es_vacunado, genero, propietario, ruta_imagen) VALUES ('${animal.name}', '${animal.specie}', '${animal.breed}', '${animal.description}', '${animal.age}', '${animal.edad_tipo}', '${animal.isNeutered}', '${animal.isVaccinated}', '${animal.gender}', '${animal.owner}', '${animal.imageFile}')`;
 
         return new Promise((resolve, reject) => {
             db.query(query, (err, res, fields) => {

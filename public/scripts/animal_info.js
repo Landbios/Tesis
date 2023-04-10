@@ -9,6 +9,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         return res.json();
     })
     .then((data) => {
+        const animalImg = document.querySelector(".animal-img");
         const nombre = document.querySelector("#nombre");
         const tlf = document.querySelector("#tlf");
         const propietario = document.querySelector("#propietario");
@@ -206,6 +207,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                     return false
             }
         }
+        animalImg.src = `/media/animalMedia/${data.ruta_imagen}`;
         nombre.innerHTML = data.nombre;
         propietario.innerHTML = `<a href='/usuario/${data.propietario}'><span class='propietario-animal'>${data.propietario}</span></a>`;
         specie.innerHTML = makeSpecieFull(data.especie);
