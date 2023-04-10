@@ -16,7 +16,7 @@ const fillContainer = (option) => {
                 .then((data) => {
                     const cardContainer = document.querySelector(".card-container");
                     cardContainer.innerHTML = "";
-                    data.resolve.map((item) => {
+                    data.resolve.map((item, i) => {
                         cardContainer.innerHTML += `
                             <div class="col-md-3">
                             <div class="card">
@@ -39,7 +39,13 @@ const fillContainer = (option) => {
                                 </div>
                             </div>
                         </div>
-                `
+                `;
+                fetch(`http://localhost:8081/animal/${item.adoptado}`, { method: "POST" })
+                .then((response) => response.json())
+                .then((animal) => {
+                    const cardImgArr = Array.from(document.querySelectorAll(".card-img-top"));
+                    cardImgArr[i].src = `/media/animalMedia/${animal.ruta_imagen}`;
+                })
                     })
                     resolve(data.resolve);
                 })

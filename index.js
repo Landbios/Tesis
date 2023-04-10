@@ -288,7 +288,7 @@ app.post('/animalRegister', (req, res) => {
     const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
     const owner = req.body.usuario;
     if (req.files) {
-        const file = req.files.profileimage;
+        const file = req.files.animalImage;
         Statistics.getAnimalStats()
             .then((resolve) => {
                 const LastId = resolve.animalMasReciente.id;
