@@ -20,8 +20,9 @@ fetch('http://localhost:8081/', { method: 'POST' })
     })
     .then((data) => {
         const cardBodies = document.querySelectorAll('.card-body');
-
+        const cardImage = document.querySelectorAll(".card-img-top");
         data.map((item, i) => {
+            cardImage[i].src = `/media/animalMedia/${data[i].ruta_imagen}`;
             cardBodies[i].innerHTML = `
             <h4 class="animal-name">${data[i].nombre}</h4>
             <h5 class="animal-specie">${makeSpecieFull(data[i].especie)}</h5>

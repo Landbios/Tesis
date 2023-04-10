@@ -27,6 +27,7 @@ const app = server;
 //express session 
 
 const session = require('express-session');
+const Statistics = require('./src/models/Statistics');
 
 console.clear();
 
@@ -247,28 +248,19 @@ app.post('/signup', (req, res) => {
     const userName = req.body.user;
     const password = req.body.r_password;
     if (req.files) {
-        var file = req.files.profileimage
-        var filename = req.body.user + '_profimage.jpg'
-
-        file.mv('./public/media/profilemedia/' + filename, function (err) {
+        let file = req.files.profileimage;
+        let filename = userName + '_profimage.jpg';
+        file.mv('./public/media/profilemedia/' + filename, (err) => {
             if (err) {
-                res.send(err)
+                console.log(err);
+                return;
             }
-            else {
-
-            }
-
-        })
-
-    }
-    else {
-        console.log('no se subio la imagen')
+        });
     }
 
     const user = new User(dni, name, lastName, birth, gender, parroquia, sector, tlf, mail, userName, password);
 
     User.createUser(user);
-
 
     res.cookie("user", userName);
     res.redirect("http://localhost:8081/animal");
@@ -296,34 +288,31 @@ app.post('/animalRegister', (req, res) => {
     const isVaccinated = utils.stringBoolToInt(req.body.isVaccinated);
     const owner = req.body.usuario;
     if (req.files) {
-        var file = req.files.animalimage
-        var filename = req.body.usuario + "_" + req.body.name + '.jpg'
-
-        file.mv('./public/media/petsmedia/' + filename, function (err) {
-            if (err) {
-                res.send(err)
-            }
-            else {
-
-            }
-
-        })
-
+        const file = req.files.profileimage;
+        Statistics.getAnimalStats()
+            .then((resolve) => {
+                const LastId = resolve.animalMasReciente.id;
+                let newId = LastId+1;
+                const fileName = `${newId}_animal.jpg`;
+                const filePath = `./public/media/animalMedia/${fileName}`;
+                file.mv(filePath, (err) => {
+                    if (err) throw err;
+                });
+                const animal = new Animal(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner, fileName);
+                console.log(animal);
+                Animal.addAnimal(animal)
+                    .then((resolve) => {
+                        res.redirect(resolve.link);
+                        res.end();
+                    })
+                    .catch((rej) => {
+                        res.redirect('http://localhost:8081/animalRegister');
+                    });
+            })
+            .catch((err) => {
+                if (err) throw err;
+            })
     }
-    else {
-        console.log('no se subio la imagen')
-    }
-
-
-    const animal = new Animal(name, specie, breed, description, age, edad_tipo, neuter, isVaccinated, gender, owner);
-
-    Animal.addAnimal(animal)
-        .then((resolve) => {
-            res.redirect(resolve.link);
-        })
-        .catch((rej) => {
-            res.redirect('http://localhost:8081/animalRegister');
-        });
 });
 
 app.get('/animal/:id', (req, res) => {
@@ -459,7 +448,7 @@ app.get('/statistics/:kind', (req, res) => {
                 .then((resolved) => {
                     res.json({
                         tipo: "Animales",
-                        total: resolved[0]['count(*)']
+                        resolved
                     });
                 })
                 .catch((reject) => {
