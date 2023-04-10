@@ -22,7 +22,7 @@ const fillContainer = (option) => {
                             <div class="card">
     
                                 <img class="card-img-top"
-                                    src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                    src="/media/animalMedia/${item.ruta_imagen}"
                                     alt="">
                                 <div class="card-body">
                                     <h4 class="owner-name">nombre</h4>
@@ -58,7 +58,7 @@ const fillContainer = (option) => {
                                      <div class="card">
 
                                          <img class="card-img-top"
-                                             src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                             src="/media/animalMedia/${item.ruta_imagen}"
                                              alt="">
                                          <div class="card-body">
                                              <h4 class="animal-name">${item.nombre}</h4>

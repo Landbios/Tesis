@@ -122,7 +122,7 @@ fetch(location.href, { method: 'POST' })
                         <div class="card">
                             
                             <img class="card-img-top"
-                                src="https://images.unsplash.com/photo-1589952283406-b53a7d1347e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                src="/media/animalMedia/${data[cardContainer.childElementCount].ruta_imagen}"
                                 alt="">
                             <div class="card-body">
                                     <button class="btn-heart" id="favorite_${i}">🤍</button>
@@ -135,10 +135,6 @@ fetch(location.href, { method: 'POST' })
                                 <h5 class="animal-data">${data[cardContainer.childElementCount].edad} <span>${data[cardContainer.childElementCount].tipo === 'a' ? 'años' : 'meses'}</span></h5>
 
                                 <div class="row">
-
-                                    <div class="col-md-6">
-                                        <a href="/animal/${data[cardContainer.childElementCount].id}"  class="btn btn-adopt btn-lg btn-hero">${getUsernameFromSingleCookie(document.cookie) === data[cardContainer.childElementCount].propietario ? '' : 'Adoptar'}</a>
-                                    </div>
 
                                     <div class="col-md-6">
                                         <a href="/animal/${data[cardContainer.childElementCount].id}" class="btn btn-lg btn-hero id">Ver mas</a>
@@ -168,9 +164,7 @@ fetch(location.href, { method: 'POST' })
              * Favorite button functionality
              */
             btnFavorite.addEventListener("click", (e) => {
-
-                const animalId = e.target.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].href.replace("http://localhost:8081/animal/", "");
-
+                const animalId = e.target.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[1].firstElementChild.href.replace("http://localhost:8081/animal/", "");
 
                 switch (e.target.innerHTML) {
                     case '💖':
@@ -193,13 +187,6 @@ fetch(location.href, { method: 'POST' })
                 }
             });
 
-        }
-        const btnAdopt = document.querySelectorAll('.btn-adopt');
-
-        for (let i = 0; i < btnAdopt.length; i++) {
-            if (btnAdopt[i].innerHTML === '') {
-                btnAdopt[i].parentElement.remove();
-            }
         }
 
         fetch(`http://localhost:8081/favorite?username=${getUsernameFromSingleCookie(document.cookie)}&option=g`, { method: "POST" })

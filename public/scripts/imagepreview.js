@@ -1,8 +1,10 @@
-    const previewImage = (event) => {
+const filesForUpload = document.querySelector(".files-for-upload");
+filesForUpload.addEventListener("change", (event) => {
     /**
      * Get the selected files.
      */
     const imageFiles = event.target.files;
+
     /**
      * Count the number of files selected.
      */
@@ -22,18 +24,11 @@
         /**
          * Assign the path to the image preview element.
          */
-        // fetch(imageSrc)
-        //     .then((respone) => {
-        //         return respone.status;
-        //     })
-        //     .then((data) => {
-        //         console.log(data);
-        //     })
         imagePreviewElement.src = imageSrc;
         /**
          * Show the element by changing the display value to "block".
          */
-       return;
+        return;
     }
-    
-};
+
+}); 

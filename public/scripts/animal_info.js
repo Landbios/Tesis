@@ -9,7 +9,9 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
         return res.json();
     })
     .then((data) => {
+        const animalImg = document.querySelector(".animal-img");
         const nombre = document.querySelector("#nombre");
+        const tlf = document.querySelector("#tlf");
         const propietario = document.querySelector("#propietario");
         const specie = document.querySelector("#especie");
         const raza = document.querySelector("#raza");
@@ -38,7 +40,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                 deleteBtn.style.display = "none";
 
                 const acceptModifyBtn = document.createElement("button");
-                acceptModifyBtn.classList.add(["btn", "btn-outline-dark"]);
+                acceptModifyBtn.classList.add("btn", "btn-outline-dark", "btn-hero");
                 acceptModifyBtn.innerHTML = "Realizar Cambios";
                 nombre.parentElement.appendChild(acceptModifyBtn);
 
@@ -205,6 +207,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                     return false
             }
         }
+        animalImg.src = `/media/animalMedia/${data.ruta_imagen}`;
         nombre.innerHTML = data.nombre;
         propietario.innerHTML = `<a href='/usuario/${data.propietario}'><span class='propietario-animal'>${data.propietario}</span></a>`;
         specie.innerHTML = makeSpecieFull(data.especie);
@@ -219,6 +222,7 @@ fetch(`http://localhost:8081/animal/${id}`, { method: 'POST' })
                 return res.json();
             })
             .then((data) => {
+                tlf.innerHTML = data.telefono;
                 ubicacion.innerHTML = data.sector;
             })
             .catch((err) => {
